@@ -5,6 +5,9 @@
         canvas = document.getElementById("display"),
         content = canvas.getContext('2d');
 
+    if ((navigator.userAgent.toLowerCase().indexOf("windows phone") != -1))
+        h = 1024 - $('#bot').outerHeight(true) * 2
+
     content.canvas.height = h;
     content.canvas.width = $('#display-wrapper').width() - 5;    
     var rectangles = content.canvas.width / 7;
@@ -20,6 +23,17 @@
     }
     $('#bot').html($('#bot').html() + html);
 
+
+
+    draw([
+            { xcord: 3, ycord: 4, tileid: 49 },
+            { xcord: 5, ycord: 4, tileid: 49 },
+            { xcord: 4, ycord: 5, tileid: 49 },
+            { xcord: 3, ycord: 4, tileid: 34 },
+            { xcord: 3, ycord: 4, tileid: 13 },
+            { xcord: 5, ycord: 4, tileid: 90 },
+            { xcord: 4, ycord: 5, tileid: 2 },
+    ]);
     
 
     canvas = document.getElementById("hex1"),
@@ -33,17 +47,5 @@
     canvas = document.getElementById("hex3"),
         content = canvas.getContext('2d');
     drawOnmyCanvas(2, content, rectangles);
-    
 
-
-
-    draw([
-            { xcord: 3, ycord: 4, tileid: 49 },
-            { xcord: 5, ycord: 4, tileid: 49 },
-            { xcord: 4, ycord: 5, tileid: 49 },
-            { xcord: 3, ycord: 4, tileid: 34 },
-            { xcord: 3, ycord: 4, tileid: 13 },
-            { xcord: 5, ycord: 4, tileid: 90 },
-            { xcord: 4, ycord: 5, tileid: 2 },
-    ]);
 }

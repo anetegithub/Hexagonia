@@ -12,6 +12,7 @@
         document.addEventListener( 'pause', onPause.bind( this ), false );
         document.addEventListener( 'resume', onResume.bind( this ), false );
         
+
         // TODO: Cordova has been loaded. Perform any initialization that requires Cordova here.
     };
 
@@ -22,4 +23,11 @@
     function onResume() {
         // TODO: This application has been reactivated. Restore application state here.
     };
-} )();
+})();
+
+$(document).ready(function () {
+    if ((navigator.userAgent.toLowerCase().indexOf("windows phone") != -1)) {
+        $('#bot').css('margin-bottom', '12%');
+        $('#display-wrapper').css('margin-top', '12%');
+    }
+})

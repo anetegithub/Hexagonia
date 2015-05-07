@@ -152,6 +152,7 @@
     <Content Include="Content\font-awesome-4.3.0\scss\_variables.scss" />
     <Content Include="css\customnavbar.css" />
     <Content Include="css\full.css" />
+    <Content Include="css\windowsphonefix.css" />
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
@@ -159,8 +160,8 @@
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
     <Content Include="Icon.png" />
     <Content Include="images\achive.png" />
+    <Content Include="images\build\complete.json" />
     <Content Include="images\build\complete.png" />
-    <Content Include="images\build\complete.xml" />
     <Content Include="images\build\sheet.png" />
     <Content Include="images\build\sheet.xml" />
     <Content Include="images\title.png" />
