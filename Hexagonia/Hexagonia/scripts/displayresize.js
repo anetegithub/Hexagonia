@@ -6,11 +6,13 @@
         content = canvas.getContext('2d');
 
     if ((navigator.userAgent.toLowerCase().indexOf("windows phone") != -1))
-        h = 1024 - $('#bot').outerHeight(true) * 2
+        h = 640 - $('#bot').outerHeight(true) * 2
 
-    content.canvas.height = h;
-    content.canvas.width = $('#display-wrapper').width() - 5;    
-    var rectangles = content.canvas.width / 7;
+    content.canvas.height = 420;
+    content.canvas.width = 315;
+    
+
+    var rectangles = ($('#display-wrapper').width() - 5) / 7;
     var html = "";
     for (var i = 0; i < 5; i++) {
 
@@ -23,7 +25,11 @@
     }
     $('#bot').html($('#bot').html() + html);
 
+    $('#display-wrapper').height(window.innerHeight - ($('#bot').height() * 2));
 
+    $('#display').css('width',$('#display-wrapper').width());
+    $('#display').css('height',$('#display-wrapper').height());
+    
 
     draw([
             { xcord: 3, ycord: 4, tileid: 49 },
@@ -34,7 +40,7 @@
             { xcord: 5, ycord: 4, tileid: 90 },
             { xcord: 4, ycord: 5, tileid: 2 },
     ]);
-    
+    drawAll();
 
     canvas = document.getElementById("hex1"),
         content = canvas.getContext('2d');
