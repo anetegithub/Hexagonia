@@ -23,35 +23,68 @@
         else
             html += "&nbsp<button type='button' class='btn btn-success navbar-btn' ><span class='fa fa-arrow-right'></span></button>";
     }
-    $('#bot').html($('#bot').html() + html);
+    $('#bot').html(html);
+
+    html = "&nbsp<button type='button' class='btn btn-success navbar-btn' ><span class='fa fa-2x fa-street-view'></span></button>";
+    html += "&nbsp<button type='button' class='btn btn-success navbar-btn'><canvas id='hexTop' height='" + rectangles + "' width='" + rectangles + "'></canvas></button>";
+    html += "&nbsp<button type='button' class='btn btn-success navbar-btn' ><span class='fa fa-2x fa-building'></span></button>";
+    $('#top').html(html);
 
     $('#display-wrapper').height(window.innerHeight - ($('#bot').height() * 2));
 
     $('#display').css('width',$('#display-wrapper').width());
     $('#display').css('height',$('#display-wrapper').height());
     
-
-    draw([
-            { xcord: 3, ycord: 4, tileid: 49 },
-            { xcord: 5, ycord: 4, tileid: 49 },
-            { xcord: 4, ycord: 5, tileid: 49 },
-            { xcord: 3, ycord: 4, tileid: 34 },
-            { xcord: 3, ycord: 4, tileid: 13 },
-            { xcord: 5, ycord: 4, tileid: 90 },
-            { xcord: 4, ycord: 5, tileid: 2 },
+    ui.map.draw([
+            {
+                XCoord: 4,
+                YCoord: 3,
+                TileName: "tileGrass",
+                buildings: [
+                    {
+                        TileName: "stoneDoorRight"
+                    },
+                    {
+                        TileName: "sandRing"
+                    },
+                    {
+                        TileName: "stoneRing"
+                    },
+                    {
+                        TileName: "sandRing"
+                    },
+                    {
+                        TileName: "stoneDoorWindowBlindsMirror"
+                    },
+                    {
+                        TileName: "stoneRoofPointy"
+                    }
+                ],
+                decorate: []
+            },
+            {
+                XCoord: 3,
+                YCoord: 4,
+                TileName: "tileGrass",
+                buildings: [],
+                decorate:[]
+            },
+            {
+                XCoord: 5,
+                YCoord: 4,
+                TileName: "tileMagic",
+                buildings: [],
+                decorate:
+                    [
+                        {
+                            TileName: "treeCactus_3"
+                        }
+                    ]
+            }
     ]);
-    drawAll();
 
-    canvas = document.getElementById("hex1"),
-        content = canvas.getContext('2d');
-    drawOnmyCanvas(90, content, rectangles);
-
-    canvas = document.getElementById("hex2"),
-        content = canvas.getContext('2d');
-    drawOnmyCanvas(13, content, rectangles);
-
-    canvas = document.getElementById("hex3"),
-        content = canvas.getContext('2d');
-    drawOnmyCanvas(2, content, rectangles);
-
+    ui.drawIcon("tileGrass", document.querySelector('#hex1'), rectangles, ui.texture_ground);
+    ui.drawIcon("flowerBlue", document.querySelector('#hex2'), rectangles, ui.texture_ground);
+    ui.drawIcon("woodDoorWindow", document.querySelector('#hex3'), rectangles, ui.texture_building);
+    ui.drawIcon("tileGrass", document.querySelector('#hexTop'), rectangles, ui.texture_ground);
 }

@@ -160,10 +160,10 @@
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
     <Content Include="Icon.png" />
     <Content Include="images\achive.png" />
-    <Content Include="images\build\buildings.json" />
-    <Content Include="images\build\buildings.png" />
-    <Content Include="images\build\complete.json" />
-    <Content Include="images\build\complete.png" />
+    <Content Include="images\build\building.json" />
+    <Content Include="images\build\building.png" />
+    <Content Include="images\build\ground.json" />
+    <Content Include="images\build\ground.png" />
     <Content Include="images\title.png" />
     <Content Include="merges\android\scripts\android2.3-jscompat.js" />
     <Content Include="merges\android\scripts\platformOverrides.js" />
