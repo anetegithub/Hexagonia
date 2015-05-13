@@ -10,31 +10,35 @@
 
     content.canvas.height = 420;
     content.canvas.width = 315;
-    
+
 
     var rectangles = ($('#display-wrapper').width() - 5) / 7;
     var html = "";
     for (var i = 0; i < 5; i++) {
 
         if (i != 0 && i < 4)
-            html += "&nbsp<button type='button' class='btn btn-success navbar-btn'><canvas id='hex" + i + "' height='" + rectangles + "' width='" + rectangles + "'></canvas></button>";
-        else if (i==0)
-            html += "&nbsp<button type='button' class='btn btn-success navbar-btn' ><span class='fa fa-arrow-left'></span></button>";
+            html += "&nbsp<button type='button' id='btnHex" + i + "' class='btn btn-success navbar-btn'><canvas id='hex" + i + "' height='" + rectangles + "' width='" + rectangles + "'></canvas></button>";
+        else if (i == 0)
+            html += "&nbsp<button type='button' id='hexleftbtn' disabled='disabled' onclick='bcui.pagePrev();' class='btn btn-success navbar-btn' ><span class='fa fa-arrow-left'></span></button>";
         else
-            html += "&nbsp<button type='button' class='btn btn-success navbar-btn' ><span class='fa fa-arrow-right'></span></button>";
+            html += "&nbsp<button type='button' id='hexrightbtn' disabled='disabled' onclick='bcui.pageNext();' class='btn btn-success navbar-btn' ><span class='fa fa-arrow-right'></span></button>";
     }
     $('#bot').html(html);
 
     html = "&nbsp<button type='button' class='btn btn-success navbar-btn' ><span class='fa fa-2x fa-street-view'></span></button>";
-    html += "&nbsp<button type='button' class='btn btn-success navbar-btn'><canvas id='hexTop' height='" + rectangles + "' width='" + rectangles + "'></canvas></button>";
+    html += "&nbsp<button type='button' id='hexTopBtn' class='btn btn-success navbar-btn'><canvas id='hexTop' height='" + rectangles + "' width='" + rectangles + "'></canvas></button>";
     html += "&nbsp<button type='button' class='btn btn-success navbar-btn' ><span class='fa fa-2x fa-building'></span></button>";
     $('#top').html(html);
 
+    $('#display-wrapper').css('margin-top',"8%");
     $('#display-wrapper').height(window.innerHeight - ($('#bot').height() * 2));
 
-    $('#display').css('width',$('#display-wrapper').width());
-    $('#display').css('height',$('#display-wrapper').height());
-    
+    if (window.innerHeight > 520)
+        $('#display').css('height', $('#display-wrapper').height());
+    if (window.innerWidth > 415)
+        $('#display').css('width', $('#display-wrapper').width());
+
+
     ui.map.draw([
             {
                 XCoord: 4,
@@ -63,11 +67,18 @@
                 decorate: []
             },
             {
+                XCoord: 0,
+                YCoord: 0,
+                TileName: "tileGrass_tile",
+                buildings: [],
+                decorate: []
+            },
+            {
                 XCoord: 3,
                 YCoord: 4,
                 TileName: "tileGrass",
                 buildings: [],
-                decorate:[]
+                decorate: []
             },
             {
                 XCoord: 5,
@@ -83,8 +94,23 @@
             }
     ]);
 
-    ui.drawIcon("tileGrass", document.querySelector('#hex1'), rectangles, ui.texture_ground);
-    ui.drawIcon("flowerBlue", document.querySelector('#hex2'), rectangles, ui.texture_ground);
-    ui.drawIcon("woodDoorWindow", document.querySelector('#hex3'), rectangles, ui.texture_building);
-    ui.drawIcon("tileGrass", document.querySelector('#hexTop'), rectangles, ui.texture_ground);
+    shex.init();
+
+    bcui.init([
+        {
+            TileName: "tileGrass",
+            texture: ui.texture_ground
+        },
+        {
+            TileName: "flowerBlue",
+            texture: ui.texture_ground
+        },
+        {
+            TileName: "woodDoorWindow",
+            texture: ui.texture_building
+        }, {
+            TileName: "stoneDoorWindow",
+            texture: ui.texture_building
+        }
+    ]);
 }

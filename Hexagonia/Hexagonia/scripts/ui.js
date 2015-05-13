@@ -4,7 +4,14 @@
 var canvaselement = document.querySelector('#display'),
     content = canvaselement.getContext('2d');
 
+//User Interface
 var ui = {
+    cursorCoord: function () {
+        var x = (this.mousePos.x-14) / 32,
+                y = (this.mousePos.y-9) / 44;
+        return { x: Math.round(x), y: Math.round(y) };
+    },
+    mousePos:null,
     init: function () {
         $.ajax({
             url: 'images/build/ground.json',
@@ -26,6 +33,51 @@ var ui = {
                     buildings = JSON.parse(data);
                 else
                     buildings = data;
+            }
+        });
+
+
+        canvaselement.addEventListener('mousemove', function (evt) {
+            var rect = canvaselement.getBoundingClientRect();
+             ui.mousePos = {
+                x: evt.clientX - rect.left,
+                y: evt.clientY - rect.top
+            };
+        }, false);
+        canvaselement.addEventListener('click', function () {
+            if (shex.texture() != undefined && shex.texture() != "null") {
+                var Coords = ui.cursorCoord(),
+                    Obj = {
+                        XCoord: Coords.x,
+                        YCoord: Coords.y,
+                        TileName: "flowerWhite",
+                        buildings: [],
+                        decorate: []
+                    },
+                    Cell = Enumerable
+                        .From(ui.map.cellArray)
+                        .Where(function (x) { if (x.XCoord == Coords.x && x.YCoord == Coords.y) return x; })
+                        .Select(function (x) { return x; }).ToArray();
+
+                if (shex.table() == ui.texture_ground)
+                    Obj.TileName = shex.texture();
+
+                if (Cell[0] != undefined) {
+                    var index = ui.map.cellArray.indexOf(Cell[0]);
+                    if (shex.table() == ui.texture_building)
+                        Obj.buildings.push({
+                            TileName: shex.texture()
+                        });
+                    ui.map.cellArray[index] = Obj;
+                } else {
+                    if (shex.table() == ui.texture_building)
+                        Obj.buildings.push({
+                            TileName: shex.texture()
+                        });
+                    ui.map.cellArray.push(Obj);
+                }
+
+                ui.map.refresh();
             }
         });
     },
@@ -75,19 +127,13 @@ var ui = {
                 y += (Size - Cell.Height) / 2;
                 SizeY = Cell.Height;
             }
-
-
-            //if (v.Height < size) {
-            //    y += (size / 2) - (v.Height / 2);
-            //    size = v.Height;
-            //}
-            //if (v.Width < sizey) {
-            //    x += (sizey / 2) - (v.Width / 2);
-            //    size = v.Width;
-            //}
             var content = Canvas.getContext('2d');
             content.drawImage(pic, Cell.X, Cell.Y, Cell.Width, Cell.Height, x, y, SizeX, SizeY);
         }
+    },
+    clearCanvas: function (canvas) {
+        var content = canvas.getContext('2d');
+        content.clearRect(0, 0, content.canvas.width, content.canvas.height);
     },
     map: {
         cellArray: [],          // [,] aray of Cell wich TextureInfo and have List<TextureInfo> as one of members
@@ -199,84 +245,131 @@ var ui = {
             var canvasElement = document.querySelector('#display'),
                  canvas = canvasElement.getContext('2d');
             return canvas;
+        },
+        refresh: function () {
+            this.draw(this.cellArray);
         }
     }
 };
 
-//function loaded(arrayofcord) {
-//    if (completeMapped == undefined) {
-//        $.ajax({
-//            url: 'images/build/complete.json',
-//            type: 'get',
-//            async: false,
-//            success: function (data) {
-//                if (typeof data == "string")
-//                    completeMapped = JSON.parse(data);
-//                else
-//                    completeMapped = data;
-//                draw(arrayofcord);
-//            }
-//        });
-//        return false;
-//    } else
-//        return true;
-//}
+//Selected block 'hex' container
+var shex = {
+    init: function () {
+        document.querySelector('#hexTopBtn').addEventListener('click', function () {
+            var canvas = document.querySelector('#hexTop'),
+                content = canvas.getContext('2d');
+            content.clearRect(0, 0, content.canvas.width, content.canvas.height);
+            shex._texture = "null";
+        });
+        this._canvas = document.querySelector('#hexTop');
+    },
+    _texture: "null",
+    _tiletable: ui.texture_ground,
+    texture: function (TileName,TileTable) {
+        if (TileName == undefined)
+            return this._texture;
 
-//function draw(arrayofcord) {
-//    if (loaded(arrayofcord)) {
-//        var canvas = document.getElementById("display"),
-//                content = canvas.getContext('2d');
+        if(TileTable!=undefined)
+            if(TileTable==ui.texture_ground || TileTable==ui.texture_building)
+                this._tiletable=TileTable;
 
-//        var pic = new Image();
-//        pic.src = "images/build/ground.png";        
-//        pic.onload = function () {
+        this._texture = TileName;
 
-//            for (var i = 0; i < arrayofcord.length; i++) {
-//                var x = 14, y = 9;
+        this.refresh();
 
-//                var v = completeMapped[arrayofcord[i].tileid];
+        return this._texture;
+    },
+    table: function(){
+        return this._tiletable;
+    },
+    _canvas:null,
+    refresh: function () {
+        var canvas = document.querySelector('#hexTop'),
+              content = canvas.getContext('2d');
+        content.clearRect(0, 0, content.canvas.width, content.canvas.height);
+        ui.drawIcon(this._texture, this._canvas, this._canvas.width, this._tiletable);
+    }
+}
 
-//                x += arrayofcord[i].xcord * 32;
-//                y += arrayofcord[i].ycord * 44;
+//Bottom interface, block of carousel
+var bcui = {
+    _blocks: [],
+    init: function (arrayOfBlocks) {
+        if (Array.isArray(arrayOfBlocks))
+            for (var i = 0; i < arrayOfBlocks.length; i++) {
+                if (ObjectValidator.Validate(arrayOfBlocks[i], { TileName: "", texture: "" })) {
+                    this._blocks.push(arrayOfBlocks[i]);
+                }
+            }
+        if (this._blocks.length > 3)
+            $('#hexrightbtn').removeAttr('disabled');
+        this.refresh();
+    },
+    changeBlock: function (position, TileName, texture) {
+        if (this._blocks[position] != undefined) {
+            if(texture==ui.texture_building || texture==ui.texture_ground)
+            {
+                this._blocks[position].TileName = TileName;
+                this._blocks[position].texture = texture;
+            }
+        }
+    },
+    addBlock: function (newBlock) {
+        if (ObjectValidator.Validate(block, { TileName: "", texture: "" })) {
+            newBlock.id = this._blocks.length;
+            _blocks.push(newBlock);
+        }
+    },
+    getBlock:function(position){
+        return this._blocks[position];
+    },
+    _page: 0,
+    _clearblocks: function () {
+        for (var i = 1; i < 4; i++) {
+            ui.clearCanvas(document.querySelector("#hex" + i.toString()));
+            $("#btnHex" + i.toString()).unbind("click");
+            $("#btnHex" + i.toString()).removeAttr('disabled');
+        }
+    },
+    refresh: function () {
+        this._clearblocks();
+        var j = 0;
+        for (var i = this._page * 3; i < (this._page * 3) + 3; i++) {
+            if (this._blocks[i] != undefined) {
 
-//                if (v.Width < 65)
-//                    x += Math.floor((65 - v.Width) / 2)
-//                if (v.Height < 89)
-//                    y += Math.floor((65 - v.Height) / 2)
+                var selector = '#hex' + (j + 1);
+                ui.drawIcon(this._blocks[i].TileName, document.querySelector(selector), document.querySelector(selector).width, this._blocks[i].texture);
+                selector = '#btnHex' + (j + 1);
 
-//                if (v.Height > 89)
-//                    y -= v.Height - 44;
-
-//                content.drawImage(pic, v.X, v.Y, v.Width, v.Height, x, y, v.Width, v.Height);
-//            }
-//        }
-//    }
-//}
-
-
-
-//function drawAll() {
-//    var canvas = document.getElementById("display"),
-//            content = canvas.getContext('2d');
-//    var x = 0, y = 0;
-
-//    var pic = new Image();
-//    pic.src = "images/build/ground.png";
-//    pic.onload = function () {
-//        for (var i = 0; i < 9; i++) {
-//            for (var j = 0; j < 9; j++) {
-//                var v = Enumerable.From(completeMapped).Where(function (x) { return x.Name == "tileLava.png"; }).Select(function (x) { return x; }).ToArray()[0];
-
-//                content.drawImage(pic, v.X, v.Y, v.Width, v.Height, x, y, v.Width, v.Height);
-                                
-//                x += 32;
-//            }
-//            x = 0;
-//            y += 44;
-//        }
-//    }
-//}
-
-//function getRandomInt(min, max) {
-//    return Math.floor(Math.random() * (max - min + 1)) + min;
-//}
+                $(selector).click((function (x) {
+                    return function () {
+                        var block = bcui.getBlock(x);
+                        shex.texture(block.TileName, block.texture);
+                    }
+                })(i));
+            } else
+                document.querySelector('#btnHex' + (j + 1).toString()).setAttribute('disabled', 'disabled');
+            j++;
+        }
+    },
+    pageNext: function () {
+        if (this._blocks[(this._page + 1) * 3] != undefined) {
+            this._page += 1;
+            if (this._blocks[(this._page + 1) * 3] == undefined) {
+                $('#hexrightbtn').attr('disabled', 'disabled');
+            }
+            $('#hexleftbtn').removeAttr('disabled');
+            this.refresh();
+        }
+    },
+    pagePrev: function () {
+        if (this._blocks[(this._page - 1) * 3] != undefined) {
+            this._page -= 1;
+            if (this._blocks[(this._page - 1) * 3] == undefined) {
+                $('#hexleftbtn').attr('disabled', 'disabled');
+            }
+            $('#hexrightbtn').removeAttr('disabled');
+            this.refresh();
+        }
+    }
+}

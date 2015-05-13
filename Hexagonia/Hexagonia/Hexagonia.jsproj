@@ -176,6 +176,7 @@
     <Content Include="scripts\linq.min.js" />
     <Content Include="scripts\map.js" />
     <Content Include="scripts\ui.js" />
+    <Content Include="scripts\validator.js" />
     <Content Include="scripts\xml2json.js" />
     <Folder Include="merges\ios\" />
     <Content Include="merges\windows\scripts\platformOverrides.js" />
