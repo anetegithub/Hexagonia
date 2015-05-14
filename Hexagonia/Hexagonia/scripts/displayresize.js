@@ -9,7 +9,7 @@
         h = 640 - $('#bot').outerHeight(true) * 2
 
     content.canvas.height = 420;
-    content.canvas.width = 315;
+    content.canvas.width = 325;
 
 
     var rectangles = ($('#display-wrapper').width() - 5) / 7;
@@ -30,15 +30,19 @@
     html += "&nbsp<button type='button' class='btn btn-success navbar-btn' ><span class='fa fa-2x fa-building'></span></button>";
     $('#top').html(html);
 
-    $('#display-wrapper').css('margin-top',"8%");
+    if ((navigator.userAgent.toLowerCase().indexOf("windows phone") == -1))
+        $('#display-wrapper').css('margin-top', "8%");
+    else
+        $('#display-wrapper').css('margin-top', "20%");
     $('#display-wrapper').height(window.innerHeight - ($('#bot').height() * 2));
 
-    if (window.innerHeight > 520)
-        $('#display').css('height', $('#display-wrapper').height());
-    if (window.innerWidth > 415)
-        $('#display').css('width', $('#display-wrapper').width());
+    //if (window.innerHeight > 500)
+    //    $('#display').css('height', $('#display-wrapper').height()-15);
+    //if (window.innerWidth > 415)
+    //    $('#display').css('width', $('#display-wrapper').width());
 
 
+    ui.map.createAbstractMap();
     ui.map.draw([
             {
                 XCoord: 4,
@@ -102,7 +106,7 @@
             texture: ui.texture_ground
         },
         {
-            TileName: "flowerBlue",
+            TileName: "tileMagic",
             texture: ui.texture_ground
         },
         {
