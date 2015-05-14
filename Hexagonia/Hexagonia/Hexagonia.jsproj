@@ -162,8 +162,6 @@
     <Content Include="images\achive.png" />
     <Content Include="images\build\building.json" />
     <Content Include="images\build\building.png" />
-    <Content Include="images\build\ground.json" />
-    <Content Include="images\build\ground.png" />
     <Content Include="images\title.png" />
     <Content Include="merges\android\scripts\android2.3-jscompat.js" />
     <Content Include="merges\android\scripts\platformOverrides.js" />
