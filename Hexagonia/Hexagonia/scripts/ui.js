@@ -2,6 +2,13 @@
     buildings = null,
     merged = null;
 
+function sourceJson(source) {
+    if (source == "images/build/ground.json")
+        return grounds;
+    else if (source == "images/build/building.json")
+        return buildings;
+}
+
 var canvaselement = document.querySelector('#display'),
     Content = canvaselement.getContext('2d');
 
@@ -14,7 +21,8 @@ var ui = {
         y = Math.floor(y);
         return { X: x,Y: y};
     },
-    mousePos:null,
+    mousePos: null,
+    scale:0,
     init: function () {
         $.ajax({
             url: 'images/build/ground.json',
@@ -42,7 +50,7 @@ var ui = {
 
         canvaselement.addEventListener('mousemove', function (evt) {
             var rect = canvaselement.getBoundingClientRect();
-             ui.mousePos = {
+            ui.mousePos = {
                 x: evt.clientX - rect.left,
                 y: evt.clientY - rect.top
             };
@@ -52,34 +60,36 @@ var ui = {
 
                 var Coords = ui.map.getAbstractHex(ui.mousePos); // ui.map.positionByBlockType(BLOCK.BASE),
                 if (Coords != undefined) {
-                    var Obj = {
-                        XCoord: Coords.x,
-                        YCoord: Coords.y,
-                        TileName: "flowerWhite",
-                        buildings: [],
-                        decorate: []
-                    },
+                    var Block = shex.texture(),
+                        Obj =
+                        {
+                            X: Coords.x,
+                            Y: Coords.y,
+                            Base: null,
+                            Decorate: []
+                        },
                         Cell = Enumerable
                             .From(ui.map.cellArray)
                             .Where(function (x) { if (x.XCoord == Coords.x && x.YCoord == Coords.y) return x; })
                             .Select(function (x) { return x; }).ToArray();
 
-                    if (shex.table() == ui.texture_ground)
-                        Obj.TileName = shex.texture();
+                    if (Block.Layer == 0)
+                        Obj.Base = Block;
 
-                    if (Cell[0] != undefined) {
+                    if (Cell.length == 1) {
                         var index = ui.map.cellArray.indexOf(Cell[0]);
-                        if (shex.table() == ui.texture_building)
-                            Obj.buildings.push({
-                                TileName: shex.texture()
-                            });
-                        ui.map.cellArray[index] = Obj;
+
+                        if (Block.Layer == 0)
+                            Cell[0].Base = Block;
+                        else
+                            if (0 == 0) //check level high
+                                Cell[0].Decorate.push(Block);
+
+                        ui.map.cellArray[index] = Cell[0];
                     } else {
-                        if (shex.table() == ui.texture_building)
-                            Obj.buildings.push({
-                                TileName: shex.texture()
-                            });
-                        ui.map.cellArray.push(Obj);
+                        if (Block.Layer == 0)
+                            ui.map.cellArray.push(Obj);
+                        //warning No baseland
                     }
 
                     ui.map.refresh();
@@ -114,36 +124,33 @@ var ui = {
         };
         return Img;
     },
-    drawIcon: function (TileName, Canvas, Size, Src) {
+    drawIcon: function (block, Canvas, Size) {
         var pic = new Image();
-        pic.src = Src;
+        pic.src = ui.texture_merged;
         pic.onload = function () {
-            var Cell = null;
+            if (block != "null") {
+                var Cell = Enumerable
+                        .From(sourceJson(block.Source))
+                        .Where(function (x) { if (x.Name == block.TileName) return x; })
+                        .Select(function (x) { return x; }).ToArray()[0];
 
-            if (Src == ui.texture_ground)
-                Cell = Enumerable
-                    .From(grounds)
-                    .Where(function (x) { if (x.Name == TileName) return x; })
-                    .Select(function (x) { return x; }).ToArray()[0];
-            else
-                Cell = Enumerable
-                    .From(buildings)
-                    .Where(function (x) { if (x.Name == TileName) return x; })
-                    .Select(function (x) { return x; }).ToArray()[0];
+                var x = 0, y = 0, SizeX = Size, SizeY = Size;
 
-            var x = 0, y = 0, SizeX = Size, SizeY = Size;
+                if (Cell.Width < Size) {
+                    x += (Size - Cell.Width) / 2;
+                    SizeX = Cell.Width;
+                }
 
-            if (Cell.Width < Size) {
-                x += (Size - Cell.Width) / 2;
-                SizeX = Cell.Width;
+                if (Cell.Height < Size) {
+                    y += (Size - Cell.Height) / 2;
+                    SizeY = Cell.Height;
+                }
+                var content = Canvas.getContext('2d');
+                content.drawImage(pic, Cell.X, Cell.Y + block.SourceY, Cell.Width, Cell.Height, x, y, SizeX, SizeY);
+                content.fillStyle = "#000000";
+                content.font = "bold 15px Arial";
+                content.fillText(block.Layer == 0 ? "B" : "D", SizeY - 10, 15);
             }
-
-            if (Cell.Height < Size) {
-                y += (Size - Cell.Height) / 2;
-                SizeY = Cell.Height;
-            }
-            var content = Canvas.getContext('2d');
-            content.drawImage(pic, Cell.X, Cell.Y, Cell.Width, Cell.Height, x, y, SizeX, SizeY);
         }
     },
     clearCanvas: function (canvas) {
@@ -159,54 +166,64 @@ var ui = {
             var abstractCoords = Enumerable
                 .From(this._abstractMap)
                 .Where(function (x) {
-                    if (isPointInHexagon(Coords,x))
+                    if (isPointInHexagon(Coords, x))
                         return x;
                 })
                 .Select(function (x) { return x; })
                 .ToArray();
-            
+
             if (abstractCoords.length > 0)
-                return abstractCoords[0];
+                if (abstractCoords.length > 1) {
+                    if (abstractCoords.length % 2 == 0)
+                        return abstractCoords[abstractCoords.length / 2 + 1];
+                    else
+                        return abstractCoords[abstractCoords.length / 2 + 0.5];
+                } else
+                    return abstractCoords[0];
 
             return undefined;
         },
-        createAbstractMap: function () {
-            for (var j = 0; j < 8; j++) {
-                var cy = j * 49;
+        createAbstractMap: function (drawHexagons) {
+            for (var j = 0; j < FieldSize.Y; j++) {
+                var cy = j * (OneBlockPosition.Y/1.4)//49;
                 if (j % 2 == 0) {
-                    for (var i = 0; i < 5; i++) {
-                        var cx = 32.5 + (65 * i);
+                    for (var i = 0; i < FieldSize.X; i++) {
+                        var cx = OneBlockPosition.X/2 + (OneBlockPosition.X * i);
 
                         var tempobj = [];
                         tempobj.y = j;
                         tempobj.x = i;
 
                         tempobj.push({ x: cx, y: cy });
-                        tempobj.push({ x: cx - 32.5, y: cy + 17 });
-                        tempobj.push({ x: cx - 32.5, y: cy + 51 });
-                        tempobj.push({ x: cx, y: cy + 68 });
-                        tempobj.push({ x: cx + 32.5, y: cy + 51 });
-                        tempobj.push({ x: cx + 32.5, y: cy + 17 });
+                        tempobj.push({ x: cx - OneBlockPosition.X / 2, y: cy + (OneBlockPosition.Y / 4) });
+                        tempobj.push({ x: cx - OneBlockPosition.X / 2, y: cy + (OneBlockPosition.Y / 4)*3 });
+                        tempobj.push({ x: cx, y: cy + OneBlockPosition.Y });
+                        tempobj.push({ x: cx + OneBlockPosition.X / 2, y: cy + (OneBlockPosition.Y / 4)*3 });
+                        tempobj.push({ x: cx + OneBlockPosition.X / 2, y: cy + (OneBlockPosition.Y / 4) });
 
-                        Content.beginPath();
-                        Content.moveTo(cx, cy);
+                        if (drawHexagons) {
+                            Content.beginPath();
+                            Content.moveTo(cx, cy);
 
-                        Content.lineTo(cx - 32.5, cy + 17);
-                        Content.lineTo(cx - 32.5, cy + 51);
-                        Content.lineTo(cx, cy + 68);
-                        Content.lineTo(cx + 32.5, cy + 51);
-                        Content.lineTo(cx + 32.5, cy + 17);
-                        Content.lineTo(cx, cy);
+                            Content.lineTo(cx, cy);
+                            Content.lineTo(cx - OneBlockPosition.X / 2, cy + (OneBlockPosition.Y / 4));
+                            Content.lineTo(cx - OneBlockPosition.X / 2, cy + (OneBlockPosition.Y / 4) * 3);
+                            Content.lineTo(cx, cy + OneBlockPosition.Y);
+                            Content.lineTo(cx + OneBlockPosition.X / 2, cy + (OneBlockPosition.Y / 4) * 3);
+                            Content.lineTo(cx + OneBlockPosition.X / 2, cy + (OneBlockPosition.Y / 4));
 
-                        Content.stroke();
-                        Content.closePath();
+                            Content.lineTo(cx, cy);
+
+                            Content.stroke();
+                            Content.closePath();
+                        }
 
                         this._abstractMap.push(tempobj);
                     }
                 } else {
-                    for (var i = 0; i < 4; i++) {
-                        var cx = 32.5 + (65 * i);
-                        cx += 32.5;
+                    for (var i = 0; i < FieldSize.X-1; i++) {
+                        var cx = OneBlockPosition.X / 2 + (OneBlockPosition.X * i);
+                        cx += OneBlockPosition.X / 2;
 
                         var tempobj = [];
                         tempobj.y = j;
@@ -218,136 +235,52 @@ var ui = {
                         tempobj.push({ x: cx + 32.5, y: cy + 51 });
                         tempobj.push({ x: cx + 32.5, y: cy + 17 });
 
-                        Content.beginPath();
-                        Content.moveTo(cx, cy);
+                        if (drawHexagons) {
+                            Content.beginPath();
+                            Content.moveTo(cx, cy);
 
-                        Content.lineTo(cx - 32.5, cy + 17);
-                        Content.lineTo(cx - 32.5, cy + 51);
-                        Content.lineTo(cx, cy + 68);
-                        Content.lineTo(cx + 32.5, cy + 51);
-                        Content.lineTo(cx + 32.5, cy + 17);
-                        Content.lineTo(cx, cy);
+                            Content.lineTo(cx, cy);
+                            Content.lineTo(cx - OneBlockPosition.X / 2, cy + (OneBlockPosition.Y / 4));
+                            Content.lineTo(cx - OneBlockPosition.X / 2, cy + (OneBlockPosition.Y / 4) * 3);
+                            Content.lineTo(cx, cy + OneBlockPosition.Y);
+                            Content.lineTo(cx + OneBlockPosition.X / 2, cy + (OneBlockPosition.Y / 4) * 3);
+                            Content.lineTo(cx + OneBlockPosition.X / 2, cy + (OneBlockPosition.Y / 4));
+                            Content.lineTo(cx, cy);
 
-                        Content.stroke();
-                        Content.closePath();
+                            Content.stroke();
+                            Content.closePath();
+                        }
 
                         this._abstractMap.push(tempobj);
                     }
                 }
             }
         },
-        cellArray: [],          // [,] aray of Cell wich TextureInfo and have List<TextureInfo> as one of members
-        tempArray: [],
+        cellArray: [],          // see sampleTileInfoClass
         draw: function (cellArray) {
             ui.map.tempArray = cellArray;
-
             var drawing = function (pic) {
                 var Map = Enumerable
                     .From(cellArray)
-                    .OrderBy(function (x) { return x.YCoord })
+                    .OrderBy(function (x) { return x.Y })
                     .ToArray();
 
                 Map.forEach(function (TileInfo) {
-                    var X = TileInfo.XCoord * 64,
-                        Y = TileInfo.YCoord * 49,
+                    var X = TileInfo.X * OneBlockPosition.X,
+                        Y = TileInfo.Y * (OneBlockPosition.Y / 1.4),
                         Tile = Enumerable
-                            .From(merged)
-                            .Where(function (x) { if (x.Name == TileInfo.TileName) return x; })
+                            .From(sourceJson(TileInfo.Base.Source))
+                            .Where(function (x) { if (x.Name == TileInfo.Base.TileName) return x; })
                             .Select(function (x) { return x; })
                             .ToArray()[0];
 
-                    if (TileInfo.YCoord % 2 != 0)
-                        X += 32.5;
+                    if (TileInfo.Y % 2 != 0)
+                        X += OneBlockPosition.X/2;
 
-                    X += 2;
-                    Y += 2;
 
-                    Content.drawImage(pic, Tile.X, Tile.Y, Tile.Width, Tile.Height, X, Y, Tile.Width, Tile.Height);
+                    Content.drawImage(pic, Tile.X, Tile.Y, Tile.Width, Tile.Height, X, Y, OneBlockPosition.X, OneBlockPosition.Y*1.3);
                 });
             }
-
-            var region = function() {
-                //var drawing = function (pic) {
-                //    var canvas = ui.map.getCanvas();
-
-                //    for (var i = 0; i < cellArray.length; i++) {
-                //        var x = 0,
-                //        y = 0;
-
-                //        var cell = Enumerable
-                //            .From(grounds)
-                //            .Where(function (x) { if (x.Name == cellArray[i].TileName) return x; })
-                //            .Select(function (x) { return x; }).ToArray()[0];
-
-                //        x += cellArray[i].XCoord * 32;
-                //        y += cellArray[i].YCoord * 44;
-
-                //        if (cell.Width < 65)
-                //            x += (65 - cell.Width) / 2;
-
-
-                //        canvas.drawImage(pic, cell.X, cell.Y, cell.Width, cell.Height, x, y, cell.Width, cell.Height);
-
-
-                //    }
-                //    ui.drawOnPictureBuilding(drawing_b);
-                //}
-                //var drawing_b = function (pic) {
-                //    var canvas = ui.map.getCanvas();
-                //    for (var i = 0; i < cellArray.length; i++) {
-                //        var y = cellArray[i].YCoord * 44;
-                //        for (var j = 0; j < cellArray[i].buildings.length; j++) {
-                //            var x = 0;
-
-                //            x += cellArray[i].XCoord * 32;
-
-                //            var layer = Enumerable
-                //            .From(buildings)
-                //            .Where(function (x) { if (x.Name == cellArray[i].buildings[j].TileName) return x; })
-                //            .Select(function (x) { return x; }).ToArray()[0];
-
-                //            if (layer.Height > 76)
-                //                y -= layer.Height - 76;
-
-                //            if (layer.Height < 76)
-                //                y += 76 - layer.Height;
-
-                //            canvas.drawImage(pic, layer.X, layer.Y, layer.Width, layer.Height, x, y, layer.Width, layer.Height);
-
-                //            y -= 9.5;
-                //        }
-                //    }
-                //    ui.drawOnPictureGround(drawing_d);
-                //}
-                //var drawing_d = function (pic) {
-                //    var canvas = ui.map.getCanvas();
-                //    for (var i = 0; i < cellArray.length; i++) {
-                //        var y = cellArray[i].YCoord * 44;
-                //        for (var j = 0; j < cellArray[i].decorate.length; j++) {
-                //            var x = 0,
-                //                y = 0;
-
-                //            x += cellArray[i].XCoord * 32;
-                //            y += cellArray[i].YCoord * 44;
-
-                //            var layer = Enumerable
-                //            .From(grounds)
-                //            .Where(function (x) { if (x.Name == cellArray[i].decorate[j].TileName) return x; })
-                //            .Select(function (x) { return x; }).ToArray()[0];
-
-                //            if (layer.Width < 65)
-                //                x += (65 - layer.Width) / 2;
-
-                //            if (layer.Height < 89)
-                //                y -= (89 - layer.Height) / 2;
-
-                //            canvas.drawImage(pic, layer.X, layer.Y, layer.Width, layer.Height, x, y, layer.Width, layer.Height);
-                //        }
-                //    }
-                //}
-                //ui.drawOnPictureGround(drawing);
-            }
-
             ui.drawOnPictureMerged(drawing);
         },
         redraw: function (cell) {
@@ -407,25 +340,21 @@ var shex = {
             var canvas = document.querySelector('#hexTop'),
                 content = canvas.getContext('2d');
             content.clearRect(0, 0, content.canvas.width, content.canvas.height);
-            shex._texture = "null";
+            shex.texture("null");
         });
         this._canvas = document.querySelector('#hexTop');
     },
-    _texture: "null",
+    _block: "null",
     _tiletable: ui.texture_ground,
-    texture: function (TileName,TileTable) {
-        if (TileName == undefined)
-            return this._texture;
+    texture: function (block) {        
+        if (block == undefined)
+            return this._block;
 
-        if(TileTable!=undefined)
-            if(TileTable==ui.texture_ground || TileTable==ui.texture_building)
-                this._tiletable=TileTable;
-
-        this._texture = TileName;
+        this._block = block;
 
         this.refresh();
 
-        return this._texture;
+        return this._block;
     },
     table: function(){
         return this._tiletable;
@@ -435,7 +364,7 @@ var shex = {
         var canvas = document.querySelector('#hexTop'),
               content = canvas.getContext('2d');
         content.clearRect(0, 0, content.canvas.width, content.canvas.height);
-        ui.drawIcon(this._texture, this._canvas, this._canvas.width, this._tiletable);
+        ui.drawIcon(this._block,this._canvas, this._canvas.width);
     }
 }
 
@@ -445,7 +374,7 @@ var bcui = {
     init: function (arrayOfBlocks) {
         if (Array.isArray(arrayOfBlocks))
             for (var i = 0; i < arrayOfBlocks.length; i++) {
-                if (ObjectValidator.Validate(arrayOfBlocks[i], { TileName: "", texture: "" })) {
+                if (ObjectValidator.Validate(arrayOfBlocks[i], { block: sampleBlockClass, texture: "" })) {
                     this._blocks.push(arrayOfBlocks[i]);
                 }
             }
@@ -486,13 +415,13 @@ var bcui = {
             if (this._blocks[i] != undefined) {
 
                 var selector = '#hex' + (j + 1);
-                ui.drawIcon(this._blocks[i].TileName, document.querySelector(selector), document.querySelector(selector).width, this._blocks[i].texture);
+                ui.drawIcon(this._blocks[i].block, document.querySelector(selector), document.querySelector(selector).width);
                 selector = '#btnHex' + (j + 1);
 
                 $(selector).click((function (x) {
                     return function () {
                         var block = bcui.getBlock(x);
-                        shex.texture(block.TileName, block.texture);
+                        shex.texture(block.block);
                     }
                 })(i));
             } else

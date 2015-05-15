@@ -7,10 +7,11 @@
 
     if ((navigator.userAgent.toLowerCase().indexOf("windows phone") != -1))
         h = 640 - $('#bot').outerHeight(true) * 2
-
-    content.canvas.height = 420;
-    content.canvas.width = 325;
-
+    
+    OneBlockPosition = {
+        X: (window.innerWidth-10) / FieldSize.X,
+        Y: window.innerHeight / (FieldSize.Y+1)
+    };
 
     var rectangles = ($('#display-wrapper').width() - 5) / 7;
     var html = "";
@@ -25,24 +26,21 @@
     }
     $('#bot').html(html);
 
+
     html = "&nbsp<button type='button' class='btn btn-success navbar-btn' ><span class='fa fa-2x fa-street-view'></span></button>";
     html += "&nbsp<button type='button' id='hexTopBtn' class='btn btn-success navbar-btn'><canvas id='hexTop' height='" + rectangles + "' width='" + rectangles + "'></canvas></button>";
     html += "&nbsp<button type='button' class='btn btn-success navbar-btn' ><span class='fa fa-2x fa-building'></span></button>";
     $('#top').html(html);
 
-    if ((navigator.userAgent.toLowerCase().indexOf("windows phone") == -1))
-        $('#display-wrapper').css('margin-top', "8%");
-    else
-        $('#display-wrapper').css('margin-top', "20%");
-    $('#display-wrapper').height(window.innerHeight - ($('#bot').height() * 2));
-
-    if (window.innerHeight > 500)
-        $('#display').css('height', $('#display-wrapper').height()-15);
-    if (window.innerWidth > 415)
-        $('#display').css('width', $('#display-wrapper').width());
+    $('body').css('padding-top', $('#top').outerHeight().toString() + 'px');
+    
+    content.canvas.height = window.innerHeight - $('#bot').outerHeight(true) * 2.1;
+    content.canvas.width = window.innerWidth - 10;
 
 
-    ui.map.createAbstractMap();
+
+
+    ui.map.createAbstractMap(true);
     //ui.map.draw([
     //        {
     //            XCoord: 4,
@@ -102,18 +100,19 @@
 
     bcui.init([
         {
-            TileName: "tileGrass",
+            block: { TileName: "tileGrass", Layer: 0, Source: "images/build/ground.json", SourceY: 0 },
             texture: ui.texture_ground
         },
         {
-            TileName: "tileMagic",
+            block: { TileName: "tileMagic", Layer: 0, Source: "images/build/ground.json", SourceY: 0 },
             texture: ui.texture_ground
         },
         {
-            TileName: "woodDoorWindow",
+            block: { TileName: "woodDoorWindow", Layer: 1, Source: "images/build/building.json", SourceY: 509 },
             texture: ui.texture_building
-        }, {
-            TileName: "stoneDoorWindow",
+        },
+        {
+            block: { TileName: "stoneDoorWindow", Layer: 1, Source: "images/build/building.json", SourceY: 509 },
             texture: ui.texture_building
         }
     ]);
