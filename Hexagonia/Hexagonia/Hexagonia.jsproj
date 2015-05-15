@@ -172,6 +172,7 @@
     <Content Include="merges\android\scripts\android2.3-jscompat.js" />
     <Content Include="merges\android\scripts\platformOverrides.js" />
     <Content Include="scripts\blockClass.js" />
+    <Content Include="scripts\bootbox.js" />
     <Content Include="scripts\db.js" />
     <Content Include="scripts\globalVariables.js" />
     <Content Include="scripts\jquery.linq-vsdoc.js" />

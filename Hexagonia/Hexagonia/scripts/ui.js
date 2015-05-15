@@ -70,7 +70,7 @@ var ui = {
                         },
                         Cell = Enumerable
                             .From(ui.map.cellArray)
-                            .Where(function (x) { if (x.XCoord == Coords.x && x.YCoord == Coords.y) return x; })
+                            .Where(function (x) { if (x.X == Coords.x && x.Y == Coords.y) return x; })
                             .Select(function (x) { return x; }).ToArray();
 
                     if (Block.Layer == 0)
@@ -82,14 +82,23 @@ var ui = {
                         if (Block.Layer == 0)
                             Cell[0].Base = Block;
                         else
-                            if (0 == 0) //check level high
+                            if(ui.map.landAccess(Cell[0],Block))
                                 Cell[0].Decorate.push(Block);
-
                         ui.map.cellArray[index] = Cell[0];
                     } else {
-                        if (Block.Layer == 0)
+                        if (Block.Layer == 0)                            
                             ui.map.cellArray.push(Obj);
-                        //warning No baseland
+                        else
+                            bootbox.dialog({
+                                message: "Can not put the decorations without basic land",
+                                title: "Hey cap we've got a situation!",
+                                buttons: {
+                                    success: {
+                                        label: "Ok",
+                                        className: "btn-success"
+                                    }
+                                }
+                            });
                     }
 
                     ui.map.refresh();
@@ -159,15 +168,17 @@ var ui = {
     },
     map: {
         _abstractMap: [],
-        getAbstractMap: function(){
+        getAbstractMap: function () {
             return this._abstractMap;
         },
         getAbstractHex: function (Coords) {
             var abstractCoords = Enumerable
                 .From(this._abstractMap)
                 .Where(function (x) {
-                    if (isPointInHexagon(Coords, x))
+                    if (pnpoly(x, Coords) == 1)
                         return x;
+                    //if (isPointInHexagon(Coords, x))
+                    //    return x;
                 })
                 .Select(function (x) { return x; })
                 .ToArray();
@@ -185,10 +196,10 @@ var ui = {
         },
         createAbstractMap: function (drawHexagons) {
             for (var j = 0; j < FieldSize.Y; j++) {
-                var cy = j * (OneBlockPosition.Y/1.4)//49;
+                var cy = j * (OneBlockPosition.Y / 1.4)//49;
                 if (j % 2 == 0) {
                     for (var i = 0; i < FieldSize.X; i++) {
-                        var cx = OneBlockPosition.X/2 + (OneBlockPosition.X * i);
+                        var cx = OneBlockPosition.X / 2 + (OneBlockPosition.X * i);
 
                         var tempobj = [];
                         tempobj.y = j;
@@ -196,9 +207,9 @@ var ui = {
 
                         tempobj.push({ x: cx, y: cy });
                         tempobj.push({ x: cx - OneBlockPosition.X / 2, y: cy + (OneBlockPosition.Y / 4) });
-                        tempobj.push({ x: cx - OneBlockPosition.X / 2, y: cy + (OneBlockPosition.Y / 4)*3 });
+                        tempobj.push({ x: cx - OneBlockPosition.X / 2, y: cy + (OneBlockPosition.Y / 4) * 3 });
                         tempobj.push({ x: cx, y: cy + OneBlockPosition.Y });
-                        tempobj.push({ x: cx + OneBlockPosition.X / 2, y: cy + (OneBlockPosition.Y / 4)*3 });
+                        tempobj.push({ x: cx + OneBlockPosition.X / 2, y: cy + (OneBlockPosition.Y / 4) * 3 });
                         tempobj.push({ x: cx + OneBlockPosition.X / 2, y: cy + (OneBlockPosition.Y / 4) });
 
                         if (drawHexagons) {
@@ -221,7 +232,7 @@ var ui = {
                         this._abstractMap.push(tempobj);
                     }
                 } else {
-                    for (var i = 0; i < FieldSize.X-1; i++) {
+                    for (var i = 0; i < FieldSize.X - 1; i++) {
                         var cx = OneBlockPosition.X / 2 + (OneBlockPosition.X * i);
                         cx += OneBlockPosition.X / 2;
 
@@ -256,6 +267,63 @@ var ui = {
                 }
             }
         },
+        landAccess: function (block, decore) {
+            if (block.Decorate.length > 0)
+                if (block.Decorate[block.Decorate.length-1].Land == Land.Roof) {
+                    bootbox.dialog({
+                        message: "This is the highest level of construction...",
+                        title: "Hey cap we've got a situation!",
+                        buttons: {
+                            success: {
+                                label: "Ok",
+                                className: "btn-success"
+                            }
+                        }
+                    });
+                    return false;
+                }
+                else if (block.Decorate[block.Decorate.length-1].Land == Land.Loft && decore.Land == Land.Loft) {
+                    bootbox.dialog({
+                        message: "You can install only one loft to build...",
+                        title: "Hey cap we've got a situation!",
+                        buttons: {
+                            success: {
+                                label: "Ok",
+                                className: "btn-success"
+                            }
+                        }
+                    });
+                    return false;
+                }
+                else if (block.Decorate[block.Decorate.length-1].Land == Land.Roof && decore.Land == Land.Roof) {
+                    bootbox.dialog({
+                        message: "You can install only one spire to build...",
+                        title: "Hey cap we've got a situation!",
+                        buttons: {
+                            success: {
+                                label: "Ok",
+                                className: "btn-success"
+                            }
+                        }
+                    });
+                    return false;
+                }
+                else if (block.Decorate[block.Decorate.length-1].Land > decore.Land) {
+                    bootbox.dialog({
+                        message: "Follow order: the base land, construction, loft spire.",
+                        title: "Hey cap we've got a situation!",
+                        buttons: {
+                            success: {
+                                label: "Ok",
+                                className: "btn-success"
+                            }
+                        }
+                    });
+                    return false;
+                }
+
+            return true;
+        },
         cellArray: [],          // see sampleTileInfoClass
         draw: function (cellArray) {
             ui.map.tempArray = cellArray;
@@ -275,10 +343,41 @@ var ui = {
                             .ToArray()[0];
 
                     if (TileInfo.Y % 2 != 0)
-                        X += OneBlockPosition.X/2;
+                        X += OneBlockPosition.X / 2;
+
+                    Content.drawImage(pic, Tile.X, Tile.Y, Tile.Width, Tile.Height, X, Y, OneBlockPosition.X, OneBlockPosition.Y * 1.4);
+                });
+
+                Map.forEach(function (TileInfo) {
+                    var X = TileInfo.X * OneBlockPosition.X,
+                        Y = TileInfo.Y * (OneBlockPosition.Y / 1.4),
+                        Level = OneBlockPosition.Y / 3;
+                    if (TileInfo.Y % 2 != 0)
+                        X += OneBlockPosition.X / 2;
+                    TileInfo.Decorate.forEach(function (DecorTileInfo) {
+                        Tile = Enumerable
+                            .From(sourceJson(DecorTileInfo.Source))
+                            .Where(function (x) { if (x.Name == DecorTileInfo.TileName) return x; })
+                            .Select(function (x) { return x; })
+                            .ToArray()[0];
+
+                        var width = Tile.Width * ScaleFactor.X,
+                            height = Tile.Height * ScaleFactor.Y;
+
+                        if (height > 68) {
+                            if (height < OneBlockPosition.Y * 1.4)
+                                Y += OneBlockPosition.Y * 1.4 - height;
+                        } else
+                            Y += (OneBlockPosition.Y * 1.4 - height) / 1.5;
 
 
-                    Content.drawImage(pic, Tile.X, Tile.Y, Tile.Width, Tile.Height, X, Y, OneBlockPosition.X, OneBlockPosition.Y*1.3);
+
+                        Content.drawImage(pic, Tile.X, Tile.Y + DecorTileInfo.SourceY, Tile.Width, Tile.Height,
+                            X + (width < OneBlockPosition.X ? (OneBlockPosition.X - width) / 2 : 0),
+                            Y - Level, width,
+                            height);
+                        Level += (height / 3) * (OneBlockPosition.Y * 1.2 / height);
+                    });
                 });
             }
             ui.drawOnPictureMerged(drawing);
@@ -329,9 +428,6 @@ var ui = {
     }
 };
 
-var BLOCK = {
-    BASE: 0,
-};
 
 //Selected block 'hex' container
 var shex = {
@@ -451,22 +547,15 @@ var bcui = {
     }
 }
 
-function isPointInPoly(poly, pt) {
-    for (var c = false, i = -1, l = poly.length, j = l - 1; ++i < l; j = i)
-        ((poly[i].y <= pt.y && pt.y < poly[j].y) || (poly[j].y <= pt.y && pt.y < poly[i].y))
-        && (pt.x < (poly[j].x - poly[i].x) * (pt.y - poly[i].y) / (poly[j].y - poly[i].y) + poly[i].x)
-        && (c = !c);
+// copyright
+//http://www.ecse.rpi.edu/Homepages/wrf/Research/Short_Notes/pnpoly.html
+function pnpoly(hex, point) {
+    var i, j, c = 0,
+        nvert = 6;
+    for (i = 0, j = nvert - 1; i < nvert; j = i++) {
+        if (((hex[i].y > point.y) != (hex[j].y > point.y)) &&
+         (point.x < (hex[j].x - hex[i].x) * (point.y - hex[i].y) / (hex[j].y - hex[i].y) + hex[i].x))
+            c = !c;
+    }
     return c;
-}
-
-
-function isPointInHexagon(point, hex) {
-    var xPointFromHex = { l: hex[1].x, r: hex[4].x },
-        yPointFromHex = { t: hex[0].y, b: hex[3].y };
-
-    if (point.x >= xPointFromHex.l && point.x <= xPointFromHex.r)
-        if (point.y >= yPointFromHex.t && point.y <= yPointFromHex.b)
-            return true;
-
-    return false;
 }

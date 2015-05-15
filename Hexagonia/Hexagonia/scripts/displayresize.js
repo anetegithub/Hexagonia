@@ -7,10 +7,10 @@
 
     if ((navigator.userAgent.toLowerCase().indexOf("windows phone") != -1))
         h = 640 - $('#bot').outerHeight(true) * 2
-    
+
     OneBlockPosition = {
-        X: (window.innerWidth-10) / FieldSize.X,
-        Y: window.innerHeight / (FieldSize.Y+1)
+        X: (window.innerWidth - 10) / FieldSize.X,
+        Y: window.innerHeight / (FieldSize.Y + 1)
     };
 
     var rectangles = ($('#display-wrapper').width() - 5) / 7;
@@ -33,7 +33,7 @@
     $('#top').html(html);
 
     $('body').css('padding-top', $('#top').outerHeight().toString() + 'px');
-    
+
     content.canvas.height = window.innerHeight - $('#bot').outerHeight(true) * 2.1;
     content.canvas.width = window.innerWidth - 10;
 
@@ -100,20 +100,41 @@
 
     bcui.init([
         {
-            block: { TileName: "tileGrass", Layer: 0, Source: "images/build/ground.json", SourceY: 0 },
+            block: { TileName: "tileGrass", Layer: 0, Source: "images/build/ground.json", SourceY: 0, Land: Land.Baseland },
             texture: ui.texture_ground
         },
         {
-            block: { TileName: "tileMagic", Layer: 0, Source: "images/build/ground.json", SourceY: 0 },
+            block: { TileName: "tileMagic", Layer: 0, Source: "images/build/ground.json", SourceY: 0, Land: Land.Baseland },
             texture: ui.texture_ground
         },
         {
-            block: { TileName: "woodDoorWindow", Layer: 1, Source: "images/build/building.json", SourceY: 509 },
+            block: { TileName: "rockStone_moss3", Layer: 1, Source: "images/build/ground.json", SourceY: 0, Land: Land.Loft },
             texture: ui.texture_building
         },
         {
-            block: { TileName: "stoneDoorWindow", Layer: 1, Source: "images/build/building.json", SourceY: 509 },
+            block: { TileName: "stoneDoorWindow", Layer: 1, Source: "images/build/building.json", SourceY: 509, Land: Land.Building },
+            texture: ui.texture_building
+        },
+        {
+            block: { TileName: "redRoofTall", Layer: 1, Source: "images/build/building.json", SourceY: 509, Land: Land.Loft },
+            texture: ui.texture_building
+        },
+        {
+            block: { TileName: "rockGateLeft", Layer: 1, Source: "images/build/building.json", SourceY: 509, Land: Land.Building },
+            texture: ui.texture_building
+        },
+        {
+            block: { TileName: "rockRing", Layer: 1, Source: "images/build/building.json", SourceY: 509, Land: Land.Building },
+            texture: ui.texture_building
+        },
+        {
+            block: { TileName: "woodRoofPointy", Layer: 1, Source: "images/build/building.json", SourceY: 509, Land: Land.Loft },
+            texture: ui.texture_building
+        },
+        {
+            block: { TileName: "flowerRed", Layer: 1, Source: "images/build/ground.json", SourceY: 0, Land: Land.Roof },
             texture: ui.texture_building
         }
     ]);
 }
+

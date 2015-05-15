@@ -2,7 +2,15 @@
     TileName: "SomeName",
     Layer: 0, //0 - fundament, 1 decorate
     Source: "images/somefile.json",
-    SourceY: 0 //number of plus by Y coord, cuz merged tiles have Y shift
+    SourceY: 0, //number of plus by Y coord, cuz merged tiles have Y shift
+    Land: 0
+};
+
+var Land = {
+    Baseland: 0,
+    Building: 1,
+    Loft: 2,
+    Roof: 3
 };
 
 var sampleTileInfoClass = {
