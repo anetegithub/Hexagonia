@@ -164,11 +164,14 @@
     <Content Include="images\build\building.png" />
     <Content Include="images\build\ground.json" />
     <Content Include="images\build\ground.png" />
+    <Content Include="images\build\merged.json" />
     <Content Include="images\build\merged.png" />
+    <Content Include="images\merged.json" />
     <Content Include="images\merged.png" />
     <Content Include="images\title.png" />
     <Content Include="merges\android\scripts\android2.3-jscompat.js" />
     <Content Include="merges\android\scripts\platformOverrides.js" />
+    <Content Include="scripts\blockClass.js" />
     <Content Include="scripts\db.js" />
     <Content Include="scripts\jquery.linq-vsdoc.js" />
     <Content Include="scripts\jquery.linq.js" />

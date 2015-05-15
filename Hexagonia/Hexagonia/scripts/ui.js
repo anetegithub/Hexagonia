@@ -159,7 +159,7 @@ var ui = {
             var abstractCoords = Enumerable
                 .From(this._abstractMap)
                 .Where(function (x) {
-                    if (isPointInPoly(x, Coords))
+                    if (isPointInHexagon(Coords,x))
                         return x;
                 })
                 .Select(function (x) { return x; })
@@ -180,6 +180,7 @@ var ui = {
                         var tempobj = [];
                         tempobj.y = j;
                         tempobj.x = i;
+
                         tempobj.push({ x: cx, y: cy });
                         tempobj.push({ x: cx - 32.5, y: cy + 17 });
                         tempobj.push({ x: cx - 32.5, y: cy + 51 });
@@ -247,7 +248,7 @@ var ui = {
                     .ToArray();
 
                 Map.forEach(function (TileInfo) {
-                    var X = TileInfo.XCoord * 32,
+                    var X = TileInfo.XCoord * 64,
                         Y = TileInfo.YCoord * 49,
                         Tile = Enumerable
                             .From(merged)
@@ -255,11 +256,11 @@ var ui = {
                             .Select(function (x) { return x; })
                             .ToArray()[0];
 
+                    if (TileInfo.YCoord % 2 != 0)
+                        X += 32.5;
+
                     X += 2;
                     Y += 2;
-
-                    if (Tile.Width < 65)
-                        X += (65 - Tile.Width) / 2;
 
                     Content.drawImage(pic, Tile.X, Tile.Y, Tile.Width, Tile.Height, X, Y, Tile.Width, Tile.Height);
                 });
@@ -527,4 +528,16 @@ function isPointInPoly(poly, pt) {
         && (pt.x < (poly[j].x - poly[i].x) * (pt.y - poly[i].y) / (poly[j].y - poly[i].y) + poly[i].x)
         && (c = !c);
     return c;
+}
+
+
+function isPointInHexagon(point, hex) {
+    var xPointFromHex = { l: hex[1].x, r: hex[4].x },
+        yPointFromHex = { t: hex[0].y, b: hex[3].y };
+
+    if (point.x >= xPointFromHex.l && point.x <= xPointFromHex.r)
+        if (point.y >= yPointFromHex.t && point.y <= yPointFromHex.b)
+            return true;
+
+    return false;
 }

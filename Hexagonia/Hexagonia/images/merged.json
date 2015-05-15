@@ -1,0 +1,1241 @@
+[
+    {
+        "Name": "alienBeige",
+        "X": 380,
+        "Y": 0,
+        "Width": 40,
+        "Height": 66
+    },
+    {
+        "Name": "alienBlue",
+        "X": 420,
+        "Y": 0,
+        "Width": 40,
+        "Height": 66
+    },
+    {
+        "Name": "alienGreen",
+        "X": 380,
+        "Y": 66,
+        "Width": 40,
+        "Height": 66
+    },
+    {
+        "Name": "alienPink",
+        "X": 420,
+        "Y": 66,
+        "Width": 40,
+        "Height": 66
+    },
+    {
+        "Name": "alienYellow",
+        "X": 425,
+        "Y": 404,
+        "Width": 40,
+        "Height": 60
+    },
+    {
+        "Name": "bushAutumn",
+        "X": 409,
+        "Y": 132,
+        "Width": 15,
+        "Height": 20
+    },
+    {
+        "Name": "bushDirt",
+        "X": 168,
+        "Y": 465,
+        "Width": 15,
+        "Height": 20
+    },
+    {
+        "Name": "bushGrass",
+        "X": 168,
+        "Y": 445,
+        "Width": 15,
+        "Height": 20
+    },
+    {
+        "Name": "bushMagic",
+        "X": 450,
+        "Y": 464,
+        "Width": 15,
+        "Height": 20
+    },
+    {
+        "Name": "bushSand",
+        "X": 168,
+        "Y": 485,
+        "Width": 15,
+        "Height": 20
+    },
+    {
+        "Name": "bushSnow",
+        "X": 409,
+        "Y": 152,
+        "Width": 15,
+        "Height": 20
+    },
+    {
+        "Name": "flowerBlue",
+        "X": 183,
+        "Y": 445,
+        "Width": 12,
+        "Height": 11
+    },
+    {
+        "Name": "flowerGreen",
+        "X": 380,
+        "Y": 165,
+        "Width": 12,
+        "Height": 11
+    },
+    {
+        "Name": "flowerRed",
+        "X": 392,
+        "Y": 165,
+        "Width": 12,
+        "Height": 11
+    },
+    {
+        "Name": "flowerWhite",
+        "X": 183,
+        "Y": 467,
+        "Width": 12,
+        "Height": 11
+    },
+    {
+        "Name": "flowerYellow",
+        "X": 183,
+        "Y": 456,
+        "Width": 12,
+        "Height": 11
+    },
+    {
+        "Name": "hillAutumn",
+        "X": 326,
+        "Y": 495,
+        "Width": 33,
+        "Height": 12
+    },
+    {
+        "Name": "hillDirt",
+        "X": 326,
+        "Y": 483,
+        "Width": 33,
+        "Height": 12
+    },
+    {
+        "Name": "hillGrass",
+        "X": 260,
+        "Y": 495,
+        "Width": 33,
+        "Height": 12
+    },
+    {
+        "Name": "hillMagic",
+        "X": 293,
+        "Y": 495,
+        "Width": 33,
+        "Height": 12
+    },
+    {
+        "Name": "hillSand",
+        "X": 260,
+        "Y": 483,
+        "Width": 33,
+        "Height": 12
+    },
+    {
+        "Name": "hillSnow",
+        "X": 293,
+        "Y": 483,
+        "Width": 33,
+        "Height": 12
+    },
+    {
+        "Name": "pineAutumn_high",
+        "X": 486,
+        "Y": 211,
+        "Width": 30,
+        "Height": 99
+    },
+    {
+        "Name": "pineAutumn_low",
+        "X": 460,
+        "Y": 0,
+        "Width": 30,
+        "Height": 79
+    },
+    {
+        "Name": "pineAutumn_mid",
+        "X": 495,
+        "Y": 411,
+        "Width": 30,
+        "Height": 101
+    },
+    {
+        "Name": "pineBlue_high",
+        "X": 426,
+        "Y": 264,
+        "Width": 30,
+        "Height": 99
+    },
+    {
+        "Name": "pineBlue_low",
+        "X": 456,
+        "Y": 264,
+        "Width": 30,
+        "Height": 79
+    },
+    {
+        "Name": "pineBlue_mid",
+        "X": 495,
+        "Y": 310,
+        "Width": 30,
+        "Height": 101
+    },
+    {
+        "Name": "pineGreen_high",
+        "X": 488,
+        "Y": 79,
+        "Width": 30,
+        "Height": 99
+    },
+    {
+        "Name": "pineGreen_low",
+        "X": 458,
+        "Y": 132,
+        "Width": 30,
+        "Height": 79
+    },
+    {
+        "Name": "pineGreen_mid",
+        "X": 465,
+        "Y": 343,
+        "Width": 30,
+        "Height": 101
+    },
+    {
+        "Name": "rockDirt",
+        "X": 316,
+        "Y": 178,
+        "Width": 55,
+        "Height": 62
+    },
+    {
+        "Name": "rockDirt_moss1",
+        "X": 0,
+        "Y": 445,
+        "Width": 56,
+        "Height": 62
+    },
+    {
+        "Name": "rockDirt_moss2",
+        "X": 260,
+        "Y": 302,
+        "Width": 56,
+        "Height": 62
+    },
+    {
+        "Name": "rockDirt_moss3",
+        "X": 260,
+        "Y": 240,
+        "Width": 56,
+        "Height": 62
+    },
+    {
+        "Name": "rockSnow_1",
+        "X": 260,
+        "Y": 364,
+        "Width": 56,
+        "Height": 62
+    },
+    {
+        "Name": "rockSnow_2",
+        "X": 325,
+        "Y": 0,
+        "Width": 55,
+        "Height": 62
+    },
+    {
+        "Name": "rockSnow_3",
+        "X": 316,
+        "Y": 359,
+        "Width": 55,
+        "Height": 62
+    },
+    {
+        "Name": "rockStone",
+        "X": 316,
+        "Y": 297,
+        "Width": 55,
+        "Height": 62
+    },
+    {
+        "Name": "rockStone_moss1",
+        "X": 56,
+        "Y": 445,
+        "Width": 56,
+        "Height": 62
+    },
+    {
+        "Name": "rockStone_moss2",
+        "X": 112,
+        "Y": 445,
+        "Width": 56,
+        "Height": 62
+    },
+    {
+        "Name": "rockStone_moss3",
+        "X": 260,
+        "Y": 178,
+        "Width": 56,
+        "Height": 62
+    },
+    {
+        "Name": "smallRockDirt",
+        "X": 392,
+        "Y": 478,
+        "Width": 29,
+        "Height": 33
+    },
+    {
+        "Name": "smallRockGrass",
+        "X": 488,
+        "Y": 178,
+        "Width": 29,
+        "Height": 33
+    },
+    {
+        "Name": "smallRockSnow",
+        "X": 421,
+        "Y": 478,
+        "Width": 29,
+        "Height": 33
+    },
+    {
+        "Name": "smallRockStone",
+        "X": 380,
+        "Y": 132,
+        "Width": 29,
+        "Height": 33
+    },
+    {
+        "Name": "tileAutumn",
+        "X": 65,
+        "Y": 267,
+        "Width": 65,
+        "Height": 89
+    },
+    {
+        "Name": "tileAutumn_full",
+        "X": 65,
+        "Y": 178,
+        "Width": 65,
+        "Height": 89
+    },
+    {
+        "Name": "tileAutumn_tile",
+        "X": 316,
+        "Y": 240,
+        "Width": 55,
+        "Height": 57
+    },
+    {
+        "Name": "tileDirt",
+        "X": 65,
+        "Y": 0,
+        "Width": 65,
+        "Height": 89
+    },
+    {
+        "Name": "tileDirt_full",
+        "X": 0,
+        "Y": 356,
+        "Width": 65,
+        "Height": 89
+    },
+    {
+        "Name": "tileDirt_tile",
+        "X": 260,
+        "Y": 426,
+        "Width": 55,
+        "Height": 57
+    },
+    {
+        "Name": "tileGrass",
+        "X": 0,
+        "Y": 178,
+        "Width": 65,
+        "Height": 89
+    },
+    {
+        "Name": "tileGrass_full",
+        "X": 0,
+        "Y": 89,
+        "Width": 65,
+        "Height": 89
+    },
+    {
+        "Name": "tileGrass_tile",
+        "X": 315,
+        "Y": 426,
+        "Width": 55,
+        "Height": 57
+    },
+    {
+        "Name": "tileLava",
+        "X": 130,
+        "Y": 267,
+        "Width": 65,
+        "Height": 89
+    },
+    {
+        "Name": "tileLava_full",
+        "X": 195,
+        "Y": 241,
+        "Width": 65,
+        "Height": 89
+    },
+    {
+        "Name": "tileLava_tile",
+        "X": 371,
+        "Y": 176,
+        "Width": 55,
+        "Height": 57
+    },
+    {
+        "Name": "tileMagic",
+        "X": 0,
+        "Y": 0,
+        "Width": 65,
+        "Height": 89
+    },
+    {
+        "Name": "tileMagic_full",
+        "X": 0,
+        "Y": 267,
+        "Width": 65,
+        "Height": 89
+    },
+    {
+        "Name": "tileMagic_tile",
+        "X": 325,
+        "Y": 62,
+        "Width": 55,
+        "Height": 57
+    },
+    {
+        "Name": "tileRock",
+        "X": 65,
+        "Y": 89,
+        "Width": 65,
+        "Height": 89
+    },
+    {
+        "Name": "tileRock_full",
+        "X": 65,
+        "Y": 356,
+        "Width": 65,
+        "Height": 89
+    },
+    {
+        "Name": "tileRock_tile",
+        "X": 371,
+        "Y": 233,
+        "Width": 55,
+        "Height": 57
+    },
+    {
+        "Name": "tileSand",
+        "X": 130,
+        "Y": 0,
+        "Width": 65,
+        "Height": 89
+    },
+    {
+        "Name": "tileSand_full",
+        "X": 130,
+        "Y": 89,
+        "Width": 65,
+        "Height": 89
+    },
+    {
+        "Name": "tileSand_tile",
+        "X": 371,
+        "Y": 290,
+        "Width": 55,
+        "Height": 57
+    },
+    {
+        "Name": "tileSnow",
+        "X": 130,
+        "Y": 178,
+        "Width": 65,
+        "Height": 89
+    },
+    {
+        "Name": "tileSnow_full",
+        "X": 195,
+        "Y": 419,
+        "Width": 65,
+        "Height": 89
+    },
+    {
+        "Name": "tileSnow_tile",
+        "X": 370,
+        "Y": 421,
+        "Width": 55,
+        "Height": 57
+    },
+    {
+        "Name": "tileStone",
+        "X": 260,
+        "Y": 0,
+        "Width": 65,
+        "Height": 89
+    },
+    {
+        "Name": "tileStone_bridge",
+        "X": 195,
+        "Y": 0,
+        "Width": 65,
+        "Height": 76
+    },
+    {
+        "Name": "tileStone_full",
+        "X": 130,
+        "Y": 356,
+        "Width": 65,
+        "Height": 89
+    },
+    {
+        "Name": "tileStone_tile",
+        "X": 325,
+        "Y": 119,
+        "Width": 55,
+        "Height": 57
+    },
+    {
+        "Name": "tileWater",
+        "X": 195,
+        "Y": 76,
+        "Width": 65,
+        "Height": 89
+    },
+    {
+        "Name": "tileWater_full",
+        "X": 260,
+        "Y": 89,
+        "Width": 65,
+        "Height": 89
+    },
+    {
+        "Name": "tileWater_shadow",
+        "X": 195,
+        "Y": 330,
+        "Width": 65,
+        "Height": 89
+    },
+    {
+        "Name": "tileWater_tile",
+        "X": 371,
+        "Y": 347,
+        "Width": 55,
+        "Height": 57
+    },
+    {
+        "Name": "tileWood_bridge",
+        "X": 195,
+        "Y": 165,
+        "Width": 65,
+        "Height": 76
+    },
+    {
+        "Name": "treeAutumn_high",
+        "X": 525,
+        "Y": 285,
+        "Width": 27,
+        "Height": 107
+    },
+    {
+        "Name": "treeAutumn_low",
+        "X": 518,
+        "Y": 87,
+        "Width": 27,
+        "Height": 87
+    },
+    {
+        "Name": "treeAutumn_mid",
+        "X": 552,
+        "Y": 261,
+        "Width": 27,
+        "Height": 107
+    },
+    {
+        "Name": "treeBlue_high",
+        "X": 525,
+        "Y": 392,
+        "Width": 27,
+        "Height": 107
+    },
+    {
+        "Name": "treeBlue_low",
+        "X": 544,
+        "Y": 174,
+        "Width": 27,
+        "Height": 87
+    },
+    {
+        "Name": "treeBlue_mid",
+        "X": 545,
+        "Y": 0,
+        "Width": 27,
+        "Height": 107
+    },
+    {
+        "Name": "treeCactus_1",
+        "X": 426,
+        "Y": 132,
+        "Width": 32,
+        "Height": 66
+    },
+    {
+        "Name": "treeCactus_2",
+        "X": 465,
+        "Y": 444,
+        "Width": 29,
+        "Height": 66
+    },
+    {
+        "Name": "treeCactus_3",
+        "X": 426,
+        "Y": 198,
+        "Width": 32,
+        "Height": 66
+    },
+    {
+        "Name": "treeGreen_high",
+        "X": 552,
+        "Y": 368,
+        "Width": 27,
+        "Height": 107
+    },
+    {
+        "Name": "treeGreen_low",
+        "X": 518,
+        "Y": 0,
+        "Width": 27,
+        "Height": 87
+    },
+    {
+        "Name": "treeGreen_mid",
+        "X": 517,
+        "Y": 178,
+        "Width": 27,
+        "Height": 107
+    },
+    {
+        "Name": "waveLava",
+        "X": 359,
+        "Y": 493,
+        "Width": 33,
+        "Height": 10
+    },
+    {
+        "Name": "waveWater",
+        "X": 359,
+        "Y": 483,
+        "Width": 33,
+        "Height": 10
+    },
+	{
+        "Name": "door",
+        "X": 103,
+        "Y": 270,
+        "Width": 8,
+        "Height": 21
+    },
+    {
+        "Name": "gate",
+        "X": 66,
+        "Y": 270,
+        "Width": 21,
+        "Height": 26
+    },
+    {
+        "Name": "redRoofPointy",
+        "X": 195,
+        "Y": 859,
+        "Width": 65,
+        "Height": 92
+    },
+    {
+        "Name": "redRoofRounded",
+        "X": 325,
+        "Y": 956,
+        "Width": 65,
+        "Height": 68
+    },
+    {
+        "Name": "redRoofShort",
+        "X": 455,
+        "Y": 177,
+        "Width": 65,
+        "Height": 67
+    },
+    {
+        "Name": "redRoofStraight",
+        "X": 391,
+        "Y": 0,
+        "Width": 65,
+        "Height": 88
+    },
+    {
+        "Name": "redRoofTall",
+        "X": 390,
+        "Y": 890,
+        "Width": 65,
+        "Height": 92
+    },
+    {
+        "Name": "rockDoorLeft",
+        "X": 455,
+        "Y": 88,
+        "Width": 65,
+        "Height": 89
+    },
+    {
+        "Name": "rockDoorRight",
+        "X": 390,
+        "Y": 534,
+        "Width": 65,
+        "Height": 89
+    },
+    {
+        "Name": "rockDoorWindow",
+        "X": 390,
+        "Y": 445,
+        "Width": 65,
+        "Height": 89
+    },
+    {
+        "Name": "rockDoorWindowBlinds",
+        "X": 390,
+        "Y": 267,
+        "Width": 65,
+        "Height": 89
+    },
+    {
+        "Name": "rockDoorWindowBlindsMirror",
+        "X": 390,
+        "Y": 801,
+        "Width": 65,
+        "Height": 89
+    },
+    {
+        "Name": "rockDoorWindowMirror",
+        "X": 390,
+        "Y": 712,
+        "Width": 65,
+        "Height": 89
+    },
+    {
+        "Name": "rockGateLeft",
+        "X": 390,
+        "Y": 623,
+        "Width": 65,
+        "Height": 89
+    },
+    {
+        "Name": "rockGateRight",
+        "X": 390,
+        "Y": 178,
+        "Width": 65,
+        "Height": 89
+    },
+    {
+        "Name": "rockRing",
+        "X": 325,
+        "Y": 346,
+        "Width": 65,
+        "Height": 76
+    },
+    {
+        "Name": "rockWindowBlinds",
+        "X": 390,
+        "Y": 356,
+        "Width": 65,
+        "Height": 89
+    },
+    {
+        "Name": "rockWindowBlindsLeft",
+        "X": 325,
+        "Y": 257,
+        "Width": 65,
+        "Height": 89
+    },
+    {
+        "Name": "rockWindowBlindsRight",
+        "X": 260,
+        "Y": 893,
+        "Width": 65,
+        "Height": 89
+    },
+    {
+        "Name": "rockWindowLeft",
+        "X": 390,
+        "Y": 89,
+        "Width": 65,
+        "Height": 89
+    },
+    {
+        "Name": "rockWindowRight",
+        "X": 326,
+        "Y": 0,
+        "Width": 65,
+        "Height": 89
+    },
+    {
+        "Name": "rockWindows",
+        "X": 325,
+        "Y": 867,
+        "Width": 65,
+        "Height": 89
+    },
+    {
+        "Name": "sandDoorLeft",
+        "X": 325,
+        "Y": 778,
+        "Width": 65,
+        "Height": 89
+    },
+    {
+        "Name": "sandDoorRight",
+        "X": 325,
+        "Y": 689,
+        "Width": 65,
+        "Height": 89
+    },
+    {
+        "Name": "sandDoorWindow",
+        "X": 325,
+        "Y": 600,
+        "Width": 65,
+        "Height": 89
+    },
+    {
+        "Name": "sandDoorWindowBlinds",
+        "X": 325,
+        "Y": 511,
+        "Width": 65,
+        "Height": 89
+    },
+    {
+        "Name": "sandDoorWindowBlindsMirror",
+        "X": 325,
+        "Y": 422,
+        "Width": 65,
+        "Height": 89
+    },
+    {
+        "Name": "sandDoorWindowMirror",
+        "X": 260,
+        "Y": 804,
+        "Width": 65,
+        "Height": 89
+    },
+    {
+        "Name": "sandGateLeft",
+        "X": 131,
+        "Y": 157,
+        "Width": 65,
+        "Height": 89
+    },
+    {
+        "Name": "sandGateRight",
+        "X": 325,
+        "Y": 168,
+        "Width": 65,
+        "Height": 89
+    },
+    {
+        "Name": "sandRing",
+        "X": 261,
+        "Y": 92,
+        "Width": 65,
+        "Height": 76
+    },
+    {
+        "Name": "sandRoofPointy",
+        "X": 261,
+        "Y": 0,
+        "Width": 65,
+        "Height": 92
+    },
+    {
+        "Name": "sandRoofRounded",
+        "X": 0,
+        "Y": 0,
+        "Width": 66,
+        "Height": 68
+    },
+    {
+        "Name": "sandRoofShort",
+        "X": 195,
+        "Y": 951,
+        "Width": 65,
+        "Height": 68
+    },
+    {
+        "Name": "sandRoofStraight",
+        "X": 0,
+        "Y": 68,
+        "Width": 66,
+        "Height": 88
+    },
+    {
+        "Name": "sandRoofTall",
+        "X": 260,
+        "Y": 712,
+        "Width": 65,
+        "Height": 92
+    },
+    {
+        "Name": "sandWindowBlinds",
+        "X": 260,
+        "Y": 623,
+        "Width": 65,
+        "Height": 89
+    },
+    {
+        "Name": "sandWindowBlindsLeft",
+        "X": 260,
+        "Y": 534,
+        "Width": 65,
+        "Height": 89
+    },
+    {
+        "Name": "sandWindowBlindsRight",
+        "X": 260,
+        "Y": 445,
+        "Width": 65,
+        "Height": 89
+    },
+    {
+        "Name": "sandWindowLeft",
+        "X": 260,
+        "Y": 356,
+        "Width": 65,
+        "Height": 89
+    },
+    {
+        "Name": "sandWindowRight",
+        "X": 260,
+        "Y": 267,
+        "Width": 65,
+        "Height": 89
+    },
+    {
+        "Name": "sandWindows",
+        "X": 260,
+        "Y": 178,
+        "Width": 65,
+        "Height": 89
+    },
+    {
+        "Name": "stoneDoorLeft",
+        "X": 196,
+        "Y": 89,
+        "Width": 65,
+        "Height": 89
+    },
+    {
+        "Name": "stoneDoorRight",
+        "X": 196,
+        "Y": 0,
+        "Width": 65,
+        "Height": 89
+    },
+    {
+        "Name": "stoneDoorWindow",
+        "X": 131,
+        "Y": 0,
+        "Width": 65,
+        "Height": 89
+    },
+    {
+        "Name": "stoneDoorWindowBlinds",
+        "X": 195,
+        "Y": 770,
+        "Width": 65,
+        "Height": 89
+    },
+    {
+        "Name": "stoneDoorWindowBlindsMirror",
+        "X": 195,
+        "Y": 681,
+        "Width": 65,
+        "Height": 89
+    },
+    {
+        "Name": "stoneDoorWindowMirror",
+        "X": 195,
+        "Y": 592,
+        "Width": 65,
+        "Height": 89
+    },
+    {
+        "Name": "stoneGateLeft",
+        "X": 195,
+        "Y": 503,
+        "Width": 65,
+        "Height": 89
+    },
+    {
+        "Name": "stoneGateRight",
+        "X": 195,
+        "Y": 414,
+        "Width": 65,
+        "Height": 89
+    },
+    {
+        "Name": "stoneRing",
+        "X": 195,
+        "Y": 338,
+        "Width": 65,
+        "Height": 76
+    },
+    {
+        "Name": "stoneRoofPointy",
+        "X": 195,
+        "Y": 246,
+        "Width": 65,
+        "Height": 92
+    },
+    {
+        "Name": "stoneRoofRounded",
+        "X": 0,
+        "Y": 244,
+        "Width": 66,
+        "Height": 68
+    },
+    {
+        "Name": "stoneRoofShort",
+        "X": 131,
+        "Y": 89,
+        "Width": 65,
+        "Height": 68
+    },
+    {
+        "Name": "stoneRoofStraight",
+        "X": 0,
+        "Y": 156,
+        "Width": 66,
+        "Height": 88
+    },
+    {
+        "Name": "stoneRoofTall",
+        "X": 130,
+        "Y": 872,
+        "Width": 65,
+        "Height": 92
+    },
+    {
+        "Name": "stoneWindowBlinds",
+        "X": 130,
+        "Y": 783,
+        "Width": 65,
+        "Height": 89
+    },
+    {
+        "Name": "stoneWindowBlindsLeft",
+        "X": 130,
+        "Y": 694,
+        "Width": 65,
+        "Height": 89
+    },
+    {
+        "Name": "stoneWindowBlindsRight",
+        "X": 130,
+        "Y": 605,
+        "Width": 65,
+        "Height": 89
+    },
+    {
+        "Name": "stoneWindowLeft",
+        "X": 130,
+        "Y": 516,
+        "Width": 65,
+        "Height": 89
+    },
+    {
+        "Name": "stoneWindowRight",
+        "X": 130,
+        "Y": 427,
+        "Width": 65,
+        "Height": 89
+    },
+    {
+        "Name": "stoneWindows",
+        "X": 130,
+        "Y": 338,
+        "Width": 65,
+        "Height": 89
+    },
+    {
+        "Name": "window",
+        "X": 0,
+        "Y": 1004,
+        "Width": 8,
+        "Height": 19
+    },
+    {
+        "Name": "windowBlinds",
+        "X": 87,
+        "Y": 270,
+        "Width": 16,
+        "Height": 25
+    },
+    {
+        "Name": "woodDoorLeft",
+        "X": 66,
+        "Y": 89,
+        "Width": 65,
+        "Height": 89
+    },
+    {
+        "Name": "woodDoorRight",
+        "X": 66,
+        "Y": 0,
+        "Width": 65,
+        "Height": 89
+    },
+    {
+        "Name": "woodDoorWindow",
+        "X": 65,
+        "Y": 922,
+        "Width": 65,
+        "Height": 89
+    },
+    {
+        "Name": "woodDoorWindowBlinds",
+        "X": 65,
+        "Y": 833,
+        "Width": 65,
+        "Height": 89
+    },
+    {
+        "Name": "woodDoorWindowBlindsMirror",
+        "X": 65,
+        "Y": 744,
+        "Width": 65,
+        "Height": 89
+    },
+    {
+        "Name": "woodDoorWindowMirror",
+        "X": 65,
+        "Y": 655,
+        "Width": 65,
+        "Height": 89
+    },
+    {
+        "Name": "woodGateLeft",
+        "X": 65,
+        "Y": 566,
+        "Width": 65,
+        "Height": 89
+    },
+    {
+        "Name": "woodGateRight",
+        "X": 65,
+        "Y": 477,
+        "Width": 65,
+        "Height": 89
+    },
+    {
+        "Name": "woodRing",
+        "X": 65,
+        "Y": 401,
+        "Width": 65,
+        "Height": 76
+    },
+    {
+        "Name": "woodRoofPointy",
+        "X": 66,
+        "Y": 178,
+        "Width": 65,
+        "Height": 92
+    },
+    {
+        "Name": "woodRoofRounded",
+        "X": 130,
+        "Y": 270,
+        "Width": 65,
+        "Height": 68
+    },
+    {
+        "Name": "woodRoofShort",
+        "X": 0,
+        "Y": 848,
+        "Width": 65,
+        "Height": 67
+    },
+    {
+        "Name": "woodRoofStraight",
+        "X": 0,
+        "Y": 760,
+        "Width": 65,
+        "Height": 88
+    },
+    {
+        "Name": "woodRoofTall",
+        "X": 0,
+        "Y": 668,
+        "Width": 65,
+        "Height": 92
+    },
+    {
+        "Name": "woodWindowBlinds",
+        "X": 0,
+        "Y": 915,
+        "Width": 65,
+        "Height": 89
+    },
+    {
+        "Name": "woodWindowBlindsLeft",
+        "X": 0,
+        "Y": 490,
+        "Width": 65,
+        "Height": 89
+    },
+    {
+        "Name": "woodWindowBlindsRight",
+        "X": 0,
+        "Y": 579,
+        "Width": 65,
+        "Height": 89
+    },
+    {
+        "Name": "woodWindowLeft",
+        "X": 0,
+        "Y": 401,
+        "Width": 65,
+        "Height": 89
+    },
+    {
+        "Name": "woodWindowRight",
+        "X": 0,
+        "Y": 312,
+        "Width": 65,
+        "Height": 89
+    },
+    {
+        "Name": "woodWindows",
+        "X": 65,
+        "Y": 312,
+        "Width": 65,
+        "Height": 89
+    }
+]

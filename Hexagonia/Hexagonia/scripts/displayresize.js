@@ -36,67 +36,67 @@
         $('#display-wrapper').css('margin-top', "20%");
     $('#display-wrapper').height(window.innerHeight - ($('#bot').height() * 2));
 
-    //if (window.innerHeight > 500)
-    //    $('#display').css('height', $('#display-wrapper').height()-15);
-    //if (window.innerWidth > 415)
-    //    $('#display').css('width', $('#display-wrapper').width());
+    if (window.innerHeight > 500)
+        $('#display').css('height', $('#display-wrapper').height()-15);
+    if (window.innerWidth > 415)
+        $('#display').css('width', $('#display-wrapper').width());
 
 
     ui.map.createAbstractMap();
-    ui.map.draw([
-            {
-                XCoord: 4,
-                YCoord: 3,
-                TileName: "tileGrass",
-                buildings: [
-                    {
-                        TileName: "stoneDoorRight"
-                    },
-                    {
-                        TileName: "sandRing"
-                    },
-                    {
-                        TileName: "stoneRing"
-                    },
-                    {
-                        TileName: "sandRing"
-                    },
-                    {
-                        TileName: "stoneDoorWindowBlindsMirror"
-                    },
-                    {
-                        TileName: "stoneRoofPointy"
-                    }
-                ],
-                decorate: []
-            },
-            {
-                XCoord: 0,
-                YCoord: 0,
-                TileName: "tileGrass_tile",
-                buildings: [],
-                decorate: []
-            },
-            {
-                XCoord: 3,
-                YCoord: 4,
-                TileName: "tileGrass",
-                buildings: [],
-                decorate: []
-            },
-            {
-                XCoord: 5,
-                YCoord: 4,
-                TileName: "tileMagic",
-                buildings: [],
-                decorate:
-                    [
-                        {
-                            TileName: "treeCactus_3"
-                        }
-                    ]
-            }
-    ]);
+    //ui.map.draw([
+    //        {
+    //            XCoord: 4,
+    //            YCoord: 3,
+    //            TileName: "tileGrass",
+    //            buildings: [
+    //                {
+    //                    TileName: "stoneDoorRight"
+    //                },
+    //                {
+    //                    TileName: "sandRing"
+    //                },
+    //                {
+    //                    TileName: "stoneRing"
+    //                },
+    //                {
+    //                    TileName: "sandRing"
+    //                },
+    //                {
+    //                    TileName: "stoneDoorWindowBlindsMirror"
+    //                },
+    //                {
+    //                    TileName: "stoneRoofPointy"
+    //                }
+    //            ],
+    //            decorate: []
+    //        },
+    //        {
+    //            XCoord: 0,
+    //            YCoord: 0,
+    //            TileName: "tileGrass_tile",
+    //            buildings: [],
+    //            decorate: []
+    //        },
+    //        {
+    //            XCoord: 3,
+    //            YCoord: 4,
+    //            TileName: "tileGrass",
+    //            buildings: [],
+    //            decorate: []
+    //        },
+    //        {
+    //            XCoord: 5,
+    //            YCoord: 4,
+    //            TileName: "tileMagic",
+    //            buildings: [],
+    //            decorate:
+    //                [
+    //                    {
+    //                        TileName: "treeCactus_3"
+    //                    }
+    //                ]
+    //        }
+    //]);
 
     shex.init();
 
