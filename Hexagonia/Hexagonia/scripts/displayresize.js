@@ -46,60 +46,6 @@
 
 
     ui.map.createAbstractMap(false);
-    //ui.map.draw([
-    //        {
-    //            XCoord: 4,
-    //            YCoord: 3,
-    //            TileName: "tileGrass",
-    //            buildings: [
-    //                {
-    //                    TileName: "stoneDoorRight"
-    //                },
-    //                {
-    //                    TileName: "sandRing"
-    //                },
-    //                {
-    //                    TileName: "stoneRing"
-    //                },
-    //                {
-    //                    TileName: "sandRing"
-    //                },
-    //                {
-    //                    TileName: "stoneDoorWindowBlindsMirror"
-    //                },
-    //                {
-    //                    TileName: "stoneRoofPointy"
-    //                }
-    //            ],
-    //            decorate: []
-    //        },
-    //        {
-    //            XCoord: 0,
-    //            YCoord: 0,
-    //            TileName: "tileGrass_tile",
-    //            buildings: [],
-    //            decorate: []
-    //        },
-    //        {
-    //            XCoord: 3,
-    //            YCoord: 4,
-    //            TileName: "tileGrass",
-    //            buildings: [],
-    //            decorate: []
-    //        },
-    //        {
-    //            XCoord: 5,
-    //            YCoord: 4,
-    //            TileName: "tileMagic",
-    //            buildings: [],
-    //            decorate:
-    //                [
-    //                    {
-    //                        TileName: "treeCactus_3"
-    //                    }
-    //                ]
-    //        }
-    //]);
 
     shex.init();
 
@@ -141,5 +87,7 @@
             texture: ui.texture_building
         }
     ]);
+
+    bcui.menu();
 }
 

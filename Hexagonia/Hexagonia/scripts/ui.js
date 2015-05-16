@@ -10,7 +10,7 @@ function sourceJson(source) {
 }
 
 function delitingTool() {
-    shex.texture({ Layer: -1 });
+    shex.texture({ Layer: -1,TileName:"none" });
     //bootbox.dialog({
     //    message: "Are you sure you want to use a tool for the destruction that would remove the block or decorations?",
     //    title: "Hey cap we've got a situation!",
@@ -111,9 +111,14 @@ var ui = {
                                     if (ui.map.landAccess(Cell[0], Block))
                                         Cell[0].Decorate.push(Block);
                                 ui.map.cellArray[index] = Cell[0];
+                                aud.installblock();
+                                aud.play_sound();
                             } else {
-                                if (Block.Layer == 0)
+                                if (Block.Layer == 0) {                                    
                                     ui.map.cellArray.push(Obj);
+                                    aud.installblock();
+                                    aud.play_sound();
+                                }
                                 else
                                     bootbox.dialog({
                                         message: "Can not put the decorations without basic land",
@@ -135,6 +140,9 @@ var ui = {
                                     Cell[0].Decorate.splice(Cell[0].Decorate.length - 1, 1);
                                 else
                                     ui.map.cellArray.splice(index, 1);
+
+                                aud.removeblock();
+                                aud.play_sound();
                             } else
                                 bootbox.dialog({
                                     message: "Nothing to to destroy!",
@@ -260,8 +268,7 @@ var ui = {
         }
     },
     clearCanvas: function (canvas) {
-        var content = canvas.getContext('2d');
-        content.clearRect(0, 0, content.canvas.width, content.canvas.height);
+        canvas.width = canvas.width;
     },
     map: {
         _abstractMap: [],
@@ -599,7 +606,7 @@ var ui = {
     changeView: function (viewType) {
         if (viewType == View.Building) {
             BuildingTime = true;
-            bcui.refresh();
+            bcui.build();
             this.map.refresh();
         } else {
             BuildingTime = false;
@@ -662,8 +669,7 @@ var bcui = {
                 }
             }
         if (this._blocks.length > 3)
-            $('#hexrightbtn').removeAttr('disabled');
-        this.refresh();
+            $('#hexrightbtn').removeAttr('disabled');        
     },
     changeBlock: function (position, TileName, texture) {
         if (this._blocks[position] != undefined) {
@@ -714,9 +720,17 @@ var bcui = {
     },
     menu : function(){
         this._clearblocks();
-        var j = 0;
-
-        ui.drawIcon({ TileName: "Custom", src: "" }, document.querySelector('#hex1'), document.querySelector('#hex1').width);
+        $('#hexrightbtn').attr('disabled', 'disabled');
+        $('#hexleftbtn').attr('disabled', 'disabled');
+        ui.drawIcon({ TileName: "Custom", src: "images/additional/playing.png" }, document.querySelector('#hex1'), document.querySelector('#hex1').width);
+        ui.drawIcon({ TileName: "Custom", src: "images/additional/naibor.png" }, document.querySelector('#hex2'), document.querySelector('#hex2').width);
+        ui.drawIcon({ TileName: "Custom", src: "images/additional/exit.png" }, document.querySelector('#hex3'), document.querySelector('#hex3').width);
+    },
+    build: function () {
+        this._page = 0;
+        if (this._blocks.length > 3)
+            $('#hexrightbtn').removeAttr('disabled');
+        this.refresh();
     },
     pageNext: function () {
         if (this._blocks[(this._page + 1) * 3] != undefined) {

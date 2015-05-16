@@ -763,7 +763,8 @@
       }
     };
     */
-
+    aud.alert();
+    aud.play_sound();
     return dialog;
 
   };

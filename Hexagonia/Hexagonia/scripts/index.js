@@ -29,8 +29,10 @@ $(document).ready(function () {
     ui.init();
     if ((navigator.userAgent.toLowerCase().indexOf("windows phone") != -1)) {
         $('#bot').css('margin-bottom', '12%');
-        $('#display-wrapper').css('margin-top', '12%');
-    } else {
-        //$('#scale').html("<br /><br /><br /><br/>");
     }
+
+    aud.enabled_music = false;
+
+    aud.maintheme();
+    aud.play_song();
 });
