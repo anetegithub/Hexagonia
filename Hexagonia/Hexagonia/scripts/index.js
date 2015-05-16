@@ -12,7 +12,6 @@
         document.addEventListener( 'pause', onPause.bind( this ), false );
         document.addEventListener( 'resume', onResume.bind( this ), false );
         
-
         // TODO: Cordova has been loaded. Perform any initialization that requires Cordova here.
     };
 
@@ -31,8 +30,49 @@ $(document).ready(function () {
         $('#bot').css('margin-bottom', '12%');
     }
 
-    aud.enabled_music = false;
+    ////var some = new Media("/android_asset/www/images/sounds/theme.np3");
+    ////some.play();
 
-    aud.maintheme();
-    aud.play_song();
+    //aud.enabled_music = false;
+
+    //aud.maintheme();
+    //aud.play_song();
+
+    var f = new Audio("http://indiegamemusic.com/diskspace/mr_lou/Arcade80kbps.mp3");
+    alert('wtf');
+    f.play();
+    alert('wtf1');
 });
+
+function playAudio(src) {
+    alert("0");
+    // HTML5 Audio
+
+    alert("2");
+
+
+    //src = '/android_asset/www/' + src;
+    alert(src);
+    
+
+    alert("3");
+
+    var mediaRes = new Media(src,
+        function onSuccess() {
+            alert("4");
+            // release the media resource once finished playing
+            //mediaRes.release();
+        },
+        function onError(e) {
+
+            alert("5");
+
+            alert(e.message);
+        });
+
+    alert("6");
+
+    mediaRes.play();
+
+    alert("7");
+}
