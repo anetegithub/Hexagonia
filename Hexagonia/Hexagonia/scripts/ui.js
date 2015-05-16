@@ -10,27 +10,30 @@ function sourceJson(source) {
 }
 
 function delitingTool() {
-    bootbox.dialog({
-        message: "Are you sure you want to use a tool for the destruction that would remove the block or decorations?",
-        title: "Hey cap we've got a situation!",
-        buttons: {
-            warning: {
-                label: "Yes",
-                className: "btn-warning",
-                callback: function () {
-                    shex.texture({ Layer: -1 });
-                }
-            },
-            success: {
-                label: "No",
-                className: "btn-success"
-            },
-        }
-    });
+    shex.texture({ Layer: -1 });
+    //bootbox.dialog({
+    //    message: "Are you sure you want to use a tool for the destruction that would remove the block or decorations?",
+    //    title: "Hey cap we've got a situation!",
+    //    buttons: {
+    //        warning: {
+    //            label: "Yes",
+    //            className: "btn-warning",
+    //            callback: function () {
+    //                shex.texture({ Layer: -1 });
+    //            }
+    //        },
+    //        success: {
+    //            label: "No",
+    //            className: "btn-success"
+    //        },
+    //    }
+    //});
 }
 
 var canvaselement = document.querySelector('#display'),
-    Content = canvaselement.getContext('2d');
+    Content = canvaselement.getContext('2d'),
+    dcanvaselement = document.querySelector('#display_decorations'),
+    dContent = dcanvaselement.getContext('2d');
 
 //User Interface
 var ui = {
@@ -68,14 +71,14 @@ var ui = {
             }
         });
 
-        canvaselement.addEventListener('mousemove', function (evt) {
+        dcanvaselement.addEventListener('mousemove', function (evt) {
             var rect = canvaselement.getBoundingClientRect();
             ui.mousePos = {
                 x: evt.clientX - rect.left,
                 y: evt.clientY - rect.top
             };
         }, false);
-        canvaselement.addEventListener('click', function () {
+        dcanvaselement.addEventListener('click', function () {
             if (shex.texture() != undefined && shex.texture() != "null") {
 
                 var Coords = ui.map.getAbstractHex(ui.mousePos); // ui.map.positionByBlockType(BLOCK.BASE),
@@ -179,6 +182,14 @@ var ui = {
         var pic = new Image();
         pic.src = ui.texture_merged;
         pic.onload = function () {
+
+            var preCanvas = document.createElement('canvas');
+            preCanvas.width = Canvas.width;
+            preCanvas.height = Canvas.height;
+            preContent = preCanvas.getContext('2d');
+
+            Canvas.width = Canvas.width;
+
             if (block != "null") {
                 if (block.Layer != -1) {
                     var Cell = Enumerable
@@ -197,10 +208,10 @@ var ui = {
                         y += (Size - Cell.Height) / 2;
                         SizeY = Cell.Height;
                     }
-                    var content = Canvas.getContext('2d');
-                    content.drawImage(pic, Cell.X, Cell.Y + block.SourceY, Cell.Width, Cell.Height, x, y, SizeX, SizeY);
-                    content.fillStyle = "#000000";
-                    content.font = "bold 15px Arial";
+                                        
+                    preContent.drawImage(pic, Cell.X, Cell.Y + block.SourceY, Cell.Width, Cell.Height, x, y, SizeX, SizeY);
+                    preContent.fillStyle = "#000000";
+                    preContent.font = "bold 15px Arial";
 
                     var sign = "";
                     switch (block.Land) {
@@ -210,15 +221,17 @@ var ui = {
                         case 3: { sign = "R"; break; }
                     }
 
-                    content.fillText(sign, SizeY - 10, 15);
+                    preContent.fillText(sign, SizeY - 10, 15);
                 }
-                else {
-                    var content = Canvas.getContext('2d');
-                    content.fillStyle = "#fff";
-                    content.font = "bold 50px Arial";
-                    content.fillText("X", (Size - 35) / 2, (Size + 35) / 2);
+                else {                    
+                    preContent.fillStyle = "#fff";
+                    preContent.font = "bold 50px Arial";
+                    preContent.fillText("X", (Size - 35) / 2, (Size + 35) / 2);
                 }
             }
+
+            content = Canvas.getContext('2d');
+            content.drawImage(preCanvas, 0, 0);
         }
     },
     clearCanvas: function (canvas) {
@@ -272,6 +285,24 @@ var ui = {
                         tempobj.push({ x: cx + OneBlockPosition.X / 2, y: cy + (OneBlockPosition.Y / 4) });
 
                         if (drawHexagons) {
+
+                            dContent.strokeStyle = "#ff0000";
+
+                            dContent.beginPath();
+                            dContent.moveTo(cx, cy);
+
+                            dContent.lineTo(cx, cy);
+                            dContent.lineTo(cx - OneBlockPosition.X / 2, cy + (OneBlockPosition.Y / 4));
+                            dContent.lineTo(cx - OneBlockPosition.X / 2, cy + (OneBlockPosition.Y / 4) * 3);
+                            dContent.lineTo(cx, cy + OneBlockPosition.Y);
+                            dContent.lineTo(cx + OneBlockPosition.X / 2, cy + (OneBlockPosition.Y / 4) * 3);
+                            dContent.lineTo(cx + OneBlockPosition.X / 2, cy + (OneBlockPosition.Y / 4));
+
+                            dContent.lineTo(cx, cy);
+
+                            dContent.stroke();
+                            dContent.closePath();
+
                             Content.beginPath();
                             Content.moveTo(cx, cy);
 
@@ -306,6 +337,24 @@ var ui = {
                         tempobj.push({ x: cx + 32.5, y: cy + 17 });
 
                         if (drawHexagons) {
+
+                            dContent.strokeStyle = "#ff0000";
+
+                            dContent.beginPath();
+                            dContent.moveTo(cx, cy);
+
+                            dContent.lineTo(cx, cy);
+                            dContent.lineTo(cx - OneBlockPosition.X / 2, cy + (OneBlockPosition.Y / 4));
+                            dContent.lineTo(cx - OneBlockPosition.X / 2, cy + (OneBlockPosition.Y / 4) * 3);
+                            dContent.lineTo(cx, cy + OneBlockPosition.Y);
+                            dContent.lineTo(cx + OneBlockPosition.X / 2, cy + (OneBlockPosition.Y / 4) * 3);
+                            dContent.lineTo(cx + OneBlockPosition.X / 2, cy + (OneBlockPosition.Y / 4));
+
+                            dContent.lineTo(cx, cy);
+
+                            dContent.stroke();
+                            dContent.closePath();
+
                             Content.beginPath();
                             Content.moveTo(cx, cy);
 
@@ -400,7 +449,19 @@ var ui = {
         draw: function (cellArray) {
             ui.map.tempArray = cellArray;
             var drawing = function (pic) {
-                Content.clearRect(0, 0, Content.canvas.width, Content.canvas.height);
+
+
+                canvaselement.width = canvaselement.width;
+                dcanvaselement.width = dcanvaselement.width;
+
+                //Content.clearRect(0, 0, Content.canvas.width, Content.canvas.height);
+                //dContent.clearRect(0, 0, Content.canvas.width, Content.canvas.height);
+
+                var preCanvas = document.createElement('canvas');
+                preCanvas.width = canvaselement.width;
+                preCanvas.height = canvaselement.height;
+                var preContent = preCanvas.getContext('2d');
+
                 var Map = Enumerable
                     .From(cellArray)
                     .OrderBy(function (x) { return x.Y })
@@ -418,8 +479,15 @@ var ui = {
                     if (TileInfo.Y % 2 != 0)
                         X += OneBlockPosition.X / 2;
 
-                    Content.drawImage(pic, Tile.X, Tile.Y, Tile.Width, Tile.Height, X, Y, OneBlockPosition.X, OneBlockPosition.Y * 1.4);
+                    preContent.drawImage(pic, Tile.X, Tile.Y, Tile.Width, Tile.Height, X, Y, OneBlockPosition.X, OneBlockPosition.Y * 1.4);
                 });
+
+                Content.drawImage(preCanvas, 0, 0);
+
+                preCanvas = document.createElement('canvas');
+                preCanvas.width = dcanvaselement.width;
+                preCanvas.height = dcanvaselement.height;
+                preContent = preCanvas.getContext('2d');
 
                 Map.forEach(function (TileInfo) {
                     var X = TileInfo.X * OneBlockPosition.X,
@@ -445,13 +513,15 @@ var ui = {
 
 
 
-                        Content.drawImage(pic, Tile.X, Tile.Y + DecorTileInfo.SourceY, Tile.Width, Tile.Height,
+                        preContent.drawImage(pic, Tile.X, Tile.Y + DecorTileInfo.SourceY, Tile.Width, Tile.Height,
                             X + (width < OneBlockPosition.X ? (OneBlockPosition.X - width) / 2 : 0),
                             Y - Level, width,
                             height);
                         Level += (height / 3) * (OneBlockPosition.Y * 1.2 / height);
                     });
                 });
+                
+                dContent.drawImage(preCanvas, 0, 0);
             }
             ui.drawOnPictureMerged(drawing);
         },

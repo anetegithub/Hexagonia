@@ -1,9 +1,10 @@
 ﻿function showmain() {
     $('#index').css('display', 'none');
     $('#main').css('display', 'block');
-    var h = 640 - $('#bot').outerHeight(true) * 2,
-        canvas = document.getElementById("display"),
-        content = canvas.getContext('2d');
+    var canvas = document.getElementById("display"),
+        content = canvas.getContext('2d'),
+        dcanvas = document.querySelector('#display_decorations'),
+        dcontent = dcanvas.getContext('2d');
 
     if ((navigator.userAgent.toLowerCase().indexOf("windows phone") != -1))
         h = 640 - $('#bot').outerHeight(true) * 2
@@ -39,6 +40,8 @@
     content.canvas.height = window.innerHeight - $('#bot').outerHeight(true) * 2.1;
     content.canvas.width = window.innerWidth - 10;
 
+    dcontent.canvas.height = window.innerHeight - $('#bot').outerHeight(true) * 2.1;
+    dcontent.canvas.width = window.innerWidth - 10;
 
 
 

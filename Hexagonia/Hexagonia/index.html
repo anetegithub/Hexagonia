@@ -41,22 +41,17 @@
             </div>
         </div>
         <div id="main" style="display:none">
-            <div class="container-fluid">
+            <div class="container">
                 <nav class="navbar navbar-default navbar-fixed-top navbar-inner text-center" id="top" role="navigation">
                 </nav>
 
-
                 <div class="row text-center" id="display-wrapper" style="border:solid red 0px">
-                    <canvas id="display" style="border:solid black 0px"></canvas>
+                    <canvas id="display" style="display:block ;position:absolute;z-index: 0; border:solid black 0px"></canvas>
+                    <canvas id="display_decorations" style="display:block ;position:absolute;z-index: 1;border:solid black 0px"></canvas>
                 </div>
 
                 <footer>
                     <div class="navbar navbar-default navbar-fixed-bottom text-center" id="bot">
-                        <!--<button type="button" class="btn btn-success navbar-btn" disabled="disabled" style="height:74px;"><span class="fa fa-arrow-left"></span></button>
-                    <button type="button" class="btn btn-success navbar-btn" disabled="disabled"><canvas height='56' width='56' id='hex0'></canvas></button>
-                    <button type="button" class="btn btn-success navbar-btn" disabled="disabled"><canvas height='56' width='56' id='hex1'></canvas></button>
-                    <button type="button" class="btn btn-success navbar-btn" disabled="disabled"><canvas height='56' width='56' id='hex2'></canvas></button>
-                    <button type="button" class="btn btn-success navbar-btn" disabled="disabled" style="height:74px"><span class="fa fa-arrow-right"></span></button>-->
                     </div>
                 </footer>
             </div>
