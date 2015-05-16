@@ -29,9 +29,9 @@
 
 
     html = "&nbsp<button type='button' class='btn btn-success navbar-btn' ><span class='fa fa-2x fa-money'></span></button>";
-    html += "&nbsp<button type='button' class='btn btn-success navbar-btn' ><span class='fa fa-2x fa-street-view'></span></button>";
+    html += "&nbsp<button type='button' class='btn btn-success navbar-btn' onclick='ui.changeView(View.Movement);' ><span class='fa fa-2x fa-street-view'></span></button>";
     html += "&nbsp<button type='button' id='hexTopBtn' class='btn btn-success navbar-btn'><canvas id='hexTop' height='" + rectangles + "' width='" + rectangles + "'></canvas></button>";
-    html += "&nbsp<button type='button' class='btn btn-success navbar-btn' ><span class='fa fa-2x fa-building'></span></button>";
+    html += "&nbsp<button type='button' class='btn btn-success navbar-btn' onclick='ui.changeView(View.Building);' ><span class='fa fa-2x fa-building'></span></button>";
     html += "&nbsp<button type='button' class='btn btn-success navbar-btn' onclick='delitingTool()' ><span class='fa fa-2x fa-recycle'></span></button>";
     $('#top').html(html);
 
@@ -45,7 +45,7 @@
 
 
 
-    ui.map.createAbstractMap(true);
+    ui.map.createAbstractMap(false);
     //ui.map.draw([
     //        {
     //            XCoord: 4,

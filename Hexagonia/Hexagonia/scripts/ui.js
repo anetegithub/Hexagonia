@@ -79,43 +79,65 @@ var ui = {
             };
         }, false);
         dcanvaselement.addEventListener('click', function () {
-            if (shex.texture() != undefined && shex.texture() != "null") {
+            if (BuildingTime) {
+                if (shex.texture() != undefined && shex.texture() != "null") {
 
-                var Coords = ui.map.getAbstractHex(ui.mousePos); // ui.map.positionByBlockType(BLOCK.BASE),
-                if (Coords != undefined) {
-                    var Block = shex.texture(),
-                        Obj =
-                        {
-                            X: Coords.x,
-                            Y: Coords.y,
-                            Base: null,
-                            Decorate: []
-                        },
-                        Cell = Enumerable
-                            .From(ui.map.cellArray)
-                            .Where(function (x) { if (x.X == Coords.x && x.Y == Coords.y) return x; })
-                            .Select(function (x) { return x; }).ToArray();
+                    var Coords = ui.map.getAbstractHex(ui.mousePos); // ui.map.positionByBlockType(BLOCK.BASE),
+                    if (Coords != undefined) {
+                        var Block = shex.texture(),
+                            Obj =
+                            {
+                                X: Coords.x,
+                                Y: Coords.y,
+                                Base: null,
+                                Decorate: []
+                            },
+                            Cell = Enumerable
+                                .From(ui.map.cellArray)
+                                .Where(function (x) { if (x.X == Coords.x && x.Y == Coords.y) return x; })
+                                .Select(function (x) { return x; }).ToArray();
 
-                    if (Block.Layer == 0)
-                        Obj.Base = Block;
+                        if (Block.Layer == 0)
+                            Obj.Base = Block;
 
-                    if (Block.Layer != -1) {
+                        if (Block.Layer != -1) {
 
-                        if (Cell.length == 1) {
-                            var index = ui.map.cellArray.indexOf(Cell[0]);
+                            if (Cell.length == 1) {
+                                var index = ui.map.cellArray.indexOf(Cell[0]);
 
-                            if (Block.Layer == 0)
-                                Cell[0].Base = Block;
-                            else
-                                if (ui.map.landAccess(Cell[0], Block))
-                                    Cell[0].Decorate.push(Block);
-                            ui.map.cellArray[index] = Cell[0];
-                        } else {
-                            if (Block.Layer == 0)
-                                ui.map.cellArray.push(Obj);
-                            else
+                                if (Block.Layer == 0)
+                                    Cell[0].Base = Block;
+                                else
+                                    if (ui.map.landAccess(Cell[0], Block))
+                                        Cell[0].Decorate.push(Block);
+                                ui.map.cellArray[index] = Cell[0];
+                            } else {
+                                if (Block.Layer == 0)
+                                    ui.map.cellArray.push(Obj);
+                                else
+                                    bootbox.dialog({
+                                        message: "Can not put the decorations without basic land",
+                                        title: "Hey cap we've got a situation!",
+                                        buttons: {
+                                            success: {
+                                                label: "Ok",
+                                                className: "btn-success"
+                                            }
+                                        }
+                                    });
+                            }
+                        }
+                        else {
+                            if (Cell.length == 1) {
+                                var index = ui.map.cellArray.indexOf(Cell[0]);
+
+                                if (Cell[0].Decorate.length != 0)
+                                    Cell[0].Decorate.splice(Cell[0].Decorate.length - 1, 1);
+                                else
+                                    ui.map.cellArray.splice(index, 1);
+                            } else
                                 bootbox.dialog({
-                                    message: "Can not put the decorations without basic land",
+                                    message: "Nothing to to destroy!",
                                     title: "Hey cap we've got a situation!",
                                     buttons: {
                                         success: {
@@ -125,28 +147,8 @@ var ui = {
                                     }
                                 });
                         }
+                        ui.map.refresh();
                     }
-                    else {
-                        if (Cell.length == 1) {
-                            var index = ui.map.cellArray.indexOf(Cell[0]);
-
-                            if (Cell[0].Decorate.length != 0)
-                                Cell[0].Decorate.splice(Cell[0].Decorate.length - 1, 1);
-                            else
-                                ui.map.cellArray.splice(index, 1);
-                        } else
-                            bootbox.dialog({
-                                message: "Nothing to to destroy!",
-                                title: "Hey cap we've got a situation!",
-                                buttons: {
-                                    success: {
-                                        label: "Ok",
-                                        className: "btn-success"
-                                    }
-                                }
-                            });
-                    }
-                    ui.map.refresh();
                 }
             }
         });
@@ -180,7 +182,12 @@ var ui = {
     },
     drawIcon: function (block, Canvas, Size) {
         var pic = new Image();
-        pic.src = ui.texture_merged;
+
+        if (block.TileName != undefined && block.TileName != "Custom")
+            pic.src = ui.texture_merged;
+        else if (block.TileName == "Custom")
+            pic.src = block.src;
+
         pic.onload = function () {
 
             var preCanvas = document.createElement('canvas');
@@ -191,7 +198,7 @@ var ui = {
             Canvas.width = Canvas.width;
 
             if (block != "null") {
-                if (block.Layer != -1) {
+                if (block.Layer != -1 && block.TileName != "Custom") {
                     var Cell = Enumerable
                             .From(sourceJson(block.Source))
                             .Where(function (x) { if (x.Name == block.TileName) return x; })
@@ -208,7 +215,7 @@ var ui = {
                         y += (Size - Cell.Height) / 2;
                         SizeY = Cell.Height;
                     }
-                                        
+
                     preContent.drawImage(pic, Cell.X, Cell.Y + block.SourceY, Cell.Width, Cell.Height, x, y, SizeX, SizeY);
                     preContent.fillStyle = "#000000";
                     preContent.font = "bold 15px Arial";
@@ -223,10 +230,28 @@ var ui = {
 
                     preContent.fillText(sign, SizeY - 10, 15);
                 }
-                else {                    
+                else if (block.Layer == -1) {
                     preContent.fillStyle = "#fff";
                     preContent.font = "bold 50px Arial";
                     preContent.fillText("X", (Size - 35) / 2, (Size + 35) / 2);
+                } else if (block.TileName == "Custom") {
+
+                    var x=0,
+                        y=0,
+                        SizeX=Size,
+                        SizeY=Size;
+
+                    if (pic.width < Size) {
+                        x += (Size - pic.width) / 2;
+                        SizeX =pic.width;
+                    }
+
+                    if (pic.height < Size) {
+                        y += (Size - pic.height) / 2;
+                        SizeY = pic.height;
+                    }
+
+                    preContent.drawImage(pic, 0, 0, pic.height, pic.width, x, y, SizeX, SizeY);
                 }
             }
 
@@ -268,7 +293,7 @@ var ui = {
         },
         createAbstractMap: function (drawHexagons) {
             for (var j = 0; j < FieldSize.Y; j++) {
-                var cy = j * (OneBlockPosition.Y / 1.4)//49;
+                var cy = j * (OneBlockPosition.Y / 1.35)//49;
                 if (j % 2 == 0) {
                     for (var i = 0; i < FieldSize.X; i++) {
                         var cx = OneBlockPosition.X / 2 + (OneBlockPosition.X * i);
@@ -302,21 +327,6 @@ var ui = {
 
                             dContent.stroke();
                             dContent.closePath();
-
-                            Content.beginPath();
-                            Content.moveTo(cx, cy);
-
-                            Content.lineTo(cx, cy);
-                            Content.lineTo(cx - OneBlockPosition.X / 2, cy + (OneBlockPosition.Y / 4));
-                            Content.lineTo(cx - OneBlockPosition.X / 2, cy + (OneBlockPosition.Y / 4) * 3);
-                            Content.lineTo(cx, cy + OneBlockPosition.Y);
-                            Content.lineTo(cx + OneBlockPosition.X / 2, cy + (OneBlockPosition.Y / 4) * 3);
-                            Content.lineTo(cx + OneBlockPosition.X / 2, cy + (OneBlockPosition.Y / 4));
-
-                            Content.lineTo(cx, cy);
-
-                            Content.stroke();
-                            Content.closePath();
                         }
 
                         this._abstractMap.push(tempobj);
@@ -354,20 +364,6 @@ var ui = {
 
                             dContent.stroke();
                             dContent.closePath();
-
-                            Content.beginPath();
-                            Content.moveTo(cx, cy);
-
-                            Content.lineTo(cx, cy);
-                            Content.lineTo(cx - OneBlockPosition.X / 2, cy + (OneBlockPosition.Y / 4));
-                            Content.lineTo(cx - OneBlockPosition.X / 2, cy + (OneBlockPosition.Y / 4) * 3);
-                            Content.lineTo(cx, cy + OneBlockPosition.Y);
-                            Content.lineTo(cx + OneBlockPosition.X / 2, cy + (OneBlockPosition.Y / 4) * 3);
-                            Content.lineTo(cx + OneBlockPosition.X / 2, cy + (OneBlockPosition.Y / 4));
-                            Content.lineTo(cx, cy);
-
-                            Content.stroke();
-                            Content.closePath();
                         }
 
                         this._abstractMap.push(tempobj);
@@ -469,7 +465,7 @@ var ui = {
 
                 Map.forEach(function (TileInfo) {
                     var X = TileInfo.X * OneBlockPosition.X,
-                        Y = TileInfo.Y * (OneBlockPosition.Y / 1.4),
+                        Y = TileInfo.Y * (OneBlockPosition.Y / 1.35),
                         Tile = Enumerable
                             .From(sourceJson(TileInfo.Base.Source))
                             .Where(function (x) { if (x.Name == TileInfo.Base.TileName) return x; })
@@ -489,9 +485,40 @@ var ui = {
                 preCanvas.height = dcanvaselement.height;
                 preContent = preCanvas.getContext('2d');
 
+                if (BuildingTime) {
+                    for (var j = 0; j < FieldSize.Y; j++) {
+                        var cy = j * (OneBlockPosition.Y / 1.35)//49;
+
+                        var somevariable = 0;
+                        if (j % 2 != 0)
+                            somevariable = 1;
+
+                        for (var i = 0; i < FieldSize.X - somevariable; i++) {
+                            var cx = OneBlockPosition.X / 2 + (OneBlockPosition.X * i);
+                            if (j % 2 != 0)
+                                cx += OneBlockPosition.X / 2;
+
+                            preContent.beginPath();
+                            preContent.moveTo(cx, cy);
+
+                            preContent.lineTo(cx, cy);
+                            preContent.lineTo(cx - OneBlockPosition.X / 2, cy + (OneBlockPosition.Y / 4));
+                            preContent.lineTo(cx - OneBlockPosition.X / 2, cy + (OneBlockPosition.Y / 4) * 3);
+                            preContent.lineTo(cx, cy + OneBlockPosition.Y);
+                            preContent.lineTo(cx + OneBlockPosition.X / 2, cy + (OneBlockPosition.Y / 4) * 3);
+                            preContent.lineTo(cx + OneBlockPosition.X / 2, cy + (OneBlockPosition.Y / 4));
+
+                            preContent.lineTo(cx, cy);
+
+                            preContent.stroke();
+                            preContent.closePath();
+                        }
+                    }
+                }
+
                 Map.forEach(function (TileInfo) {
                     var X = TileInfo.X * OneBlockPosition.X,
-                        Y = TileInfo.Y * (OneBlockPosition.Y / 1.4),
+                        Y = TileInfo.Y * (OneBlockPosition.Y / 1.35),
                         Level = OneBlockPosition.Y / 3;
                     if (TileInfo.Y % 2 != 0)
                         X += OneBlockPosition.X / 2;
@@ -520,7 +547,7 @@ var ui = {
                         Level += (height / 3) * (OneBlockPosition.Y * 1.2 / height);
                     });
                 });
-                
+                    
                 dContent.drawImage(preCanvas, 0, 0);
             }
             ui.drawOnPictureMerged(drawing);
@@ -568,20 +595,37 @@ var ui = {
                 return Coords;
             }
         }
+    },
+    changeView: function (viewType) {
+        if (viewType == View.Building) {
+            BuildingTime = true;
+            bcui.refresh();
+            this.map.refresh();
+        } else {
+            BuildingTime = false;
+            shex.click();
+            bcui.menu();
+            this.map.refresh();
+        }
     }
 };
 
+var View = {
+    Movement: 0,
+    Building: 1
+}
 
 //Selected block 'hex' container
 var shex = {
     init: function () {
-        document.querySelector('#hexTopBtn').addEventListener('click', function () {
-            var canvas = document.querySelector('#hexTop'),
-                content = canvas.getContext('2d');
-            content.clearRect(0, 0, content.canvas.width, content.canvas.height);
-            shex.texture("null");
-        });
+        document.querySelector('#hexTopBtn').addEventListener('click', this.click);
         this._canvas = document.querySelector('#hexTop');
+    },
+    click:function(){
+        var canvas = document.querySelector('#hexTop'),
+                content = canvas.getContext('2d');
+        content.clearRect(0, 0, content.canvas.width, content.canvas.height);
+        shex.texture("null");
     },
     _block: "null",
     _tiletable: ui.texture_ground,
@@ -667,6 +711,12 @@ var bcui = {
                 document.querySelector('#btnHex' + (j + 1).toString()).setAttribute('disabled', 'disabled');
             j++;
         }
+    },
+    menu : function(){
+        this._clearblocks();
+        var j = 0;
+
+        ui.drawIcon({ TileName: "Custom", src: "" }, document.querySelector('#hex1'), document.querySelector('#hex1').width);
     },
     pageNext: function () {
         if (this._blocks[(this._page + 1) * 3] != undefined) {

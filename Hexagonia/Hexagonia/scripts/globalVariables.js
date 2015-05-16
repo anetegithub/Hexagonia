@@ -27,3 +27,5 @@ Object.defineProperty(ScaleFactor, "Y", {
         this.val = val;
     }
 });
+
+var BuildingTime = false;
