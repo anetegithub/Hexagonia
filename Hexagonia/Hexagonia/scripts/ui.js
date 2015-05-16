@@ -9,6 +9,26 @@ function sourceJson(source) {
         return buildings;
 }
 
+function delitingTool() {
+    bootbox.dialog({
+        message: "Are you sure you want to use a tool for the destruction that would remove the block or decorations?",
+        title: "Hey cap we've got a situation!",
+        buttons: {
+            warning: {
+                label: "Yes",
+                className: "btn-warning",
+                callback: function () {
+                    shex.texture({ Layer: -1 });
+                }
+            },
+            success: {
+                label: "No",
+                className: "btn-success"
+            },
+        }
+    });
+}
+
 var canvaselement = document.querySelector('#display'),
     Content = canvaselement.getContext('2d');
 
@@ -76,21 +96,44 @@ var ui = {
                     if (Block.Layer == 0)
                         Obj.Base = Block;
 
-                    if (Cell.length == 1) {
-                        var index = ui.map.cellArray.indexOf(Cell[0]);
+                    if (Block.Layer != -1) {
 
-                        if (Block.Layer == 0)
-                            Cell[0].Base = Block;
-                        else
-                            if(ui.map.landAccess(Cell[0],Block))
-                                Cell[0].Decorate.push(Block);
-                        ui.map.cellArray[index] = Cell[0];
-                    } else {
-                        if (Block.Layer == 0)                            
-                            ui.map.cellArray.push(Obj);
-                        else
+                        if (Cell.length == 1) {
+                            var index = ui.map.cellArray.indexOf(Cell[0]);
+
+                            if (Block.Layer == 0)
+                                Cell[0].Base = Block;
+                            else
+                                if (ui.map.landAccess(Cell[0], Block))
+                                    Cell[0].Decorate.push(Block);
+                            ui.map.cellArray[index] = Cell[0];
+                        } else {
+                            if (Block.Layer == 0)
+                                ui.map.cellArray.push(Obj);
+                            else
+                                bootbox.dialog({
+                                    message: "Can not put the decorations without basic land",
+                                    title: "Hey cap we've got a situation!",
+                                    buttons: {
+                                        success: {
+                                            label: "Ok",
+                                            className: "btn-success"
+                                        }
+                                    }
+                                });
+                        }
+                    }
+                    else {
+                        if (Cell.length == 1) {
+                            var index = ui.map.cellArray.indexOf(Cell[0]);
+
+                            if (Cell[0].Decorate.length != 0)
+                                Cell[0].Decorate.splice(Cell[0].Decorate.length - 1, 1);
+                            else
+                                ui.map.cellArray.splice(index, 1);
+                        } else
                             bootbox.dialog({
-                                message: "Can not put the decorations without basic land",
+                                message: "Nothing to to destroy!",
                                 title: "Hey cap we've got a situation!",
                                 buttons: {
                                     success: {
@@ -100,7 +143,6 @@ var ui = {
                                 }
                             });
                     }
-
                     ui.map.refresh();
                 }
             }
@@ -138,27 +180,44 @@ var ui = {
         pic.src = ui.texture_merged;
         pic.onload = function () {
             if (block != "null") {
-                var Cell = Enumerable
-                        .From(sourceJson(block.Source))
-                        .Where(function (x) { if (x.Name == block.TileName) return x; })
-                        .Select(function (x) { return x; }).ToArray()[0];
+                if (block.Layer != -1) {
+                    var Cell = Enumerable
+                            .From(sourceJson(block.Source))
+                            .Where(function (x) { if (x.Name == block.TileName) return x; })
+                            .Select(function (x) { return x; }).ToArray()[0];
 
-                var x = 0, y = 0, SizeX = Size, SizeY = Size;
+                    var x = 0, y = 0, SizeX = Size, SizeY = Size;
 
-                if (Cell.Width < Size) {
-                    x += (Size - Cell.Width) / 2;
-                    SizeX = Cell.Width;
+                    if (Cell.Width < Size) {
+                        x += (Size - Cell.Width) / 2;
+                        SizeX = Cell.Width;
+                    }
+
+                    if (Cell.Height < Size) {
+                        y += (Size - Cell.Height) / 2;
+                        SizeY = Cell.Height;
+                    }
+                    var content = Canvas.getContext('2d');
+                    content.drawImage(pic, Cell.X, Cell.Y + block.SourceY, Cell.Width, Cell.Height, x, y, SizeX, SizeY);
+                    content.fillStyle = "#000000";
+                    content.font = "bold 15px Arial";
+
+                    var sign = "";
+                    switch (block.Land) {
+                        case 0: { sign = "B"; break; }
+                        case 1: { sign = "D"; break; }
+                        case 2: { sign = "L"; break; }
+                        case 3: { sign = "R"; break; }
+                    }
+
+                    content.fillText(sign, SizeY - 10, 15);
                 }
-
-                if (Cell.Height < Size) {
-                    y += (Size - Cell.Height) / 2;
-                    SizeY = Cell.Height;
+                else {
+                    var content = Canvas.getContext('2d');
+                    content.fillStyle = "#fff";
+                    content.font = "bold 50px Arial";
+                    content.fillText("X", (Size - 35) / 2, (Size + 35) / 2);
                 }
-                var content = Canvas.getContext('2d');
-                content.drawImage(pic, Cell.X, Cell.Y + block.SourceY, Cell.Width, Cell.Height, x, y, SizeX, SizeY);
-                content.fillStyle = "#000000";
-                content.font = "bold 15px Arial";
-                content.fillText(block.Layer == 0 ? "B" : "D", SizeY - 10, 15);
             }
         }
     },
@@ -269,7 +328,20 @@ var ui = {
         },
         landAccess: function (block, decore) {
             if (block.Decorate.length > 0)
-                if (block.Decorate[block.Decorate.length-1].Land == Land.Roof) {
+                if (3+block.Y==block.Decorate.length) {
+                    bootbox.dialog({
+                        message: "This is the highest level of construction...",
+                        title: "Hey cap we've got a situation!",
+                        buttons: {
+                            success: {
+                                label: "Ok",
+                                className: "btn-success"
+                            }
+                        }
+                    });
+                    return false;
+                }
+                else if (block.Decorate[block.Decorate.length-1].Land == Land.Roof) {
                     bootbox.dialog({
                         message: "This is the highest level of construction...",
                         title: "Hey cap we've got a situation!",
@@ -328,6 +400,7 @@ var ui = {
         draw: function (cellArray) {
             ui.map.tempArray = cellArray;
             var drawing = function (pic) {
+                Content.clearRect(0, 0, Content.canvas.width, Content.canvas.height);
                 var Map = Enumerable
                     .From(cellArray)
                     .OrderBy(function (x) { return x.Y })
