@@ -442,6 +442,20 @@ var ui = {
         },
         cellArray: [],          // see sampleTileInfoClass
         draw: function (cellArray) {
+            if (ui.currentView == View.Neighbor) {
+                FieldSize = ui.neighborData.Field;
+                OneBlockPosition = {
+                    X: (window.innerWidth - 10) / FieldSize.X,
+                    Y: window.innerHeight / (FieldSize.Y + 1)
+                };
+            } else {
+                FieldSize = PlayerInfo.Field;
+                OneBlockPosition = {
+                    X: (window.innerWidth - 10) / FieldSize.X,
+                    Y: window.innerHeight / (FieldSize.Y + 1)
+                };
+            }
+
             ui.map.tempArray = cellArray;
             var drawing = function (pic) {
 
@@ -810,7 +824,11 @@ var bcui = {
                                         },
                                         Decorate: []
                                     }
-                                    ]
+                                    ],
+                                    Field: {
+                                        X: 15,
+                                        Y: 25
+                                    }
                                 };
                                 ui.neighborData = neighbordata;
                                 ui.changeView(View.Neighbor);

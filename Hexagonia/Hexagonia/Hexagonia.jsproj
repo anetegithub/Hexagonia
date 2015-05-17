@@ -193,6 +193,7 @@
     <Content Include="scripts\linq.min.js" />
     <Content Include="scripts\loading.js" />
     <Content Include="scripts\map.js" />
+    <Content Include="scripts\market.js" />
     <Content Include="scripts\ui.js" />
     <Content Include="scripts\validator.js" />
     <Content Include="scripts\xml2json.js" />
