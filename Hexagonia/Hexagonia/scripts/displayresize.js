@@ -28,11 +28,11 @@
     $('#bot').html(html);
 
 
-    html = "&nbsp<button type='button' class='btn btn-success navbar-btn' ><span class='fa fa-2x fa-money'></span></button>";
-    html += "&nbsp<button type='button' class='btn btn-success navbar-btn' onclick='ui.changeView(View.Movement);' ><span class='fa fa-2x fa-street-view'></span></button>";
+    html = "&nbsp<button  type='button' id='marketBtn' class='btn btn-success navbar-btn' ><span class='fa fa-2x fa-money'></span></button>";
+    html += "&nbsp<button type='button' id='playBtn' class='btn btn-success navbar-btn' onclick='ui.changeView(View.Movement);' ><span class='fa fa-2x fa-street-view'></span></button>";
     html += "&nbsp<button type='button' id='hexTopBtn' class='btn btn-success navbar-btn'><canvas id='hexTop' height='" + rectangles + "' width='" + rectangles + "'></canvas></button>";
-    html += "&nbsp<button type='button' class='btn btn-success navbar-btn' onclick='ui.changeView(View.Building);' ><span class='fa fa-2x fa-building'></span></button>";
-    html += "&nbsp<button type='button' class='btn btn-success navbar-btn' onclick='delitingTool()' ><span class='fa fa-2x fa-recycle'></span></button>";
+    html += "&nbsp<button type='button' id='buildBtn' class='btn btn-success navbar-btn' onclick='ui.changeView(View.Building);' ><span class='fa fa-2x fa-building'></span></button>";
+    html += "&nbsp<button type='button' id='deleteBtn' class='btn btn-success navbar-btn' onclick='delitingTool()' ><span class='fa fa-2x fa-recycle'></span></button>";
     $('#top').html(html);
 
     $('body').css('padding-top', $('#top').outerHeight().toString() + 'px');

@@ -30,6 +30,14 @@ $(document).ready(function () {
         $('#bot').css('margin-bottom', '12%');
     }
 
+    var cl = new CanvasLoader('canvasloader-container');
+    cl.setColor('#64bd31'); // default is '#000000'
+    cl.setShape('spiral'); // default is 'oval'
+    cl.setDiameter(30); // default is 40
+    cl.setRange(1); // default is 1.3
+    cl.setFPS(20); // default is 24
+    cl.show(); // Hidden by default
+
     ////var some = new Media("/android_asset/www/images/sounds/theme.np3");
     ////some.play();
 
@@ -38,10 +46,6 @@ $(document).ready(function () {
     //aud.maintheme();
     //aud.play_song();
 
-    var f = new Audio("http://indiegamemusic.com/diskspace/mr_lou/Arcade80kbps.mp3");
-    alert('wtf');
-    f.play();
-    alert('wtf1');
 });
 
 function playAudio(src) {

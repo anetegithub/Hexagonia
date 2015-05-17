@@ -2,6 +2,12 @@
     buildings = null,
     merged = null;
 
+var View = {
+    Movement: 0,
+    Building: 1,
+    Neighbor: 2
+}
+
 function sourceJson(source) {
     if (source == "images/build/ground.json")
         return grounds;
@@ -10,24 +16,8 @@ function sourceJson(source) {
 }
 
 function delitingTool() {
-    shex.texture({ Layer: -1,TileName:"none" });
-    //bootbox.dialog({
-    //    message: "Are you sure you want to use a tool for the destruction that would remove the block or decorations?",
-    //    title: "Hey cap we've got a situation!",
-    //    buttons: {
-    //        warning: {
-    //            label: "Yes",
-    //            className: "btn-warning",
-    //            callback: function () {
-    //                shex.texture({ Layer: -1 });
-    //            }
-    //        },
-    //        success: {
-    //            label: "No",
-    //            className: "btn-success"
-    //        },
-    //    }
-    //});
+    if (ui.currentView == View.Building)
+        shex.texture({ Layer: -1, TileName: "none" });
 }
 
 var canvaselement = document.querySelector('#display'),
@@ -37,15 +27,17 @@ var canvaselement = document.querySelector('#display'),
 
 //User Interface
 var ui = {
+    currentView: View.Movement,
+    neighborData: null,
     cursorCoord: function () {
         var x = (this.mousePos.x) / 32,
                 y = (this.mousePos.y) / 32;
         x = Math.floor(x);
         y = Math.floor(y);
-        return { X: x,Y: y};
+        return { X: x, Y: y };
     },
     mousePos: null,
-    scale:0,
+    scale: 0,
     init: function () {
         $.ajax({
             url: 'images/build/ground.json',
@@ -114,7 +106,7 @@ var ui = {
                                 aud.installblock();
                                 aud.play_sound();
                             } else {
-                                if (Block.Layer == 0) {                                    
+                                if (Block.Layer == 0) {
                                     ui.map.cellArray.push(Obj);
                                     aud.installblock();
                                     aud.play_sound();
@@ -172,7 +164,7 @@ var ui = {
         };
         return Img;
     },
-    drawOnPictureMerged:function(drawing){
+    drawOnPictureMerged: function (drawing) {
         var Img = new Image();
         Img.src = ui.texture_merged;
         Img.onload = function () {
@@ -244,14 +236,14 @@ var ui = {
                     preContent.fillText("X", (Size - 35) / 2, (Size + 35) / 2);
                 } else if (block.TileName == "Custom") {
 
-                    var x=0,
-                        y=0,
-                        SizeX=Size,
-                        SizeY=Size;
+                    var x = 0,
+                        y = 0,
+                        SizeX = Size,
+                        SizeY = Size;
 
                     if (pic.width < Size) {
                         x += (Size - pic.width) / 2;
-                        SizeX =pic.width;
+                        SizeX = pic.width;
                     }
 
                     if (pic.height < Size) {
@@ -380,7 +372,7 @@ var ui = {
         },
         landAccess: function (block, decore) {
             if (block.Decorate.length > 0)
-                if (3+block.Y==block.Decorate.length) {
+                if (3 + block.Y == block.Decorate.length) {
                     bootbox.dialog({
                         message: "This is the highest level of construction...",
                         title: "Hey cap we've got a situation!",
@@ -393,7 +385,7 @@ var ui = {
                     });
                     return false;
                 }
-                else if (block.Decorate[block.Decorate.length-1].Land == Land.Roof) {
+                else if (block.Decorate[block.Decorate.length - 1].Land == Land.Roof) {
                     bootbox.dialog({
                         message: "This is the highest level of construction...",
                         title: "Hey cap we've got a situation!",
@@ -406,7 +398,7 @@ var ui = {
                     });
                     return false;
                 }
-                else if (block.Decorate[block.Decorate.length-1].Land == Land.Loft && decore.Land == Land.Loft) {
+                else if (block.Decorate[block.Decorate.length - 1].Land == Land.Loft && decore.Land == Land.Loft) {
                     bootbox.dialog({
                         message: "You can install only one loft to build...",
                         title: "Hey cap we've got a situation!",
@@ -419,7 +411,7 @@ var ui = {
                     });
                     return false;
                 }
-                else if (block.Decorate[block.Decorate.length-1].Land == Land.Roof && decore.Land == Land.Roof) {
+                else if (block.Decorate[block.Decorate.length - 1].Land == Land.Roof && decore.Land == Land.Roof) {
                     bootbox.dialog({
                         message: "You can install only one spire to build...",
                         title: "Hey cap we've got a situation!",
@@ -432,7 +424,7 @@ var ui = {
                     });
                     return false;
                 }
-                else if (block.Decorate[block.Decorate.length-1].Land > decore.Land) {
+                else if (block.Decorate[block.Decorate.length - 1].Land > decore.Land) {
                     bootbox.dialog({
                         message: "Follow order: the base land, construction, loft spire.",
                         title: "Hey cap we've got a situation!",
@@ -554,7 +546,7 @@ var ui = {
                         Level += (height / 3) * (OneBlockPosition.Y * 1.2 / height);
                     });
                 });
-                    
+
                 dContent.drawImage(preCanvas, 0, 0);
             }
             ui.drawOnPictureMerged(drawing);
@@ -604,23 +596,44 @@ var ui = {
         }
     },
     changeView: function (viewType) {
+        this.currentView = viewType;
+        shex.changeMode(viewType);
         if (viewType == View.Building) {
             BuildingTime = true;
             bcui.build();
             this.map.refresh();
-        } else {
+            shex.enable();
+            this._UiEnabled(true);
+        } else if (viewType == View.Movement) {
             BuildingTime = false;
             shex.click();
             bcui.menu();
             this.map.refresh();
+            shex.enable();
+            this._UiEnabled(true);
+        } else if (viewType == View.Neighbor) {
+            shex.click();
+            shex.disable();
+            this._UiEnabled(false);
+            BuildingTime = false;
+            bcui.neigbor();
+            this.map.draw(this.neighborData.Map);
+        }
+    },
+    _UiEnabled: function (enabled) {
+        if (enabled) {
+            $('#marketBtn').removeAttr('disabled');
+            $('#playBtn').removeAttr('disabled');
+            $('#buildBtn').removeAttr('disabled');
+            $('#deleteBtn').removeAttr('disabled');
+        } else {
+            $('#marketBtn').attr('disabled', 'disabled');
+            $('#playBtn').attr('disabled', 'disabled');
+            $('#buildBtn').attr('disabled', 'disabled');
+            $('#deleteBtn').attr('disabled', 'disabled');
         }
     }
 };
-
-var View = {
-    Movement: 0,
-    Building: 1
-}
 
 //Selected block 'hex' container
 var shex = {
@@ -628,7 +641,7 @@ var shex = {
         document.querySelector('#hexTopBtn').addEventListener('click', this.click);
         this._canvas = document.querySelector('#hexTop');
     },
-    click:function(){
+    click: function () {
         var canvas = document.querySelector('#hexTop'),
                 content = canvas.getContext('2d');
         content.clearRect(0, 0, content.canvas.width, content.canvas.height);
@@ -636,7 +649,7 @@ var shex = {
     },
     _block: "null",
     _tiletable: ui.texture_ground,
-    texture: function (block) {        
+    texture: function (block) {
         if (block == undefined)
             return this._block;
 
@@ -646,20 +659,39 @@ var shex = {
 
         return this._block;
     },
-    table: function(){
+    table: function () {
         return this._tiletable;
     },
-    _canvas:null,
+    _canvas: null,
     refresh: function () {
         var canvas = document.querySelector('#hexTop'),
               content = canvas.getContext('2d');
         content.clearRect(0, 0, content.canvas.width, content.canvas.height);
-        ui.drawIcon(this._block,this._canvas, this._canvas.width);
+        ui.drawIcon(this._block, this._canvas, this._canvas.width);
+    },
+    disable: function () {
+        $('#hexTopBtn').attr('disabled', 'disabled');
+    },
+    enable: function () {
+        $('#hexTopBtn').removeAttr('disabled');
+    },
+    changeMode: function (viewState) {
+        if (viewState == View.Movement) {
+            document.querySelector('#hexTopBtn').removeEventListener('click', this.click);
+            ui.drawIcon({ TileName: "Custom", src: "data:image/png;base64," + PlayerInfo.Avatar }, this._canvas, this._canvas.width);
+        } else if (viewState == View.Building) {
+            this.texture("null");
+            document.querySelector('#hexTopBtn').addEventListener('click', this.click);
+        } if (viewState == View.Neighbor) {
+            document.querySelector('#hexTopBtn').removeEventListener('click', this.click);
+            ui.drawIcon({ TileName: "Custom", src: "data:image/png;base64," + ui.neighborData.Avatar }, this._canvas, this._canvas.width);
+        }
     }
 }
 
 //Bottom interface, block of carousel
 var bcui = {
+    _state: -1,
     _blocks: [],
     init: function (arrayOfBlocks) {
         if (Array.isArray(arrayOfBlocks))
@@ -669,12 +701,11 @@ var bcui = {
                 }
             }
         if (this._blocks.length > 3)
-            $('#hexrightbtn').removeAttr('disabled');        
+            $('#hexrightbtn').removeAttr('disabled');
     },
     changeBlock: function (position, TileName, texture) {
         if (this._blocks[position] != undefined) {
-            if(texture==ui.texture_building || texture==ui.texture_ground)
-            {
+            if (texture == ui.texture_building || texture == ui.texture_ground) {
                 this._blocks[position].TileName = TileName;
                 this._blocks[position].texture = texture;
             }
@@ -686,7 +717,7 @@ var bcui = {
             _blocks.push(newBlock);
         }
     },
-    getBlock:function(position){
+    getBlock: function (position) {
         return this._blocks[position];
     },
     _page: 0,
@@ -718,19 +749,86 @@ var bcui = {
             j++;
         }
     },
-    menu : function(){
-        this._clearblocks();
-        $('#hexrightbtn').attr('disabled', 'disabled');
-        $('#hexleftbtn').attr('disabled', 'disabled');
-        ui.drawIcon({ TileName: "Custom", src: "images/additional/playing.png" }, document.querySelector('#hex1'), document.querySelector('#hex1').width);
-        ui.drawIcon({ TileName: "Custom", src: "images/additional/naibor.png" }, document.querySelector('#hex2'), document.querySelector('#hex2').width);
-        ui.drawIcon({ TileName: "Custom", src: "images/additional/exit.png" }, document.querySelector('#hex3'), document.querySelector('#hex3').width);
+    menu: function () {
+        if (this._state != 0) {
+            this._state = 0;
+            this._clearblocks();
+            $('#hexrightbtn').attr('disabled', 'disabled');
+            $('#hexleftbtn').attr('disabled', 'disabled');
+            ui.drawIcon({ TileName: "Custom", src: "images/additional/playing.png" }, document.querySelector('#hex1'), document.querySelector('#hex1').width);
+            ui.drawIcon({ TileName: "Custom", src: "images/additional/naibor.png" }, document.querySelector('#hex2'), document.querySelector('#hex2').width);
+            ui.drawIcon({ TileName: "Custom", src: "images/additional/exit.png" }, document.querySelector('#hex3'), document.querySelector('#hex3').width);
+
+            shex.changeMode(View.Movement);
+
+            $('#btnHex3').click(function () {
+                navigator.app.exitApp();
+            });
+            $('#btnHex2').click(function () {
+                bootbox.dialog({
+                    title: "Visit the land of another player",
+                    message: '<div class="row">' +
+                    '<div class="col-md-12">' +
+                        '<form class="form-horizontal">' +
+                           ' <div class="form-group">' +
+                                '<label class="col-md-4 control-label" for="name">Name</label>' +
+                                '<div class="col-md-4">' +
+                                 '<input id="name" name="name" type="text" placeholder="Enter nickname another player" class="form-control input-md">' +
+                                '</div>' +
+                            '</div>' +
+                        '</form>' +
+                    '</div>' +
+                '</div>' + '<div class="row">' +
+                    '<div class="col-md-12">' +
+                        '<form class="form-horizontal">' +
+                           ' <div class="form-group">' +
+                                '<label class="col-md-4 control-label" for="name">Friends</label>' +
+                                '<div class="col-md-4">' +
+                                 frlist.getHtml() +
+                                '</div>' +
+                            '</div>' +
+                        '</form>' +
+                    '</div>' +
+                '</div>',
+                    buttons: {
+                        success: {
+                            label: "Find",
+                            className: "btn-success",
+                            callback: function () {
+                                //send server side and see result
+                                //emulate
+                                var neighbordata = {
+                                    Avatar: "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",
+                                    Map: [
+                                    {
+                                        X: 0, Y: 0, Base: {
+                                            TileName: "tileGrass",
+                                            Layer: 0,
+                                            Source: "images/build/ground.json",
+                                            SourceY: 0,
+                                            Land: 0
+                                        },
+                                        Decorate: []
+                                    }
+                                    ]
+                                };
+                                ui.neighborData = neighbordata;
+                                ui.changeView(View.Neighbor);
+                            }
+                        }
+                    }
+                });
+            });
+        }
     },
     build: function () {
-        this._page = 0;
-        if (this._blocks.length > 3)
-            $('#hexrightbtn').removeAttr('disabled');
-        this.refresh();
+        if (this._state != 1) {
+            this._state = 1;
+            this._page = 0;
+            if (this._blocks.length > 3)
+                $('#hexrightbtn').removeAttr('disabled');
+            this.refresh();
+        }
     },
     pageNext: function () {
         if (this._blocks[(this._page + 1) * 3] != undefined) {
@@ -751,8 +849,43 @@ var bcui = {
             $('#hexrightbtn').removeAttr('disabled');
             this.refresh();
         }
+    },
+    neigbor: function () {
+        if (this._state != 2) {
+            this._state = 2;
+            this._clearblocks();
+            $('#hexrightbtn').attr('disabled', 'disabled');
+            $('#hexleftbtn').attr('disabled', 'disabled');
+            $('#btnHex1').attr('disabled', 'disabled');
+            $('#btnHex3').attr('disabled', 'disabled');
+
+            ui.drawIcon({ TileName: "Custom", src: "images/additional/exit.png" }, document.querySelector('#hex2'), document.querySelector('#hex2').width);
+            $('#btnHex2').click(function () {
+                ui.changeView(View.Movement);
+            });
+        }
     }
 }
+
+var frlist = {
+    _html: "",
+    _iteration: 0,
+    _size: function () {
+        return document.querySelector('#hex1').width;
+    },
+    getHtml: function () {
+        var html = this._html,
+            size = this._size();
+        PlayerInfo.Friends.forEach(function (friend) {
+            html += "&nbsp<button type='button' class='btn btn-success navbar-btn' onclick=\"frlist.click('"+friend.Login+"')\" ><img src=\"data:image/png;base64," + friend.Avatar + "\" width='" + size + "' height='" + size + "'/></button>";
+        });
+        return html;
+    },
+    click: function (name) {
+        $('#name').val(name);
+        $(".modal-footer > button").trigger("click");
+    }
+};
 
 // copyright
 //http://www.ecse.rpi.edu/Homepages/wrf/Research/Short_Notes/pnpoly.html
