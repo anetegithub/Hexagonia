@@ -8,6 +8,17 @@ var View = {
     Neighbor: 2
 }
 
+var StaticImages = {
+    gold: new Image(),
+    crystal: new Image(),
+    load: function () {
+        this.gold.onload = function () { };
+        this.crystal.onload = function () { };
+        this.gold.src = "images/additional/gold.png";
+        this.crystal.src = "images/additional/crystal.png";
+    }
+};
+
 function sourceJson(source) {
     if (source == "images/build/ground.json")
         return grounds;
@@ -186,7 +197,7 @@ var ui = {
         if (block.TileName != undefined && block.TileName != "Custom")
             pic.src = ui.texture_merged;
         else if (block.TileName == "Custom")
-            pic.src = block.src;
+            pic.src = block.src;        
 
         pic.onload = function () {
 
@@ -220,12 +231,27 @@ var ui = {
                     preContent.fillStyle = "#000000";
                     preContent.font = "bold 15px Arial";
 
-                    var sign = "";
-                    switch (block.Land) {
-                        case 0: { sign = "B"; break; }
-                        case 1: { sign = "D"; break; }
-                        case 2: { sign = "L"; break; }
-                        case 3: { sign = "R"; break; }
+                    if (block.Cost == undefined || block.Cost == 0) {
+                        var sign = "";
+                        switch (block.Land) {
+                            case 0: { sign = "B"; break; }
+                            case 1: { sign = "D"; break; }
+                            case 2: { sign = "L"; break; }
+                            case 3: { sign = "R"; break; }
+                        }
+                    } else {
+                        //var img = null;
+                        //if (block.Currency == Currency.Gold)
+                        //    img = StaticImages.gold;
+                        //else if (block.Currency == Currency.Crystal)
+                        //    img = StaticImages.crystal;
+
+                        //preContent.strokeStyle = "arial 10px #FFF";
+                        //preContent.drawImage(img, 0, 0, img.width, img.height, Size - (Size / 3), Size - (Size / 3), Size / 3, Size / 3);
+                        //preContent.strokeText(block.Cost, (Size - (Size / 3)) - (block.Cost.toString().length * 10), Size / 3);
+                        //content = Canvas.getContext('2d');
+                        //content.drawImage(preCanvas, 0, 0);                        
+
                     }
 
                     preContent.fillText(sign, SizeY - 10, 15);

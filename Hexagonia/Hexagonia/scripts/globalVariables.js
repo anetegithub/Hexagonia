@@ -45,8 +45,8 @@ var PlayerInfo = {
         X: 5,
         Y: 8
     },
-    Gold: 0,
-    Crystal: 0,
+    Gold: 500,
+    Crystal: 250,
     Blocks: [],
     Map: [],
     Friends: [
