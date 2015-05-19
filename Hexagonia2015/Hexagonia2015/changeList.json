@@ -183,7 +183,6 @@
   "deletedPluginsIos": [],
   "changedFiles": [
     "plugins\\android.json",
-    "www\\index.html",
     "www\\scripts\\ui.js",
     "www\\scripts\\displayresize.js"
   ],

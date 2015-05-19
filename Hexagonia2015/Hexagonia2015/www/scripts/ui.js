@@ -882,6 +882,7 @@ var bcui = {
             this._page = 0;
             if (this._blocks.length > 3)
                 $('#hexrightbtn').removeAttr('disabled');
+            $('#hexleftbtn').removeAttr('disabled');
             this.refresh();
         }
     },
@@ -898,11 +899,10 @@ var bcui = {
     pagePrev: function () {
         if (this._blocks[(this._page - 1) * 3] != undefined) {
             this._page -= 1;
-            if (this._blocks[(this._page - 1) * 3] == undefined) {
-                $('#hexleftbtn').attr('disabled', 'disabled');
-            }
             $('#hexrightbtn').removeAttr('disabled');
             this.refresh();
+        } else {
+            ui.changeView(View.Movement);
         }
     },
     neigbor: function () {

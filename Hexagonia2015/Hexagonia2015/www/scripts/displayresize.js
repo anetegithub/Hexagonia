@@ -31,7 +31,7 @@
         if (i != 0 && i < 4)
             html += "&nbsp<button type='button' id='btnHex" + i + "' class='btn btn-success navbar-btn'><canvas id='hex" + i + "' height='" + rectangles + "' width='" + rectangles + "'></canvas></button>";
         else if (i == 0)
-            html += "&nbsp<button type='button' id='hexleftbtn' disabled='disabled' onclick='bcui.pagePrev();' class='btn btn-success navbar-btn' ><span class='fa fa-arrow-left'></span></button>";
+            html += "&nbsp<button type='button' id='hexleftbtn' onclick='bcui.pagePrev();' class='btn btn-success navbar-btn' ><span class='fa fa-arrow-left'></span></button>";
         else
             html += "&nbsp<button type='button' id='hexrightbtn' disabled='disabled' onclick='bcui.pageNext();' class='btn btn-success navbar-btn' ><span class='fa fa-arrow-right'></span></button>";
     }
