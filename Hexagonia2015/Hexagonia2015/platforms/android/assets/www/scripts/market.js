@@ -32,7 +32,7 @@
             
             html += "&nbsp<button type='button' class='btn btn-success navbar-btn' onclick='market.buyItem(" + market.items.indexOf(block) + ")' ><img id='marketitemimg" + id + "' width='" + sze + "' height='" + sze + "'/></button>";
             img = new Image();
-            img.src = "images/build/merged.png";
+            img.src = "images/buildings/merged.png";
             var some = (function (idd) {
                 return function () {
                     var tcanvas = document.createElement('canvas');
@@ -94,7 +94,7 @@
             {
                 TileName: "tileSnow",
                 Layer: 0,
-                Source: "images/build/ground.json",
+                Source: "images/buildings/ground.json",
                 SourceY: 0,
                 Land: 0,
                 Cost: 50,
@@ -103,7 +103,7 @@
             {
                 TileName: "tileLava",
                 Layer: 0,
-                Source: "images/build/ground.json",
+                Source: "images/buildings/ground.json",
                 SourceY: 0,
                 Land: 0,
                 Cost: 2,

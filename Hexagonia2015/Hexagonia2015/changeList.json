@@ -1,7 +1,6 @@
 {
   "changedFilesIos": [
     "www\\Icon.png",
-    "www\\images\\build\\building.png",
     "res\\icons\\android\\icon-72-hdpi.png",
     "res\\screens\\android\\screen-mdpi-landscape.png",
     "merges\\android\\scripts\\android2.3-jscompat.js",
@@ -14,7 +13,6 @@
     "res\\screens\\ios\\screen-iphone-landscape-736h.png",
     "www\\css\\customnavbar.css",
     "res\\icons\\windows\\StoreLogo.scale-100.png",
-    "www\\images\\build\\building.json",
     "www\\scripts\\globalVariables.js",
     "www\\audio\\alert.mp3",
     "www\\scripts\\index.js",
@@ -46,7 +44,6 @@
     "www\\images\\additional\\crystal.png",
     "www\\fonts\\glyphicons-halflings-regular.eot",
     "res\\icons\\ios\\icon-60-3x.png",
-    "config.xml",
     "res\\screens\\wp8\\SplashScreenImage.jpg",
     "www\\scripts\\jquery-1.9.1.intellisense.js",
     "www\\scripts\\heartcode-canvasloader-min.js",
@@ -158,18 +155,35 @@
     "www\\content\\font-awesome-4.3.0\\less\\bordered-pulled.less",
     "www\\content\\bootstrap-theme.min.css",
     "www\\content\\font-awesome-4.3.0\\scss\\_stacked.scss",
-    "www\\images\\build\\merged.png",
-    "www\\images\\build\\ground.json"
+    "config.xml",
+    "www\\images\\buildings\\building.png",
+    "www\\images\\buildings\\ground.json",
+    "www\\images\\buildings\\building.json",
+    "www\\images\\buildings\\merged.png"
   ],
   "deletedFilesIos": [
-    "www\\images\\build\\merged.json"
+    "www\\images\\build\\merged.json",
+    "www\\images\\build\\building.png",
+    "www\\images\\build\\ground.json",
+    "www\\images\\build\\building.json",
+    "www\\images\\build\\merged.png"
   ],
   "addedPluginsIos": [],
   "deletedPluginsIos": [],
   "changedFiles": [
-    "plugins\\android.json"
+    "plugins\\android.json",
+    "config.xml",
+    "www\\images\\buildings\\building.png",
+    "www\\images\\buildings\\ground.json",
+    "www\\images\\buildings\\building.json",
+    "www\\images\\buildings\\merged.png"
   ],
-  "deletedFiles": [],
+  "deletedFiles": [
+    "www\\images\\build\\building.png",
+    "www\\images\\build\\ground.json",
+    "www\\images\\build\\building.json",
+    "www\\images\\build\\merged.png"
+  ],
   "addedPlugins": [],
   "deletedPlugins": []
 }

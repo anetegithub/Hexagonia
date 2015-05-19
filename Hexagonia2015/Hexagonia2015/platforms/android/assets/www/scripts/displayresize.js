@@ -53,39 +53,39 @@
 
     bcui.init([
         {
-            block: { TileName: "tileMagic", Layer: 0, Source: "images/build/ground.json", SourceY: 0, Land: Land.Baseland },
+            block: { TileName: "tileMagic", Layer: 0, Source: "images/buildings/ground.json", SourceY: 0, Land: Land.Baseland },
             texture: ui.texture_ground
         },
         {
-            block: { TileName: "tileMagic", Layer: 1, Source: "images/build/ground.json", SourceY: 0, Land: Land.Building },
+            block: { TileName: "tileMagic", Layer: 1, Source: "images/buildings/ground.json", SourceY: 0, Land: Land.Building },
             texture: ui.texture_ground
         },
         {
-            block: { TileName: "rockStone_moss3", Layer: 1, Source: "images/build/ground.json", SourceY: 0, Land: Land.Loft },
+            block: { TileName: "rockStone_moss3", Layer: 1, Source: "images/buildings/ground.json", SourceY: 0, Land: Land.Loft },
             texture: ui.texture_building
         },
         {
-            block: { TileName: "stoneDoorWindow", Layer: 1, Source: "images/build/building.json", SourceY: 509, Land: Land.Building },
+            block: { TileName: "stoneDoorWindow", Layer: 1, Source: "images/buildings/building.json", SourceY: 509, Land: Land.Building },
             texture: ui.texture_building
         },
         {
-            block: { TileName: "redRoofTall", Layer: 1, Source: "images/build/building.json", SourceY: 509, Land: Land.Loft },
+            block: { TileName: "redRoofTall", Layer: 1, Source: "images/buildings/building.json", SourceY: 509, Land: Land.Loft },
             texture: ui.texture_building
         },
         {
-            block: { TileName: "rockGateLeft", Layer: 1, Source: "images/build/building.json", SourceY: 509, Land: Land.Building },
+            block: { TileName: "rockGateLeft", Layer: 1, Source: "images/buildings/building.json", SourceY: 509, Land: Land.Building },
             texture: ui.texture_building
         },
         {
-            block: { TileName: "rockRing", Layer: 1, Source: "images/build/building.json", SourceY: 509, Land: Land.Building },
+            block: { TileName: "rockRing", Layer: 1, Source: "images/buildings/building.json", SourceY: 509, Land: Land.Building },
             texture: ui.texture_building
         },
         {
-            block: { TileName: "woodRoofPointy", Layer: 1, Source: "images/build/building.json", SourceY: 509, Land: Land.Loft },
+            block: { TileName: "woodRoofPointy", Layer: 1, Source: "images/buildings/building.json", SourceY: 509, Land: Land.Loft },
             texture: ui.texture_building
         },
         {
-            block: { TileName: "flowerRed", Layer: 1, Source: "images/build/ground.json", SourceY: 0, Land: Land.Roof },
+            block: { TileName: "flowerRed", Layer: 1, Source: "images/buildings/ground.json", SourceY: 0, Land: Land.Roof },
             texture: ui.texture_building
         }
     ]);

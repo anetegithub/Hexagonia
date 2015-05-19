@@ -20,9 +20,9 @@ var StaticImages = {
 };
 
 function sourceJson(source) {
-    if (source == "images/build/ground.json")
+    if (source == "images/buildings/ground.json")
         return grounds;
-    else if (source == "images/build/building.json")
+    else if (source == "images/buildings/building.json")
         return buildings;
 }
 
@@ -51,7 +51,7 @@ var ui = {
     scale: 0,
     init: function () {
         $.ajax({
-            url: 'images/build/ground.json',
+            url: 'images/buildings/ground.json',
             type: 'get',
             async: false,
             success: function (data) {
@@ -63,7 +63,7 @@ var ui = {
             }
         });
         $.ajax({
-            url: 'images/build/building.json',
+            url: 'images/buildings/building.json',
             type: 'get',
             async: false,
             success: function (data) {
@@ -164,9 +164,9 @@ var ui = {
             }
         });
     },
-    texture_ground: "images/build/ground.png",
-    texture_building: "images/build/building.png",
-    texture_merged: "images/build/merged.png",
+    texture_ground: "images/buildings/ground.png",
+    texture_building: "images/buildings/building.png",
+    texture_merged: "images/buildings/merged.png",
     drawOnPictureGround: function (drawing) {
         var Img = new Image();
         Img.src = ui.texture_ground;
@@ -844,7 +844,7 @@ var bcui = {
                                         X: 0, Y: 0, Base: {
                                             TileName: "tileGrass",
                                             Layer: 0,
-                                            Source: "images/build/ground.json",
+                                            Source: "images/buildings/ground.json",
                                             SourceY: 0,
                                             Land: 0
                                         },
