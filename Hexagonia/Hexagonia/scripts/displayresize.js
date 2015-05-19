@@ -9,12 +9,20 @@
     if ((navigator.userAgent.toLowerCase().indexOf("windows phone") != -1))
         h = 640 - $('#bot').outerHeight(true) * 2
 
-    FieldSize = PlayerInfo.Field;
+    FieldSize = Player.Field;
 
     OneBlockPosition = {
         X: (window.innerWidth - 10) / FieldSize.X,
         Y: window.innerHeight / (FieldSize.Y + 1)
     };
+
+    Player.Blocks.push({
+        TileName: "tileMagic",
+        Layer: 0, 
+        Source: "images/ground.json",
+        SourceY: 0, 
+        Land: Land.Baseland
+    });
 
     var rectangles = ($('#display-wrapper').width() - 5) / 7;
     var html = "";
@@ -23,7 +31,7 @@
         if (i != 0 && i < 4)
             html += "&nbsp<button type='button' id='btnHex" + i + "' class='btn btn-success navbar-btn'><canvas id='hex" + i + "' height='" + rectangles + "' width='" + rectangles + "'></canvas></button>";
         else if (i == 0)
-            html += "&nbsp<button type='button' id='hexleftbtn' disabled='disabled' onclick='bcui.pagePrev();' class='btn btn-success navbar-btn' ><span class='fa fa-arrow-left'></span></button>";
+            html += "&nbsp<button type='button' id='hexleftbtn' onclick='bcui.pagePrev();' class='btn btn-success navbar-btn' ><span class='fa fa-arrow-left'></span></button>";
         else
             html += "&nbsp<button type='button' id='hexrightbtn' disabled='disabled' onclick='bcui.pageNext();' class='btn btn-success navbar-btn' ><span class='fa fa-arrow-right'></span></button>";
     }
@@ -33,7 +41,7 @@
     html = "&nbsp<button  type='button' id='marketBtn' class='btn btn-success navbar-btn' onclick='market.open();' ><span class='fa fa-2x fa-money'></span></button>";
     html += "&nbsp<button type='button' id='playBtn' class='btn btn-success navbar-btn' onclick='ui.changeView(View.Movement);' ><span class='fa fa-2x fa-street-view'></span></button>";
     html += "&nbsp<button type='button' id='hexTopBtn' class='btn btn-success navbar-btn'><canvas id='hexTop' height='" + rectangles + "' width='" + rectangles + "'></canvas></button>";
-    html += "&nbsp<button type='button' id='buildBtn' class='btn btn-success navbar-btn' onclick='ui.changeView(View.Building);' ><span class='fa fa-2x fa-building'></span></button>";
+    html += "&nbsp<button type='button' id='buildBtn' class='btn btn-success navbar-btn' onclick='ui.neighborWindow()' ><span class='fa fa-2x fa-building'></span></button>";
     html += "&nbsp<button type='button' id='deleteBtn' class='btn btn-success navbar-btn' onclick='delitingTool()' ><span class='fa fa-2x fa-recycle'></span></button>";
     $('#top').html(html);
 
@@ -53,39 +61,39 @@
 
     bcui.init([
         {
-            block: { TileName: "tileMagic", Layer: 0, Source: "images/build/ground.json", SourceY: 0, Land: Land.Baseland },
+            block: { TileName: "tileMagic", Layer: 0, Source: "images/buildings/ground.json", SourceY: 0, Land: Land.Baseland },
             texture: ui.texture_ground
         },
         {
-            block: { TileName: "tileMagic", Layer: 1, Source: "images/build/ground.json", SourceY: 0, Land: Land.Building },
+            block: { TileName: "tileMagic", Layer: 1, Source: "images/buildings/ground.json", SourceY: 0, Land: Land.Building },
             texture: ui.texture_ground
         },
         {
-            block: { TileName: "rockStone_moss3", Layer: 1, Source: "images/build/ground.json", SourceY: 0, Land: Land.Loft },
+            block: { TileName: "rockStone_moss3", Layer: 1, Source: "images/buildings/ground.json", SourceY: 0, Land: Land.Loft },
             texture: ui.texture_building
         },
         {
-            block: { TileName: "stoneDoorWindow", Layer: 1, Source: "images/build/building.json", SourceY: 509, Land: Land.Building },
+            block: { TileName: "stoneDoorWindow", Layer: 1, Source: "images/buildings/building.json", SourceY: 509, Land: Land.Building },
             texture: ui.texture_building
         },
         {
-            block: { TileName: "redRoofTall", Layer: 1, Source: "images/build/building.json", SourceY: 509, Land: Land.Loft },
+            block: { TileName: "redRoofTall", Layer: 1, Source: "images/buildings/building.json", SourceY: 509, Land: Land.Loft },
             texture: ui.texture_building
         },
         {
-            block: { TileName: "rockGateLeft", Layer: 1, Source: "images/build/building.json", SourceY: 509, Land: Land.Building },
+            block: { TileName: "rockGateLeft", Layer: 1, Source: "images/buildings/building.json", SourceY: 509, Land: Land.Building },
             texture: ui.texture_building
         },
         {
-            block: { TileName: "rockRing", Layer: 1, Source: "images/build/building.json", SourceY: 509, Land: Land.Building },
+            block: { TileName: "rockRing", Layer: 1, Source: "images/buildings/building.json", SourceY: 509, Land: Land.Building },
             texture: ui.texture_building
         },
         {
-            block: { TileName: "woodRoofPointy", Layer: 1, Source: "images/build/building.json", SourceY: 509, Land: Land.Loft },
+            block: { TileName: "woodRoofPointy", Layer: 1, Source: "images/buildings/building.json", SourceY: 509, Land: Land.Loft },
             texture: ui.texture_building
         },
         {
-            block: { TileName: "flowerRed", Layer: 1, Source: "images/build/ground.json", SourceY: 0, Land: Land.Roof },
+            block: { TileName: "flowerRed", Layer: 1, Source: "images/buildings/ground.json", SourceY: 0, Land: Land.Roof },
             texture: ui.texture_building
         }
     ]);
