@@ -282,11 +282,7 @@
     "cordova-plugin-inappbrowser"
   ],
   "changedFiles": [
-    "plugins\\android.json",
-    "www\\index.html",
-    "www\\scripts\\pay.js",
-    "www\\scripts\\pay.js~RF17afc5f.TMP",
-    "www\\index.html~RF17b27e2.TMP"
+    "plugins\\android.json"
   ],
   "deletedFiles": [],
   "addedPlugins": [],
