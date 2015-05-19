@@ -475,7 +475,7 @@ var ui = {
                     Y: window.innerHeight / (FieldSize.Y + 1)
                 };
             } else {
-                FieldSize = PlayerInfo.Field;
+                FieldSize = Player.Field;
                 OneBlockPosition = {
                     X: (window.innerWidth - 10) / FieldSize.X,
                     Y: window.innerHeight / (FieldSize.Y + 1)
@@ -718,7 +718,7 @@ var shex = {
     changeMode: function (viewState) {
         if (viewState == View.Movement) {
             document.querySelector('#hexTopBtn').removeEventListener('click', this.click);
-            ui.drawIcon({ TileName: "Custom", src: "data:image/png;base64," + PlayerInfo.Avatar }, this._canvas, this._canvas.width);
+            ui.drawIcon({ TileName: "Custom", src: "data:image/png;base64," + Player.Avatar }, this._canvas, this._canvas.width);
         } else if (viewState == View.Building) {
             this.texture("null");
             document.querySelector('#hexTopBtn').addEventListener('click', this.click);
@@ -732,6 +732,7 @@ var shex = {
 //Bottom interface, block of carousel
 var bcui = {
     _state: -1,
+    resetState: function () { this._state = -1;},
     _blocks: [],
     init: function (arrayOfBlocks) {
         if (Array.isArray(arrayOfBlocks))
@@ -854,7 +855,8 @@ var bcui = {
                                     Field: {
                                         X: 15,
                                         Y: 25
-                                    }
+                                    },
+                                    Login: $('#name').val()
                                 };
                                 ui.neighborData = neighbordata;
                                 ui.changeView(View.Neighbor);
@@ -898,10 +900,29 @@ var bcui = {
         if (this._state != 2) {
             this._state = 2;
             this._clearblocks();
+
             $('#hexrightbtn').attr('disabled', 'disabled');
             $('#hexleftbtn').attr('disabled', 'disabled');
-            $('#btnHex1').attr('disabled', 'disabled');
-            $('#btnHex3').attr('disabled', 'disabled');
+
+            if (Player.isFriend(ui.neighborData)) {
+                ui.drawIcon({ TileName: "Custom", src: "images/additional/unfriend.png" }, document.querySelector('#hex3'), document.querySelector('#hex3').width);
+                $('#btnHex3').click(function () {
+                    alert("sended ajax request for add player in friendly list, and then updated Player object and switches this statement");
+                    ui.neighborData.Login = "";
+                    bcui.resetState();
+                    bcui.neigbor();
+                });
+                $('#btnHex1').attr('disabled', 'disabled');
+            } else {
+                ui.drawIcon({ TileName: "Custom", src: "images/additional/friend.png" }, document.querySelector('#hex1'), document.querySelector('#hex1').width);
+                $('#btnHex1').click(function () {
+                    alert("sended ajax request for remove player from friendly list, and then updated Player object and switches this statement");
+                    ui.neighborData.Login = "james";
+                    bcui.resetState();
+                    bcui.neigbor();
+                });
+                $('#btnHex3').attr('disabled', 'disabled');
+            }
 
             ui.drawIcon({ TileName: "Custom", src: "images/additional/exit.png" }, document.querySelector('#hex2'), document.querySelector('#hex2').width);
             $('#btnHex2').click(function () {
@@ -911,6 +932,7 @@ var bcui = {
     }
 }
 
+//List of friends
 var frlist = {
     _html: "",
     _iteration: 0,
@@ -920,7 +942,7 @@ var frlist = {
     getHtml: function () {
         var html = this._html,
             size = this._size();
-        PlayerInfo.Friends.forEach(function (friend) {
+        Player.Friends.forEach(function (friend) {
             html += "&nbsp<button type='button' class='btn btn-success navbar-btn' onclick=\"frlist.click('"+friend.Login+"')\" ><img src=\"data:image/png;base64," + friend.Avatar + "\" width='" + size + "' height='" + size + "'/></button>";
         });
         return html;

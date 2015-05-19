@@ -2,7 +2,7 @@
     items: [],
     open: function () {
         bootbox.dialog({
-            title: "<img src='images/additional/gold.png' width='20' height='20'/>&nbsp" + PlayerInfo.Gold + "&nbsp&nbsp<img src='images/additional/crystal.png' width='20' height='20'/>&nbsp" + PlayerInfo.Crystal,
+            title: "<img src='images/additional/gold.png' width='20' height='20'/>&nbsp" + Player.Gold + "&nbsp&nbsp<img src='images/additional/crystal.png' width='20' height='20'/>&nbsp" + Player.Crystal,
             message:
                 "<script>var x = $('#store').wrap('<p/>').parent().html();" +
                 "$('#store').unwrap();"+            

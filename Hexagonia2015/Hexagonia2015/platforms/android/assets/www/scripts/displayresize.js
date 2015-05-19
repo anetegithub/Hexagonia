@@ -9,7 +9,7 @@
     if ((navigator.userAgent.toLowerCase().indexOf("windows phone") != -1))
         h = 640 - $('#bot').outerHeight(true) * 2
 
-    FieldSize = PlayerInfo.Field;
+    FieldSize = Player.Field;
 
     OneBlockPosition = {
         X: (window.innerWidth - 10) / FieldSize.X,
