@@ -166,24 +166,26 @@
     "www\\scripts\\ui.js~RF65f9bb.TMP",
     "www\\scripts\\ui.js~RF92985b.TMP",
     "www\\scripts\\ui.js~RF930c52.TMP",
-    "www\\scripts\\market.js~RFc6e775.TMP"
+    "www\\scripts\\market.js~RFc6e775.TMP",
+    "www\\scripts\\market.js~RFcee228.TMP",
+    "www\\scripts\\market.js~RFd18b32.TMP",
+    "www\\images\\additional\\down.png",
+    "www\\images\\additional\\right.png",
+    "www\\scripts\\market.js~RFed9bc6.TMP"
   ],
   "deletedFilesIos": [
     "www\\images\\additional\\plus.png",
-    "www\\images\\additional\\minus.png"
+    "www\\images\\additional\\minus.png",
+    "www\\images\\additional\\arrowDown.png",
+    "www\\images\\additional\\arrowRight.png"
   ],
   "addedPluginsIos": [],
   "deletedPluginsIos": [],
   "changedFiles": [
     "plugins\\android.json",
+    "www\\index.html",
     "www\\scripts\\ui.js",
-    "www\\scripts\\ui.js~RF65f9bb.TMP",
-    "www\\scripts\\ui.js~RF92985b.TMP",
-    "www\\scripts\\ui.js~RF930c52.TMP",
-    "www\\scripts\\globalVariables.js",
-    "www\\scripts\\market.js",
-    "www\\scripts\\market.js~RFc6e775.TMP",
-    "www\\index.html"
+    "www\\scripts\\displayresize.js"
   ],
   "deletedFiles": [],
   "addedPlugins": [],

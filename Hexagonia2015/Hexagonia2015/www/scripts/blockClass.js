@@ -1,6 +1,6 @@
 ﻿var sampleBlockClass = {
     TileName: "SomeName",
-    Layer: 0, //0 - fundament, 1 decorate
+    Layer: 0, //0 - fundament, 1 decorate, 2 resize, 3 background
     Source: "images/somefile.json",
     SourceY: 0, //number of plus by Y coord, cuz merged tiles have Y shift
     Land: 0

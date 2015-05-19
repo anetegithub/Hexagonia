@@ -45,6 +45,11 @@
 
                         var Size = (window.innerWidth - 5) / 7;
 
+                        if (block.Layer == 2) {
+                            block.TileName = "tileGrass";
+                            block.Source = "images/buildings/ground.json";
+                        }
+
                         var Cell = Enumerable
                             .From(sourceJson(block.Source))
                             .Where(function (xx) { if (xx.Name == block.TileName) return xx; })
@@ -63,6 +68,15 @@
                         }
 
                         tcontext.drawImage(img, Cell.X, Cell.Y + block.SourceY, Cell.Width, Cell.Height, x, y, SizeX, SizeY);
+
+                        if (block.Layer == 2) {
+                            var imgarrow = null;
+                            if (block.SourceY == 0)
+                                imgarrow = StaticImages.right;
+                            else
+                                imgarrow = StaticImages.down;
+                            tcontext.drawImage(imgarrow, 0, 0, imgarrow.width, imgarrow.height, x, y, SizeX / 2, SizeY / 2);
+                        }
 
                         var imgcur = null;
                         if (block.Currency == Currency.Gold)
@@ -184,6 +198,29 @@
                         Source: "images/buildings/ground.json",
                         SourceY: 0,
                         Land: Land.Roof,
+                        Cost: 200,
+                        Currency: 0
+                    }
+                ];
+                break;
+            }
+            case "Area": {
+                this.items = [
+                    {
+                        TileName: "",
+                        Layer: 2,
+                        Source: "",
+                        SourceY: 0,
+                        Land: -1,
+                        Cost: 15,
+                        Currency: 1
+                    },
+                    {
+                        TileName: "",
+                        Layer: 2,
+                        Source: "",
+                        SourceY: 1,
+                        Land: 0,
                         Cost: 200,
                         Currency: 0
                     }
