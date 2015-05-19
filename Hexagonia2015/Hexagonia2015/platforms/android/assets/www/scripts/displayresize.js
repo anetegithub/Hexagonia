@@ -16,6 +16,14 @@
         Y: window.innerHeight / (FieldSize.Y + 1)
     };
 
+    Player.Blocks.push({
+        TileName: "tileMagic",
+        Layer: 0, 
+        Source: "images/ground.json",
+        SourceY: 0, 
+        Land: Land.Baseland
+    });
+
     var rectangles = ($('#display-wrapper').width() - 5) / 7;
     var html = "";
     for (var i = 0; i < 5; i++) {

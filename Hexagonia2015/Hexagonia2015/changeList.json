@@ -162,7 +162,11 @@
     "www\\content\\font-awesome-4.3.0\\scss\\_stacked.scss",
     "www\\images\\additional\\friend.png",
     "www\\images\\additional\\unfriend.png",
-    "www\\scripts\\globalVariables.js~RF5a9657.TMP"
+    "www\\scripts\\globalVariables.js~RF5a9657.TMP",
+    "www\\scripts\\ui.js~RF65f9bb.TMP",
+    "www\\scripts\\ui.js~RF92985b.TMP",
+    "www\\scripts\\ui.js~RF930c52.TMP",
+    "www\\scripts\\market.js~RFc6e775.TMP"
   ],
   "deletedFilesIos": [
     "www\\images\\additional\\plus.png",
@@ -172,18 +176,16 @@
   "deletedPluginsIos": [],
   "changedFiles": [
     "plugins\\android.json",
-    "www\\images\\additional\\friend.png",
-    "www\\images\\additional\\unfriend.png",
-    "www\\scripts\\globalVariables.js",
-    "www\\scripts\\globalVariables.js~RF5a9657.TMP",
     "www\\scripts\\ui.js",
-    "www\\scripts\\displayresize.js",
-    "www\\scripts\\market.js"
+    "www\\scripts\\ui.js~RF65f9bb.TMP",
+    "www\\scripts\\ui.js~RF92985b.TMP",
+    "www\\scripts\\ui.js~RF930c52.TMP",
+    "www\\scripts\\globalVariables.js",
+    "www\\scripts\\market.js",
+    "www\\scripts\\market.js~RFc6e775.TMP",
+    "www\\index.html"
   ],
-  "deletedFiles": [
-    "www\\images\\additional\\plus.png",
-    "www\\images\\additional\\minus.png"
-  ],
+  "deletedFiles": [],
   "addedPlugins": [],
   "deletedPlugins": []
 }

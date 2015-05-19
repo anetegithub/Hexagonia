@@ -78,5 +78,16 @@ var Player = {
             return true;
         else
             return false;
+    },
+    ishaveBlock: function (block) {
+        var candidate = Enumerable
+            .From(this.Blocks)
+            .Where(function (x) { if (x.TileName == block.TileName && x.Layer == block.Layer) return x; })
+            .Select(function (x) { return x; })
+            .ToArray();
+        if (candidate.length > 0)
+            return true;
+        else
+            return false;
     }
 }
