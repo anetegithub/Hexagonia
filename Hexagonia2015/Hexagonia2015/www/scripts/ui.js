@@ -13,11 +13,14 @@ var StaticImages = {
     crystal: new Image(),
     right: new Image(),
     down: new Image(),
+    check: new Image(),
     load: function () {
         this.gold.onload = function () { };
         this.crystal.onload = function () { };
         this.right.onload = function () { };
         this.down.onload = function () { };
+        this.check.onload = function () { };
+        this.check.src = "images/additional/check.png";
         this.gold.src = "images/additional/gold.png";
         this.crystal.src = "images/additional/crystal.png";
         this.down.src = "images/additional/down.png";

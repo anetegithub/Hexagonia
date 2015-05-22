@@ -1,0 +1,1 @@
+﻿var Str: String = "Hello world!";

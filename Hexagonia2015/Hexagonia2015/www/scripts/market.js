@@ -2,6 +2,7 @@
     items: [],
     open: function () {
         bootbox.dialog({
+            closeButton: false,
             title: "<img src='images/additional/gold.png' width='20' height='20'/>&nbsp" + Player.Gold + "&nbsp&nbsp<img src='images/additional/crystal.png' width='20' height='20'/>&nbsp" + Player.Crystal,
             message:
                 "<script>var x = $('#store').wrap('<p/>').parent().html();" +
@@ -19,6 +20,7 @@
                     label: "Back",
                     className: "btn-success",
                     callback: function () {
+                        market.itemsClear();
                     }
                 }
             }
@@ -26,14 +28,21 @@
     },
     _setItems: function () {
         var html = "",
-            id = 0;
-        this.items.forEach(function (block) {
+            id = 0,
+            backBtn = "<button data-bb-handler='success' type='button' class='btn btn-success'>Back</button>",
+            buyBtn = "<button type='button' onclick='market.checkout();' class='btn btn-success'>Checkout</button>";
 
+        if (this._forBuy.length == 0)
+            $('.modal-footer').html(backBtn);
+        else
+            $('.modal-footer').html(buyBtn + backBtn);
+
+        this.items.forEach(function (block) {
             if (!Player.ishaveBlock(block)) {
 
                 var sze = (window.innerWidth - 5) / 7;
 
-                html += "&nbsp<button type='button' class='btn btn-success navbar-btn' onclick='market.buyItem(" + market.items.indexOf(block) + ")' ><img id='marketitemimg" + id + "' width='" + sze + "' height='" + sze + "'/></button>";
+                html += "&nbsp<button type='button' class='btn btn-success navbar-btn' ><img id='marketitemimg" + id + "' width='" + sze + "' height='" + sze + "'/></button>";
                 img = new Image();
                 img.src = "images/buildings/merged.png";
                 var some = (function (idd) {
@@ -78,6 +87,9 @@
                             tcontext.drawImage(imgarrow, 0, 0, imgarrow.width, imgarrow.height, x, y, SizeX / 2, SizeY / 2);
                         }
 
+                        if (market.itemChecked(block))
+                            tcontext.drawImage(StaticImages.check, 0, 0, StaticImages.check.width, StaticImages.check.height, x + ((SizeX + Cell.Width) / 3.5), 2, Size / 3, Size / 3);
+
                         var imgcur = null;
                         if (block.Currency == Currency.Gold)
                             imgcur = StaticImages.gold;
@@ -91,22 +103,51 @@
                         tcontext.fillText(block.Cost, Size - ((Size / 3) + (costlenght)), Size - (Size / 3) + 14);
 
                         $('#marketitemimg' + idd.toString()).attr('src', tcanvas.toDataURL());
-                        //buy here
+                        $('#marketitemimg' + idd.toString()).click(function () {
+                            market.buyItem(idd);
+                        });
                     }
                 })(id);
                 img.onload = function () {
                     some();
                 }
-                id++;
             }
+            id++;
         });
         $('#marketitems').html(html);
     },
-    updItems:function(){
+    updItems: function () {
         this._setItems();
     },
+    _forBuy: [],
+    itemsClear: function () {
+        this._forBuy = [];
+    },
+    itemChecked: function (item) {
+        var check = Enumerable
+            .From(this._forBuy)
+            .Where(function (x) { if (x.TileName == item.TileName) return x; })
+            .Select(function (x) { return x; })
+            .ToArray();
+        if (check.length == 0)
+            return false;
+        else
+            return true;
+    },
     buyItem: function (index) {
+        var block = this.items[index],
+            check = Enumerable
+                .From(this._forBuy)
+                .Where(function (x) { if (x.TileName == block.TileName) return x; })
+                .Select(function (x) { return x; })
+                .ToArray();
 
+        if (check.length == 0)
+            this._forBuy.push(block);
+        else
+            this._forBuy.splice(this._forBuy.indexOf(check[0]), 1);
+
+        this.updItems();
     },
     updateItems: function () {
         //ajax load items by selected
@@ -173,7 +214,7 @@
                         TileName: "rockDirt",
                         Layer: 1,
                         Source: "images/buildings/ground.json",
-                        SourceY:  0,
+                        SourceY: 0,
                         Land: Land.Loft,
                         Cost: 200,
                         Currency: 0
@@ -229,7 +270,26 @@
             }
         }
         this._setItems();
-    }
+    },
+    checkout: function () {
+        var gold = 0,
+            crystal = 0;
+
+        this._forBuy.forEach(function (block) {
+            if (block.Currency == Currency.Gold)
+                gold += block.Cost;
+            else
+                crystal += block.Cost;
+        });
+
+        bootbox.confirm("From your account will be debited <strong style='color: orange;'>" + gold + " gold</strong> and <strong style='color: DeepSkyBlue'>" + crystal + " crystals</strong>", function (result) {
+            if (!result)
+                market.open();
+            else {
+                
+            }
+        });
+    },
 }
 
 var Currency = {
