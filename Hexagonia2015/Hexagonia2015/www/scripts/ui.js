@@ -5,7 +5,8 @@
 var View = {
     Movement: 0,
     Building: 1,
-    Neighbor: 2
+    Neighbor: 2,
+    Campagin: 3
 }
 
 var StaticImages = {
@@ -727,6 +728,8 @@ var ui = {
             BuildingTime = false;
             bcui.neigbor();
             this.map.draw(this.neighborData.Map);
+        } else if (viewType == View.Campagin) {
+            campw.run();
         }
     },
     _UiEnabled: function (enabled) {
@@ -883,6 +886,9 @@ var bcui = {
             });
             $('#btnHex2').click(function () {
                 ui.changeView(View.Building);                
+            });
+            $('#btnHex1').click(function () {
+                ui.changeView(View.Campagin);
             });
         }
     },

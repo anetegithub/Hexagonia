@@ -13,6 +13,7 @@
         document.addEventListener( 'resume', onResume.bind( this ), false );
         
         StaticImages.load();
+
         // TODO: Cordova has been loaded. Perform any initialization that requires Cordova here.
     };
 
@@ -38,15 +39,7 @@ $(document).ready(function () {
     cl.setRange(1); // default is 1.3
     cl.setFPS(20); // default is 24
     cl.show(); // Hidden by default
-
-    ////var some = new Media("/android_asset/www/images/sounds/theme.np3");
-    ////some.play();
-
-    //aud.enabled_music = false;
-
-    //aud.maintheme();
-    //aud.play_song();
-
+    
 });
 
 function playAudio(src) {
