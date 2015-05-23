@@ -9,6 +9,7 @@
                 "$('#store').unwrap();" +
                 "x=x.replace('store','market');" +
                 "x=x.replace('storeitems','marketitems');" +
+                "x=x.replace('storeAlert','marketAlert');" +
                 "x=x.replace('storeItemTypesList','marketItemTypesList');" +
                 "$('#market_wrapper').html(x);" +
                 "$('#market').css('display','block');" +
@@ -96,11 +97,11 @@
                         else if (block.Currency == Currency.Crystal)
                             imgcur = StaticImages.crystal;
 
-                        var costlenght = (block.Cost.toString().length * 10);
+                        var costlenght = (block.Cost.toString().length * ((Size / 2.3)/2));
 
-                        tcontext.font = "18px Arial";
+                        tcontext.font = (Size/2.5).toString()+"px Arial";
                         tcontext.drawImage(imgcur, 0, 0, imgcur.width, imgcur.height, Size - (Size / 3), Size - (Size / 3), Size / 3, Size / 3);
-                        tcontext.fillText(block.Cost, Size - ((Size / 3) + (costlenght)), Size - (Size / 3) + 14);
+                        tcontext.fillText(block.Cost, Size - ((Size / 3) + (costlenght)), Size - (Size / 3) + ((Size/2.5)/1.3));
 
                         $('#marketitemimg' + idd.toString()).attr('src', tcanvas.toDataURL());
                         $('#marketitemimg' + idd.toString()).click(function () {
@@ -184,7 +185,7 @@
                         Source: "images/buildings/building.json",
                         SourceY: 509,
                         Land: Land.Building,
-                        Cost: 15,
+                        Cost: 500,
                         Currency: 1
                     },
                     {
@@ -286,10 +287,19 @@
             if (!result)
                 market.open();
             else {
-                
+                if (Player.Gold < gold || Player.Crystal < crystal) {                    
+                    market.open();
+                    market.alert();
+                }
             }
         });
     },
+    _alertHtml: "<div class='alert alert-warning alert-dismissible' role='alert'>" +
+  "<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button>" +
+  "<strong>Attention!</strong> You don't have enough resources for buying this items... <a>Do you want to buy?</a></div>",
+    alert: function () {
+        $('#marketAlert').html(this._alertHtml);
+    }
 }
 
 var Currency = {
