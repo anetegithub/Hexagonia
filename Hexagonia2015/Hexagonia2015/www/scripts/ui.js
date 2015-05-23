@@ -872,7 +872,14 @@ var bcui = {
             shex.changeMode(View.Movement);
 
             $('#btnHex3').click(function () {
-                navigator.app.exitApp();
+                $('#index').css('display', 'block');
+                $('#main').css('display', 'none');
+                try{
+                    navigator.app.exitApp();
+                }
+                catch (e) {
+                    alert(e.message);
+                }
             });
             $('#btnHex2').click(function () {
                 ui.changeView(View.Building);                
