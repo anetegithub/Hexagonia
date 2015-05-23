@@ -1,6 +1,5 @@
 {
   "changedFilesIos": [
-    "www\\scripts\\firstblood.ts",
     "www\\Icon.png",
     "www\\content\\bootstrap-theme.css.map",
     "www\\content\\font-awesome-4.3.0\\less\\font-awesome.less",
@@ -171,15 +170,29 @@
     "www\\content\\font-awesome-4.3.0\\scss\\_stacked.scss",
     "www\\scripts\\pay.js"
   ],
-  "deletedFilesIos": [],
+  "deletedFilesIos": [
+    "www\\scripts\\Layer.ts",
+    "www\\scripts\\Block.ts",
+    "www\\scripts\\Land.ts",
+    "www\\scripts\\firstblood.ts",
+    "www\\scripts\\compileTS.bat",
+    "www\\scripts\\Block.js",
+    "www\\scripts\\Land.js",
+    "www\\scripts\\firstblood.js",
+    "www\\scripts\\Layer.js"
+  ],
   "addedPluginsIos": [],
   "deletedPluginsIos": [],
   "changedFiles": [
-    "www\\scripts\\appBundle.js.map",
-    "www\\scripts\\appBundle.js",
     "plugins\\android.json"
   ],
-  "deletedFiles": [],
+  "deletedFiles": [
+    "www\\scripts\\compileTS.bat",
+    "www\\scripts\\Block.js",
+    "www\\scripts\\Land.js",
+    "www\\scripts\\firstblood.js",
+    "www\\scripts\\Layer.js"
+  ],
   "addedPlugins": [],
   "deletedPlugins": []
 }
