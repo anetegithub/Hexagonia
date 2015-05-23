@@ -152,7 +152,8 @@
     "res\\screens\\android\\screen-mdpi-portrait.png",
     "www\\content\\font-awesome-4.3.0\\scss\\_stacked.scss",
     "www\\scripts\\pay.js",
-    "www\\index.html~RF86b176.TMP"
+    "www\\index.html~RF86b176.TMP",
+    "www\\scripts\\market.js~RF9341c3.TMP"
   ],
   "deletedFilesIos": [
     "www\\scripts\\linq-vsdoc.js",
@@ -176,8 +177,10 @@
   "changedFiles": [
     "plugins\\android.json",
     "www\\scripts\\market.js",
-    "www\\index.html",
-    "www\\index.html~RF86b176.TMP"
+    "www\\scripts\\ui.js",
+    "www\\scripts\\displayresize.js",
+    "www\\scripts\\blockClass.js",
+    "www\\index.html"
   ],
   "deletedFiles": [],
   "addedPlugins": [],

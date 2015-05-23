@@ -287,18 +287,37 @@
             if (!result)
                 market.open();
             else {
-                if (Player.Gold < gold || Player.Crystal < crystal) {                    
+                if (Player.Gold < gold || Player.Crystal < crystal) {
                     market.open();
                     market.alert();
-                }
+                } else
+                    market.buy(gold,crystal);
             }
         });
     },
     _alertHtml: "<div class='alert alert-warning alert-dismissible' role='alert'>" +
   "<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button>" +
-  "<strong>Attention!</strong> You don't have enough resources for buying this items... <a>Do you want to buy?</a></div>",
+  "<strong>Attention!</strong> You don't have enough resources for buying this items... <a onclick='market.opencard();'>Do you want to buy?</a></div>",
     alert: function () {
         $('#marketAlert').html(this._alertHtml);
+    },
+    buy: function (gold, crystal) {
+        loading.show();
+        alert('send ajax to server with gold,crystal,blockarray values, show loader,when end get new player_values, result will be:');
+        $.ajax({}).done(function () {
+            loading.hide();
+        });
+        
+        var newgold = Player.Gold - gold,
+            newcryst = Player.Crystal - crystal;
+        Player.Gold = newgold;
+        Player.Crystal = newcryst;
+        Player.Blocks = Player.Blocks.concat(this._forBuy);
+        bcui.init(Player.Blocks);
+        this.itemsClear();
+    },
+    opencard: function () {
+        alert('open card form, then send to server using ajax, start loading, when server end up, or ~min show result');
     }
 }
 

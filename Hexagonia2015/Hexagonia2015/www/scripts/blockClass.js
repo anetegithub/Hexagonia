@@ -1,5 +1,4 @@
 ﻿var sampleBlockClass = {
-    Name: "",
     TileName: "SomeName",
     Layer: 0, //0 - fundament, 1 decorate, 2 resize, 3 background
     Source: "images/somefile.json",
