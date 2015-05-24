@@ -151,38 +151,31 @@
     "res\\icons\\windows\\Square44x44Logo.scale-240.png",
     "res\\screens\\android\\screen-mdpi-portrait.png",
     "www\\content\\font-awesome-4.3.0\\scss\\_stacked.scss",
-    "www\\scripts\\pay.js",
-    "www\\index.html~RF86b176.TMP",
-    "www\\scripts\\market.js~RF9341c3.TMP"
+    "www\\scripts\\pay.js"
   ],
   "deletedFilesIos": [
-    "www\\scripts\\linq-vsdoc.js",
-    "www\\content\\bootstrap-theme.css.map",
-    "www\\content\\bootstrap.min.css",
-    "www\\content\\bootstrap-theme.css",
-    "www\\scripts\\heartcode-canvasloader-min.js",
-    "www\\scripts\\jquery.linq.js",
-    "www\\scripts\\db.js",
-    "www\\scripts\\bootstrap.min.js",
-    "www\\scripts\\jquery.linq-vsdoc.js",
-    "www\\content\\bootstrap.css.map",
-    "www\\scripts\\jquery-1.9.1.min.js",
-    "www\\content\\bootstrap-theme.min.css",
-    "www\\scripts\\jquery.linq.min.js",
-    "www\\scripts\\xml2json.js",
-    "www\\scripts\\linq.min.js"
+    "www\\images\\enemy.png",
+    "www\\images\\additional\\fRed.png",
+    "www\\scripts\\campagin.js",
+    "www\\images\\additional\\fGreen.png",
+    "www\\images\\additional\\fBlue.png",
+    "www\\images\\additional\\fYellow.png"
   ],
   "addedPluginsIos": [],
   "deletedPluginsIos": [],
   "changedFiles": [
     "plugins\\android.json",
-    "www\\scripts\\market.js",
-    "www\\scripts\\ui.js",
-    "www\\scripts\\displayresize.js",
     "www\\scripts\\blockClass.js",
-    "www\\index.html"
+    "www\\scripts\\index.js"
   ],
-  "deletedFiles": [],
+  "deletedFiles": [
+    "www\\images\\enemy.png",
+    "www\\images\\additional\\fRed.png",
+    "www\\scripts\\campagin.js",
+    "www\\images\\additional\\fGreen.png",
+    "www\\images\\additional\\fBlue.png",
+    "www\\images\\additional\\fYellow.png"
+  ],
   "addedPlugins": [],
   "deletedPlugins": []
 }
