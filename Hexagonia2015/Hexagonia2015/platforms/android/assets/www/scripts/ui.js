@@ -307,27 +307,12 @@ var ui = {
                     preContent.fillStyle = "#000000";
                     preContent.font = "bold 15px Arial";
 
-                    if (block.Cost == undefined || block.Cost == 0) {
-                        var sign = "";
-                        switch (block.Land) {
-                            case 0: { sign = "B"; break; }
-                            case 1: { sign = "D"; break; }
-                            case 2: { sign = "L"; break; }
-                            case 3: { sign = "R"; break; }
-                        }
-                    } else {
-                        //var img = null;
-                        //if (block.Currency == Currency.Gold)
-                        //    img = StaticImages.gold;
-                        //else if (block.Currency == Currency.Crystal)
-                        //    img = StaticImages.crystal;
-
-                        //preContent.strokeStyle = "arial 10px #FFF";
-                        //preContent.drawImage(img, 0, 0, img.width, img.height, Size - (Size / 3), Size - (Size / 3), Size / 3, Size / 3);
-                        //preContent.strokeText(block.Cost, (Size - (Size / 3)) - (block.Cost.toString().length * 10), Size / 3);
-                        //content = Canvas.getContext('2d');
-                        //content.drawImage(preCanvas, 0, 0);                        
-
+                    var sign = "";
+                    switch (block.Land) {
+                        case 0: { sign = "B"; break; }
+                        case 1: { sign = "D"; break; }
+                        case 2: { sign = "L"; break; }
+                        case 3: { sign = "R"; break; }
                     }
 
                     preContent.fillText(sign, SizeY - 10, 15);
@@ -816,28 +801,19 @@ var bcui = {
     resetState: function () { this._state = -1;},
     _blocks: [],
     init: function (arrayOfBlocks) {
+        var temporary = this._blocks;
+        this._blocks = [];
         if (Array.isArray(arrayOfBlocks))
             for (var i = 0; i < arrayOfBlocks.length; i++) {
-                if (ObjectValidator.Validate(arrayOfBlocks[i], { block: sampleBlockClass, texture: "" })) {
+                if (ObjectValidator.Validate(arrayOfBlocks[i], sampleBlockClass)) {
+                    temporary = [];
                     this._blocks.push(arrayOfBlocks[i]);
                 }
             }
         if (this._blocks.length > 3)
             $('#hexrightbtn').removeAttr('disabled');
-    },
-    changeBlock: function (position, TileName, texture) {
-        if (this._blocks[position] != undefined) {
-            if (texture == ui.texture_building || texture == ui.texture_ground) {
-                this._blocks[position].TileName = TileName;
-                this._blocks[position].texture = texture;
-            }
-        }
-    },
-    addBlock: function (newBlock) {
-        if (ObjectValidator.Validate(block, { TileName: "", texture: "" })) {
-            newBlock.id = this._blocks.length;
-            _blocks.push(newBlock);
-        }
+        if (temporary.length != 0)
+            this._blocks = temporary;
     },
     getBlock: function (position) {
         return this._blocks[position];
@@ -857,13 +833,14 @@ var bcui = {
             if (this._blocks[i] != undefined) {
 
                 var selector = '#hex' + (j + 1);
-                ui.drawIcon(this._blocks[i].block, document.querySelector(selector), document.querySelector(selector).width);
+                var block = this._blocks[i];
+                ui.drawIcon(block, document.querySelector(selector), document.querySelector(selector).width);
                 selector = '#btnHex' + (j + 1);
 
                 $(selector).click((function (x) {
                     return function () {
                         var block = bcui.getBlock(x);
-                        shex.texture(block.block);
+                        shex.texture(block);
                     }
                 })(i));
             } else
