@@ -151,7 +151,9 @@
     "res\\icons\\windows\\Square44x44Logo.scale-240.png",
     "res\\screens\\android\\screen-mdpi-portrait.png",
     "www\\content\\font-awesome-4.3.0\\scss\\_stacked.scss",
-    "www\\scripts\\pay.js",
+    "www\\scripts\\pay.js"
+  ],
+  "deletedFilesIos": [
     "www\\images\\enemy.png",
     "www\\images\\additional\\fRed.png",
     "www\\scripts\\campagin.js",
@@ -159,14 +161,14 @@
     "www\\images\\additional\\fBlue.png",
     "www\\images\\additional\\fYellow.png"
   ],
-  "deletedFilesIos": [],
   "addedPluginsIos": [],
   "deletedPluginsIos": [],
   "changedFiles": [
     "plugins\\android.json",
-    "www\\index.html",
     "www\\scripts\\blockClass.js",
-    "www\\scripts\\index.js",
+    "www\\scripts\\index.js"
+  ],
+  "deletedFiles": [
     "www\\images\\enemy.png",
     "www\\images\\additional\\fRed.png",
     "www\\scripts\\campagin.js",
@@ -174,7 +176,6 @@
     "www\\images\\additional\\fBlue.png",
     "www\\images\\additional\\fYellow.png"
   ],
-  "deletedFiles": [],
   "addedPlugins": [],
   "deletedPlugins": []
 }
