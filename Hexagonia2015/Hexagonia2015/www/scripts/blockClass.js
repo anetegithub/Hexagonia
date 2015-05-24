@@ -6,7 +6,8 @@
     SourceY: 0, //number of plus by Y coord, cuz merged tiles have Y shift
     Land: 0,
     Cost: 50,
-    Currency: 0
+    Currency: 0,
+    State: 0
 };
 
 var Land = {

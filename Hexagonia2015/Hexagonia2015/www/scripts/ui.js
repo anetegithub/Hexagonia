@@ -15,12 +15,18 @@ var StaticImages = {
     right: new Image(),
     down: new Image(),
     check: new Image(),
+    flagRed: new Image(),
+    flagGreen: new Image(),
     load: function () {
         this.gold.onload = function () { };
         this.crystal.onload = function () { };
         this.right.onload = function () { };
         this.down.onload = function () { };
         this.check.onload = function () { };
+        this.flagGreen.onload = function () { };
+        this.flagRed.onload = function () { };
+        this.flagRed.src = "images/additional/fRed.png";
+        this.flagGreen.src = "images/additional/fGreen.png";
         this.check.src = "images/additional/check.png";
         this.gold.src = "images/additional/gold.png";
         this.crystal.src = "images/additional/crystal.png";
@@ -537,6 +543,7 @@ var ui = {
             return true;
         },
         cellArray: [],          // see sampleTileInfoClass
+        afterDraw:function(){ },
         draw: function (cellArray) {
             if (ui.currentView == View.Neighbor) {
                 FieldSize = ui.neighborData.Field;
@@ -658,6 +665,8 @@ var ui = {
                 });
 
                 dContent.drawImage(preCanvas, 0, 0);
+
+                ui.map.afterDraw();
             }
             ui.drawOnPictureMerged(drawing);
         },
@@ -891,6 +900,16 @@ var bcui = {
                 ui.changeView(View.Campagin);
             });
         }
+    },
+    campagin: function(){
+        $("#btnHex2").unbind("click");
+        $('#btnHex2').click(function () {
+            ui.map.afterDraw = function () { };
+            ui.changeView(View.Movement);
+            $('#btnHex2').click(function () {
+                ui.changeView(View.Building);
+            });
+        });
     },
     build: function () {
         if (this._state != 1) {
