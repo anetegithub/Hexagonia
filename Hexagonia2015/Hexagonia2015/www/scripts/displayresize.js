@@ -23,8 +23,11 @@
         SourceY: 0, 
         Land: Land.Baseland,
         Cost:0,
-        Currency:0
+        Currency: 0,
+        State:0
     });
+
+
 
     var rectangles = ($('#display-wrapper').width() - 5) / 7;
     var html = "";
@@ -62,44 +65,6 @@
     shex.init();
 
     bcui.init(Player.Blocks);
-    //bcui.init([
-    //    {
-    //        block: { TileName: "tileMagic", Layer: 0, Source: "images/buildings/ground.json", SourceY: 0, Land: Land.Baseland },
-    //        texture: ui.texture_ground
-    //    },
-    //    {
-    //        block: { TileName: "tileMagic", Layer: 1, Source: "images/buildings/ground.json", SourceY: 0, Land: Land.Building },
-    //        texture: ui.texture_ground
-    //    },
-    //    {
-    //        block: { TileName: "rockStone_moss3", Layer: 1, Source: "images/buildings/ground.json", SourceY: 0, Land: Land.Loft },
-    //        texture: ui.texture_building
-    //    },
-    //    {
-    //        block: { TileName: "stoneDoorWindow", Layer: 1, Source: "images/buildings/building.json", SourceY: 509, Land: Land.Building },
-    //        texture: ui.texture_building
-    //    },
-    //    {
-    //        block: { TileName: "redRoofTall", Layer: 1, Source: "images/buildings/building.json", SourceY: 509, Land: Land.Loft },
-    //        texture: ui.texture_building
-    //    },
-    //    {
-    //        block: { TileName: "rockGateLeft", Layer: 1, Source: "images/buildings/building.json", SourceY: 509, Land: Land.Building },
-    //        texture: ui.texture_building
-    //    },
-    //    {
-    //        block: { TileName: "rockRing", Layer: 1, Source: "images/buildings/building.json", SourceY: 509, Land: Land.Building },
-    //        texture: ui.texture_building
-    //    },
-    //    {
-    //        block: { TileName: "woodRoofPointy", Layer: 1, Source: "images/buildings/building.json", SourceY: 509, Land: Land.Loft },
-    //        texture: ui.texture_building
-    //    },
-    //    {
-    //        block: { TileName: "flowerRed", Layer: 1, Source: "images/buildings/ground.json", SourceY: 0, Land: Land.Roof },
-    //        texture: ui.texture_building
-    //    }
-    //]);
 
     bcui.menu();
 }

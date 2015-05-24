@@ -56,7 +56,6 @@
                         var Size = (window.innerWidth - 5) / 7;
 
                         if (block.Layer == 2) {
-                            block.TileName = "tileGrass";
                             block.Source = "images/buildings/ground.json";
                         }
 
@@ -163,7 +162,7 @@
                         SourceY: 0,
                         Land: 0,
                         Cost: 50,
-                        Currency: 0
+                        Currency: 0, State: 0
                     },
                     {
                         TileName: "tileLava",
@@ -172,7 +171,7 @@
                         SourceY: 0,
                         Land: 0,
                         Cost: 2,
-                        Currency: 1
+                        Currency: 1, State: 0
                     }
                 ];
                 break;
@@ -186,7 +185,7 @@
                         SourceY: 509,
                         Land: Land.Building,
                         Cost: 500,
-                        Currency: 1
+                        Currency: 1, State: 0
                     },
                     {
                         TileName: "woodDoorRight",
@@ -195,7 +194,7 @@
                         SourceY: 509,
                         Land: Land.Building,
                         Cost: 200,
-                        Currency: 0
+                        Currency: 0, State: 0
                     }
                 ];
                 break;
@@ -209,7 +208,7 @@
                         SourceY: 509,
                         Land: Land.Loft,
                         Cost: 15,
-                        Currency: 1
+                        Currency: 1, State: 0
                     },
                     {
                         TileName: "rockDirt",
@@ -218,7 +217,7 @@
                         SourceY: 0,
                         Land: Land.Loft,
                         Cost: 200,
-                        Currency: 0
+                        Currency: 0, State: 0
                     }
                 ];
                 break;
@@ -232,7 +231,7 @@
                         SourceY: 0,
                         Land: Land.Roof,
                         Cost: 15,
-                        Currency: 1
+                        Currency: 1, State: 0
                     },
                     {
                         TileName: "flowerYellow",
@@ -241,7 +240,7 @@
                         SourceY: 0,
                         Land: Land.Roof,
                         Cost: 200,
-                        Currency: 0
+                        Currency: 0, State: 0
                     }
                 ];
                 break;
@@ -249,22 +248,22 @@
             case "Area": {
                 this.items = [
                     {
-                        TileName: "",
+                        TileName: "tileGrass",
                         Layer: 2,
                         Source: "",
                         SourceY: 0,
                         Land: -1,
                         Cost: 15,
-                        Currency: 1
+                        Currency: 1, State: 0
                     },
                     {
-                        TileName: "",
+                        TileName: "tileMagic",
                         Layer: 2,
                         Source: "",
                         SourceY: 1,
                         Land: 0,
                         Cost: 200,
-                        Currency: 0
+                        Currency: 0, State: 0
                     }
                 ];
                 break;

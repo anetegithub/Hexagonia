@@ -112,6 +112,12 @@ var ui = {
                         ui.neighborData = neighbordata;
                         ui.changeView(View.Neighbor);
                     }
+                },
+                back: {
+                    label: "Back",
+                    className: "btn-success",
+                    callback: function () {
+                    }
                 }
             }
         });
@@ -881,6 +887,7 @@ var bcui = {
     campagin: function(){
         $("#btnHex2").unbind("click");
         $('#btnHex2').click(function () {
+            CampaginTime = false;
             ui.map.afterDraw = function () { };
             ui.changeView(View.Movement);
             $('#btnHex2').click(function () {
