@@ -13,8 +13,8 @@ var timer = {
     sad: 0,
     suka:0,
     enable: function (date) {
-        target_date = date;        
-        this._timerId = setInterval(function () {            
+        target_date = date;
+        this._timerId = setInterval(function () {
             var current_date = new Date().getTime();
             var seconds_left = (target_date - current_date) / 1000;
             days = parseInt(seconds_left / 86400);
@@ -29,14 +29,19 @@ var timer = {
                '<span class="hours">' + (hours >= 10 ? hours.toString() : "0" + hours.toString()) + ':</span>' +
                '<span class="minutes">' + (min >= 10 ? min.toString() : "0" + min.toString()) + ':</span>' +
                '<span class="seconds">' + (sec >= 10 ? sec.toString() : "0" + sec.toString()) + '</span>');
-            
+
             timer.godwhy = timer.totalseconds - seconds_left;
             var percent = timer.godwhy / timer.totalseconds;
             percent *= 100;
+
+
             $(".progress-bar").css("width", percent.toString() + "%").attr("aria-valuenow", percent.sad);
-                            //$('#progress-bar-expedition').css('width', timer.sad + '%');
-                timer.sad++;
-                //$('#progress-bar-expedition').html($('#progress-bar-expedition').css('width'));            
+            timer.sad++;
+            if (percent >= 100 || percent < 0) {
+                campw.now_close();
+                bootbox.hideAll();
+                campw.upd_location();
+            }
         }, ms_step);
     },
     disable: function () {

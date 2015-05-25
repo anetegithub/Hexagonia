@@ -1,5 +1,10 @@
 ﻿var campw = {
     location: [],
+    upd_location: function () {
+        alert('ajax to server for update location');
+        this.location[1].Base.State = Process.End;
+        ui.map.draw(this.location);
+    },
     run: function () {
         var centerX = Math.floor(Player.Field.X / 2),
             centerY = Math.floor(Player.Field.Y / 2);
@@ -180,10 +185,10 @@
                                         State: 0
                                     }
                                 };
-                                data.IsBlock = false;
-                                data.IsGold = false;
-                                data.IsCrystal = true;
-                                data.Data = 50;
+                                //data.IsBlock = false;
+                                //data.IsGold = false;
+                                //data.IsCrystal = true;
+                                //data.Data = 50;
 
                                 campw.reward_data = data;
 
@@ -192,7 +197,7 @@
                                 loading.hide();
                                 var box = bootbox.dialog({
                                     closeButton: false,
-                                    title: "<div class='text-center'>Reward</label><script>$('.modal-footer').html(\"<div class='text-center'><button class='btn btn-success form-control'>Ok</button></div>\");",
+                                    title: "<div class='text-center'>Reward</label><script>$('.modal-footer').html(\"<div class='text-center'><button class='btn btn-success form-control' onclick='campw.reward_get();'>Ok</button></div>\");",
                                     message: "<div class='text-center'><canvas id='rewardcanvas' width='" + size.toString() + "' height='" + size.toString() + "'></canvas><script>campw.reward();</script></div>",
                                     buttons: { success: { label: "Ok", className: "btn-success", callback: function () { } } }
                                 });
@@ -208,16 +213,16 @@
                                     Day: 24,
                                     Month: 5,
                                     Year: 2015,
-                                    Hour: 22,
-                                    Minutes: 40,
+                                    Hour: 12,
+                                    Minutes: 32,
                                     Seconds: 0,
-                                    Total:240
+                                    Total:20
                                 };
                                 var myDate = new Date(data.Year, data.Month, data.Day, data.Hour, data.Minutes, data.Seconds);                                
                                 var bar = "<div class='progress'><div id='progress-bar-expedition' class='progress-bar' role='progressbar' aria-valuenow='0' aria-valuemin='0' aria-valuemax='100' style='width:0%;color:black;background-color:#ffd800'></div></div>";
                                 var box = bootbox.dialog({
                                     closeButton: false,
-                                    title: "<div class='text-center'>Expedition</label><script>$('.modal-footer').html(\"<div class='text-center'><button class='btn btn-success form-control'>Ok</button></div>\");",
+                                    title: "<div class='text-center'>Expedition</label><script>$('.modal-footer').html(\"<div class='text-center'><button class='btn btn-success form-control' onclick='campw.now_close();'>Ok</button></div>\");",
                                     message: "<div class='row'><div class='col-md-6'>" + bar + "</div></div><div class='row'><div class='col-md-6'><div id='countdown' class='text-center'></div></div>",
                                     buttons: { success: { label: "Ok", className: "btn-success", callback: function () { } } }
                                 });
@@ -238,7 +243,10 @@
             });
         }
     },
-    now_data:null,
+    now_data: null,
+    now_close:function(){
+        timer.disable();
+    },
     reward_data:null,
     reward: function(){
         var img = new Image(),
@@ -292,6 +300,17 @@
             script();
         }
 
+    },
+    reward_get:function(){
+        if (this.reward_data.IsGold)
+            Player.Gold += this.reward_data.Data;
+        else if (this.reward_data.IsCrystal)
+            Player.Crystal += this.reward_data.Data;
+        else if (this.reward_data.IsBlock) {
+            Player.Blocks.push(this.reward_data.Data);
+            bcui.init(Player.Blocks);
+        }
+        this.upd_location();
     },
     _draw: {
         pins: function () {
