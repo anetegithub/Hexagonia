@@ -216,9 +216,9 @@
                                     Hour: 12,
                                     Minutes: 32,
                                     Seconds: 0,
-                                    Total:20
+                                    Total: 20
                                 };
-                                var myDate = new Date(data.Year, data.Month, data.Day, data.Hour, data.Minutes, data.Seconds);                                
+                                var myDate = new Date(data.Year, data.Month, data.Day, data.Hour, data.Minutes, data.Seconds);
                                 var bar = "<div class='progress'><div id='progress-bar-expedition' class='progress-bar' role='progressbar' aria-valuenow='0' aria-valuemin='0' aria-valuemax='100' style='width:0%;color:black;background-color:#ffd800'></div></div>";
                                 var box = bootbox.dialog({
                                     closeButton: false,
@@ -233,7 +233,46 @@
                                     }
                                 });
                                 timer.totalseconds = data.Total;
-                                timer.enable(myDate);                                
+                                timer.enable(myDate);
+                            }
+                            else if (Area[0].Base.State == Process.None) {
+                                loading.show();
+                                alert("ajax to : count blocks of type Area[0].Base.TileName, get time multipler, get result time");
+                                loading.hide();
+                                var data = {
+                                    Blocks: 1,
+                                    Bonus: 1,
+                                    Time: {
+                                        Hours: 5,
+                                        Minutes: 59
+                                    }
+                                };
+                                campw.conq_data = data;
+                                var colorofBlocks = "black";
+                                switch (Area[0].Base.TileName) {
+                                    case "tileGrass": colorofBlocks = "green"; break;
+                                    case "tileMagic": colorofBlocks = "purple"; break;
+                                    case "tileSnow": colorofBlocks = "azure"; break;
+                                    case "tileSand": colorofBlocks = "AntiqueWhite"; break;
+                                    case "tileRock": colorofBlocks = "Gray"; break;
+                                    case "tileStone": colorofBlocks = "DimGray"; break;
+                                    case "tileAutumn": colorofBlocks = "LightSalmon"; break;
+                                    case "tileLava": colorofBlocks = "LightCoral"; break;
+                                    case "tileWater": colorofBlocks = "SkyBlue"; break;
+                                }
+                                var message = "You have <strong style='color:"+colorofBlocks+"'>" + data.Blocks.toString() + "</strong> controlled territories of the required type. Each zone reduces the conquest for <strong style='color:blue'>" + data.Bonus.toString() + "</strong> minute. It will took the time to conquer: <strong style='color:orange'>" + data.Time.Hours.toString() + ":" + data.Time.Minutes.toString() + "</strong>";
+                                var box = bootbox.dialog({
+                                    closeButton: false,
+                                    title: "<div class='text-center'>Conquest</label><script>$('.modal-footer').html(\"<div class='text-center'><button class='btn btn-success' onclick='campw.conq_start();'>Expedition</button><button class='btn btn-success' onclick='campw.now_close();'>Return</button></div>\");",
+                                    message: "<div class='row'><div class='col-md-6'>" + message + "</div></div><div class='row'><div class='col-md-6'><div id='countdown' class='text-center'></div></div>",
+                                    buttons: { success: { label: "Ok", className: "btn-success", callback: function () { } } }
+                                });
+                                box.css({
+                                    'top': '50%',
+                                    'margin-top': function () {
+                                        return -(box.height() / 2);
+                                    }
+                                });
                             }
                         }
 
@@ -310,6 +349,11 @@
             Player.Blocks.push(this.reward_data.Data);
             bcui.init(Player.Blocks);
         }
+        this.upd_location();
+    },
+    conq_data:null,
+    conq_start:function(){
+        alert("ajax: start conq about X type of block");
         this.upd_location();
     },
     _draw: {
