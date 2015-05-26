@@ -24,7 +24,7 @@ namespace Hexaserver
             //pt 1
             app.Run(async (context) =>
             {
-                await context.Response.WriteAsync("Hello world without recompile! And debug)");
+                await context.Response.WriteAsync("Am i broke roslyn? Nope! ^_^");
             });
         }
     }

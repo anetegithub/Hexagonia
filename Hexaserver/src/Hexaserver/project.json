@@ -9,6 +9,7 @@
         //mvc
         "Microsoft.AspNet.Mvc": "6.0.0-beta4",
         "Microsoft.AspNet.Mvc.ModelBinding": "6.0.0-beta4"
+        
     },
 
     "commands": {
@@ -17,7 +18,7 @@
 
     "frameworks": {
         "dnx451": { },
-        "dnxcore50": { }
+        "dnxcore50": {  }
     },
 
     "publishExclude": [

@@ -13,6 +13,6 @@ namespace Hexaserver.Models
         [Required]
         public String Title { get; set; }
 
-        public Boolean IsDone { get; set; }       
+        public Boolean IsDone { get; set; }
     }
 }

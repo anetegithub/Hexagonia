@@ -11,7 +11,8 @@ namespace Hexaserver.Models
         {
             new TodoItem() { Id=0, Title="Create asp.net 5 project", IsDone=true },
             new TodoItem() { Id=1, Title="Add Web.API to asp.net 5 project", IsDone=true },
-            new TodoItem() { Id=2, Title="Test asp.net 5  web api", IsDone=false}
+            new TodoItem() { Id=2, Title="Test asp.net 5  web api", IsDone=true},
+            new TodoItem() { Id=2, Title="Add entity framework"},
         };
 
         public IEnumerable<TodoItem> AllItems
