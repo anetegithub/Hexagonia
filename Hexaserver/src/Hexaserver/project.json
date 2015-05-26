@@ -1,36 +1,40 @@
 ﻿{
-    "webroot": "wwwroot",
-    "version": "1.0.0-*",
-
-    "dependencies": {
-        "Microsoft.AspNet.Server.IIS": "1.0.0-beta4",
-        "Microsoft.AspNet.Server.WebListener": "1.0.0-beta4",
-        "Microsoft.AspNet.Diagnostics": "1.0.0-beta4",
-        //mvc
-        "Microsoft.AspNet.Mvc": "6.0.0-beta4",
-        "Microsoft.AspNet.Mvc.ModelBinding": "6.0.0-beta4"
-        
-    },
-
-    "commands": {
-        "web": "Microsoft.AspNet.Hosting --server Microsoft.AspNet.Server.WebListener --server.urls http://localhost:5000"
-    },
-
-    "frameworks": {
-        "dnx451": { },
-        "dnxcore50": {  }
-    },
-
-    "publishExclude": [
-        "node_modules",
-        "bower_components",
-        "**.xproj",
-        "**.user",
-        "**.vspscc"
-    ],
-    "exclude": [
-        "wwwroot",
-        "node_modules",
-        "bower_components"
-    ]
+  "commands": {
+    "web": "Microsoft.AspNet.Hosting --server Microsoft.AspNet.Server.WebListener --server.urls http://localhost:5000",
+    "ef": "EntityFramework.Commands"
+  },
+  "dependencies": {
+    "Microsoft.AspNet.Diagnostics": "1.0.0-beta4",
+    //mvc
+    "Microsoft.AspNet.Mvc": "6.0.0-beta4",
+    "Microsoft.AspNet.Mvc.ModelBinding": "6.0.0-beta4",
+    "Microsoft.AspNet.Server.IIS": "1.0.0-beta4",
+    "Microsoft.AspNet.Server.WebListener": "1.0.0-beta4",
+    "EntityFramework.SqlServer": "7.0.0-beta4",
+    "EntityFramework.Commands": "7.0.0-beta4",
+    "Microsoft.Framework.ConfigurationModel": "1.0.0-beta4",
+    "Microsoft.Framework.ConfigurationModel.Json": "1.0.0-beta4",
+    "Microsoft.Data.SQLite": "1.0.0-beta1",
+    "EntityFramework.SQLite": "7.0.0-beta1",
+    "EntityFramework": "7.0.0-beta4",
+    "Microsoft.AspNet.Identity.EntityFramework": "3.0.0-beta4"
+  },
+  "exclude": [
+    "wwwroot",
+    "node_modules",
+    "bower_components"
+  ],
+  "frameworks": {
+    "dnx451": { },
+    "dnxcore50": { }
+  },
+  "publishExclude": [
+    "node_modules",
+    "bower_components",
+    "**.xproj",
+    "**.user",
+    "**.vspscc"
+  ],
+  "version": "1.0.0-*",
+  "webroot": "wwwroot"
 }

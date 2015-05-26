@@ -2,6 +2,7 @@
 using Microsoft.Framework.DependencyInjection;
 using Hexaserver.Models;
 using Microsoft.AspNet.Http;
+using Microsoft.Framework.ConfigurationModel;
 
 namespace Hexaserver
 {
@@ -12,6 +13,7 @@ namespace Hexaserver
         {
             services.AddMvc();
             services.AddSingleton<ITodoRepository, TodoRepository>();
+            services.AddEntityFramework().AddSqlServer();
         }
 
         public void Configure(IApplicationBuilder app)
