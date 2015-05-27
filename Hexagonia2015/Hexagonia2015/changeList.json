@@ -46,6 +46,7 @@
     "merges\\android\\scripts\\platformOverrides.js",
     "www\\scripts\\linq.js",
     "www\\content\\font-awesome-4.3.0\\less\\mixins.less",
+    "www\\scripts\\timer.js",
     "www\\audio\\installblock.ogg",
     "res\\screens\\android\\screen-hdpi-portrait.png",
     "www\\css\\index.css",
@@ -158,21 +159,16 @@
     "res\\screens\\android\\screen-mdpi-portrait.png",
     "www\\content\\font-awesome-4.3.0\\scss\\_stacked.scss",
     "www\\scripts\\pay.js",
-    "www\\scripts\\timer.js",
-    "www\\scripts\\globalvariables.js"
+    "plugins\\wp8.json"
   ],
-  "deletedFilesIos": [
-    "www\\scripts\\aspcj3o5.iyl~"
-  ],
+  "deletedFilesIos": [],
   "addedPluginsIos": [],
   "deletedPluginsIos": [],
   "changedFiles": [
     "plugins\\android.json",
-    "www\\scripts\\campagin.js"
+    "www\\scripts\\displayresize.js"
   ],
-  "deletedFiles": [
-    "www\\scripts\\aspcj3o5.iyl~"
-  ],
+  "deletedFiles": [],
   "addedPlugins": [],
   "deletedPlugins": []
 }

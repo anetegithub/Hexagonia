@@ -6,8 +6,7 @@
         dcanvas = document.querySelector('#display_decorations'),
         dcontent = dcanvas.getContext('2d');
 
-    if ((navigator.userAgent.toLowerCase().indexOf("windows phone") != -1))
-        h = 640 - $('#bot').outerHeight(true) * 2
+    
 
     FieldSize = Player.Field;
 
@@ -41,6 +40,8 @@
             html += "&nbsp<button type='button' id='hexrightbtn' disabled='disabled' onclick='bcui.pageNext();' class='btn btn-success navbar-btn' ><span class='fa fa-arrow-right'></span></button>";
     }
     $('#bot').html(html);
+    if ((navigator.userAgent.toLowerCase().indexOf("windows phone") != -1))
+        $('#bot').css('margin-bottom', '20%');
 
 
     html = "&nbsp<button  type='button' id='marketBtn' class='btn btn-success navbar-btn' onclick='market.open();' ><span class='fa fa-2x fa-money'></span></button>";
@@ -52,10 +53,10 @@
 
     $('body').css('padding-top', $('#top').outerHeight().toString() + 'px');
 
-    content.canvas.height = window.innerHeight - $('#bot').outerHeight(true) * 2.1;
+    content.canvas.height = window.innerHeight - $('#top').outerHeight(true) * 1.5;
     content.canvas.width = window.innerWidth - 10;
 
-    dcontent.canvas.height = window.innerHeight - $('#bot').outerHeight(true) * 2.1;
+    dcontent.canvas.height = window.innerHeight - $('#top').outerHeight(true) * 1.5;
     dcontent.canvas.width = window.innerWidth - 10;
 
 
