@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -24,6 +25,7 @@ namespace Hexaserver.Models
         public Int32 Gold { get; set; }
         public Int32 Crystal { get; set; }
 
+        [Required]
         public virtual Field Field { get; set; }
         public virtual ICollection<Friend> Friends { get; set; }
     }

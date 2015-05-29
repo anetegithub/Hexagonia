@@ -1,0 +1,22 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Hexaserver</title>
+</head>
+<body>
+    <script src="http://code.jquery.com/jquery-2.1.4.js"></script>
+    <script>
+        var data = { App: "Hexagonia", Version: "v1", Token: "*543%sdQ%1daWQrf$23786^53$32" };
+        $.ajax({
+            type: "POST",
+            data: JSON.stringify(data),
+            url: "api/Account/CreateUser",
+            contentType: "application/json"
+        }).done(function (data) {
+            alert(data);
+        });
+    </script>
+    
+</body>
+</html>

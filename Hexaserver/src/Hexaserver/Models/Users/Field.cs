@@ -12,6 +12,8 @@ namespace Hexaserver.Models
         [Key, ForeignKey("Player")]
         public int PlayerId { get; set; }
 
+        public Int32 FieldId { get; set; }
+
         public Int32 X { get; set; }
         public Int32 Y { get; set; }
         

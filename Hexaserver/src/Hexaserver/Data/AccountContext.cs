@@ -5,9 +5,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using Hexaserver.Models;
 
-namespace Hexaserver.Models
+namespace Hexaserver.Data
 {
-    public class TemplateContext : DbContext
+    public class AccountContext : DbContext
     {
         public DbSet<Player> Players { get; set; }
         public DbSet<Field> Fields { get; set; }
@@ -15,7 +15,7 @@ namespace Hexaserver.Models
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer(@"Server=(localdb)\mssqllocaldb;Database=Template;Trusted_Connection=True;");
+            optionsBuilder.UseSqlServer(ConnectionString.Default);
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
