@@ -6,7 +6,7 @@ using Hexaserver.Models;
 
 namespace Hexaserver.Repository
 {
-    public interface IAccountRepository
+    public interface IRepository
     {
         IEnumerable<Player> AllItems { get; }
         void Add(Player item);

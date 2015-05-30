@@ -5,10 +5,11 @@ using System.Threading.Tasks;
 using Hexaserver.Models;
 using Hexaserver.Data;
 using Microsoft.Framework.Logging;
+using Hexaserver.Repository;
 
 namespace Hexaserver.Repository
 {
-    public class AccountRepository : IAccountRepository
+    public class AccountRepository : IRepository
     {
         private readonly ILogger AccountLogger = Startup.LoggerFactory.CreateLogger<AccountRepository>();
 

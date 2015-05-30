@@ -5,6 +5,7 @@
     <title>Hexaserver</title>
 </head>
 <body>
+    <div id="content"></div>
     <script src="http://code.jquery.com/jquery-2.1.4.js"></script>
     <script>
         var data = { App: "Hexagonia", Version: "v1", Token: "*543%sdQ%1daWQrf$23786^53$32" };
@@ -12,9 +13,15 @@
             type: "POST",
             data: JSON.stringify(data),
             url: "api/Account/CreateUser",
+            headers: {
+                "HexaSecurityToken": "39Tbh40AG4w587hzW0CuYh5g3VjyhJSdDeb7c9HiSrmG3JyPo4Tq0Lo9yJCFFJc3THP4L96GCXgpS605427NhC1Jzij7ww1m",
+                "HexaOnlineToken": "300520151CA8EAF1",
+                "HexaLogin": "Admin",
+                "HexaPassword": "11"
+            },
             contentType: "application/json"
         }).done(function (data) {
-            alert(data);
+            document.querySelector("#content").innerHTML = data;
         });
     </script>
     

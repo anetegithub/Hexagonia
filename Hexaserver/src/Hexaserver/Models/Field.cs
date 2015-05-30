@@ -14,8 +14,8 @@ namespace Hexaserver.Models
 
         public Int32 FieldId { get; set; }
 
-        public Int32 X { get; set; }
-        public Int32 Y { get; set; }
+        public Int32 X { get; set; } = 5;
+        public Int32 Y { get; set; } = 8;
         
         public virtual Player Player { get; set; }
     }
