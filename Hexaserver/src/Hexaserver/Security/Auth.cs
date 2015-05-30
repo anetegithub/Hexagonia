@@ -50,7 +50,7 @@ namespace Hexaserver.Security
                                 int Id = AuthByLoginPassword(Login, Password);
                                 if (Id > 0)
                                 {
-                                    Result.Short = CreateOnlineToken();
+                                    Result.Short = CreateOnlineToken(Id);
                                     Result.Role = Role.During;
                                 }
                                 else
@@ -83,11 +83,14 @@ namespace Hexaserver.Security
         private static Boolean ValidateOnlineToken(String Token, out int Id)
         {
             Id = 0;
-                        
-            if (Token.Length < 9)
+
+            if (String.IsNullOrEmpty(Token))
                 return false;
 
             Int32 DatePart = 0;
+
+            if (Token.Length < 9)
+                return false;
 
             if (!int.TryParse(Token.Substring(0, 8), out DatePart))
                 return false;
@@ -100,9 +103,9 @@ namespace Hexaserver.Security
 
             return true;
         }
-        private static String CreateOnlineToken()
+        private static String CreateOnlineToken(int Id)
         {
-            return DateTime.Now.Date.ToString("ddMMyyyy") + int.Parse(DateTime.Now.Date.ToString("ddMMyyyy")).ToString("X");
+            return DateTime.Now.Date.ToString("ddMMyyyy") + int.Parse(DateTime.Now.Date.ToString("ddMMyyyy")).ToString("X") + Id.ToString();
         }
         private static int AuthByLoginPassword(string Login, string Password)
         {
@@ -114,8 +117,13 @@ namespace Hexaserver.Security
         }
         private static Player FindPlayer(string Login, string Password)
         {
+#if !DEBUG
             using (var db = new AccountContext())
                 return db.Players.Where(x => x.Login == Login && x.Password == Password).FirstOrDefault();
+#endif
+#if DEBUG
+            return new Repository.FakeRepository().AllItems.Where(x => x.Login == Login && x.Password == Password).FirstOrDefault();
+#endif
         }
     }
 

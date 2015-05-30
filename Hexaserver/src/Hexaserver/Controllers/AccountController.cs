@@ -9,7 +9,7 @@ using Hexaserver.Extensions;
 using Hexaserver.Repository;
 using Newtonsoft.Json;
 using System.Dynamic;
-using Ext = Hexaserver.Extensions.ObjectExtensions;
+using Hexaserver.Extensions;
 using Microsoft.AspNet.Authorization;
 using Hexaserver.Security;
 
@@ -20,6 +20,19 @@ namespace Hexaserver.Controllers
     {
         private readonly IRepository _Repository;
 
+        private object AuthError;
+        private bool Identify()
+        {
+            var IdentifyState = Auth.Identify(Context);
+            if (IdentifyState.Access)
+                return true;
+            else if (IdentifyState.Role == Role.During)
+                AuthError = IdentifyState.Short;
+            else
+                AuthError = "401";
+            return false;
+        }
+
         public AccountController(IRepository Repository)
         {
             _Repository = Repository;
@@ -27,12 +40,12 @@ namespace Hexaserver.Controllers
         
         [HttpPost]
         public Object CreateUser([FromBody]Player Item)
-        { 
-            if (!Auth.Identify(Context).Access)
-                return HttpUnauthorized();
+        {
+            if (!Identify())
+                return AuthError;
 
             if (!ModelState.IsValid)
-                return HttpNotFound();
+                return HttpBadRequest();
 
             _Repository.Add(Item);
 
