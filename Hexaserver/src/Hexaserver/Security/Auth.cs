@@ -123,7 +123,7 @@ namespace Hexaserver.Security
                 return db.Players.Where(x => x.Login == Login && x.Password == Password).FirstOrDefault();
 #endif
 #if DEBUG
-            return new Repository.FakeRepository().AllItems.Where(x => x.Login == Login && x.Password == Password).FirstOrDefault();
+            return new Repository.FakePlayerRepository().AllItems.Where(x => x.Login == Login && x.Password == Password).FirstOrDefault();
 #endif
         }
     }

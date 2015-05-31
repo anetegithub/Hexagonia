@@ -8,12 +8,45 @@
       "Microsoft.AspNet.Mvc >= 6.0.0-beta4",
       "EntityFramework.SqlServer >= 7.0.0-beta4",
       "EntityFramework.Commands >= 7.0.0-beta4",
-      "Microsoft.Framework.Logging >= 1.0.0-beta4"
+      "Microsoft.Framework.Logging >= 1.0.0-beta4",
+      "EntityFramework >= 7.0.0-beta4"
     ],
     "DNX,Version=v4.5.1": [],
     "DNXCore,Version=v5.0": []
   },
   "libraries": {
+    "EntityFramework/7.0.0-beta4": {
+      "serviceable": false,
+      "sha": "KTplgz4PBKb33t8O0I5S8yBwkU+l9PTymzoTVav8/FGikck55Amf28EOpOZAqnkGIzCGYD5/k26P7AmVyYyTHw==",
+      "frameworks": {
+        "DNX,Version=v4.5.1": {
+          "dependencies": {
+            "EntityFramework.Commands": "7.0.0-beta4"
+          },
+          "frameworkAssemblies": [],
+          "runtimeAssemblies": [],
+          "compileAssemblies": []
+        },
+        "DNXCore,Version=v5.0": {
+          "dependencies": {
+            "EntityFramework.Commands": "7.0.0-beta4"
+          },
+          "frameworkAssemblies": [],
+          "runtimeAssemblies": [],
+          "compileAssemblies": []
+        }
+      },
+      "files": [
+        "caution.png",
+        "EntityFramework.7.0.0-beta4.nupkg",
+        "EntityFramework.7.0.0-beta4.nupkg.sha512",
+        "EntityFramework.nuspec",
+        "readme.html",
+        "yes.png",
+        "content/deleteme",
+        "tools/install.ps1"
+      ]
+    },
     "EntityFramework.Commands/7.0.0-beta4": {
       "serviceable": true,
       "sha": "gPx5U4fQhLJHcertKOZLEja22rk/V5j3eGvXp3/umh8JAgnKDw+GhycCrZtXNd/b2X3MvCMUf7nLDX6+pg8/YQ==",

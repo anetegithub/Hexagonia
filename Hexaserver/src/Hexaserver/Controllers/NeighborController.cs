@@ -15,7 +15,7 @@ using Hexaserver.Security;
 namespace Hexaserver.Controllers
 {
     [Route("api/[controller]/[action]")]
-    public class AccountController : Controller
+    public class NeighborController : Controller
     {
         private readonly IPlayerRepository _Repository;
 
@@ -33,36 +33,13 @@ namespace Hexaserver.Controllers
             return false;
         }
 
-        public AccountController(IPlayerRepository Repository)
+        public NeighborController(IPlayerRepository Repository)
         {
             _Repository = Repository;
         }
 
         [HttpPost]
-        public Object TestConnection([FromBody]Player Item)
-        {
-            if (!Identify())
-                return AuthError;
-            else
-                return "true";
-        }
-
-        [HttpPost]
-        public Object CreateUser([FromBody]Player Item)
-        {
-            if (!Identify())
-                return AuthError;
-
-            if (!ModelState.IsValid)
-                return HttpBadRequest();
-
-            _Repository.Add(Item);
-
-            return true;
-        }
-
-        [HttpPost]
-        public Object Enter([FromBody]Player Item)
+        public Object DropIn([FromBody]Friend Item)
         {
             if (!Identify())
                 return AuthError;
@@ -70,10 +47,20 @@ namespace Hexaserver.Controllers
             if (!ModelState.IsValid)
                 return "400";
 
-            if (Item.PlayerId <= 0)
+            if (string.IsNullOrEmpty(Item.Login))
                 return "402";
 
-            return _Repository.GetById(Item.PlayerId);
+            Player UnsecurityFriend = _Repository.GetByLogin(Item.Login);
+            Player SecurityFriend = new Player();
+            SecurityFriend.Login = Item.Login;
+            SecurityFriend.Avatar = UnsecurityFriend?.Avatar;
+            SecurityFriend.Field = UnsecurityFriend?.Field;            
+            //SecurityFriend.Map = UnsecurityFriend?.Map;
+
+            if (SecurityFriend.Field != null)
+                return SecurityFriend;
+            else
+                return "404";
         }
     }
 }

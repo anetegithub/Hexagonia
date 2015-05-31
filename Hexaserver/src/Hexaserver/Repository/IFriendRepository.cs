@@ -6,11 +6,8 @@ using Hexaserver.Models;
 
 namespace Hexaserver.Repository
 {
-    public interface IRepository<T>
+    public interface IFriendRepository :IRepository<Friend>
     {
-        IEnumerable<T> AllItems { get; }
-        void Add(T item);
-        T GetById(int id);
-        bool TryDelete(int id);
+        Friend GetByName(string Name);
     }
 }

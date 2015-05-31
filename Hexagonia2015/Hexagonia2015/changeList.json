@@ -135,6 +135,7 @@
     "res\\icons\\wp8\\ApplicationIcon.png",
     "www\\content\\font-awesome-4.3.0\\scss\\_larger.scss",
     "www\\content\\font-awesome-4.3.0\\scss\\_fixed-width.scss",
+    "www\\scripts\\server.js",
     "www\\images\\additional\\right.png",
     "www\\images\\additional\\fYellow.png",
     "res\\icons\\ios\\icon-40-2x.png",
@@ -160,14 +161,16 @@
     "res\\screens\\android\\screen-mdpi-portrait.png",
     "www\\content\\font-awesome-4.3.0\\scss\\_stacked.scss",
     "www\\scripts\\pay.js",
-    "www\\scripts\\server.js"
+    "www\\scripts\\ui.js~RF507b0a3.TMP",
+    "www\\scripts\\ui.js~RF50edd0f.TMP"
   ],
   "deletedFilesIos": [],
   "addedPluginsIos": [],
   "deletedPluginsIos": [],
   "changedFiles": [
     "plugins\\android.json",
-    "www\\scripts\\server.js"
+    "www\\scripts\\ui.js",
+    "www\\scripts\\ui.js~RF50edd0f.TMP"
   ],
   "deletedFiles": [],
   "addedPlugins": [],

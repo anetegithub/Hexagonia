@@ -9,7 +9,7 @@ using Hexaserver.Repository;
 
 namespace Hexaserver.Repository
 {
-    public class AccountRepository : IRepository
+    public class AccountRepository : IPlayerRepository
     {
         private readonly ILogger AccountLogger = Startup.LoggerFactory.CreateLogger<AccountRepository>();
 
@@ -39,7 +39,15 @@ namespace Hexaserver.Repository
         {
             using (var db = new AccountContext())
             {
-                return db.Players.Where(x => x.PlayerId == id).Include(x => x.Field).Include(x => x.Friends).First();
+                return db.Players.Where(x => x.PlayerId == id).Include(x => x.Field).Include(x => x.Friends).FirstOrDefault();
+            }
+        }
+
+        public Player GetByLogin(string Login)
+        {
+            using (var db = new AccountContext())
+            {
+                return db.Players.Where(x => x.Login == Login).Include(x => x.Field).Include(x => x.Friends).FirstOrDefault();
             }
         }
 

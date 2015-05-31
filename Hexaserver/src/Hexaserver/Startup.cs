@@ -17,7 +17,8 @@ namespace Hexaserver
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
-            services.AddSingleton<IRepository, FakeRepository>();
+            services.AddSingleton<IPlayerRepository, FakePlayerRepository>();
+            //services.AddSingleton<IFriendRepository, FakeFriendRepositiry>();
         }
 
         public void Configure(IApplicationBuilder app)

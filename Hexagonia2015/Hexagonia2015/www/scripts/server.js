@@ -13,6 +13,7 @@
     login: "",
     psw: "",
     send: function (sdata, controller, action, done, fail) {
+        loading.show();
         $.ajax({
             type: "POST",
             data: JSON.stringify(sdata),
@@ -25,13 +26,16 @@
             },
             contentType: "application/json"
         }).done(function (data) {
-            if (data == "401") {
+            loading.hide();
+            if (data == "401" || data=="400" || data=="422" || data=="404" || data=="402") {
                 if (fail != undefined)
                     fail();
 
             } else if (data.Token != undefined) {
                 server.token = data.Token;
                 server.localid = data.Id;
+                if (sdata.PlayerId != undefined)
+                    sdata.PlayerId = data.Id;
                 server.send(sdata, controller, action, done, fail);
             } else {
                 done(data);
@@ -40,18 +44,18 @@
     },
     //example of realization
     auth: function (login, password) {
-        loading.show();
+        $('#errorBox').css('display','none');
         this.serveraddress = "http://localhost:59615/";
         this.login = login;
         this.psw = password;
-        var done=function(data){
-            showmain();
-            loading.hide();
+        var done = function (data) {
+            Player.New(data);
+            showmain();            
         };
-        var fail=function(){
-            alert("Unauthorized!");
-            loading.hide();
+        var fail = function () {
+            $('#errorBox').css('display', 'block');
+            $('#errorBox').html("Wrong login or password!");
         }
-        this.send({ Field: {} }, "Account", "TestConnection", done, fail);
+        this.send({ Field: {}, PlayerId: this.localid }, "Account", "Enter", done, fail);
     }
 }
