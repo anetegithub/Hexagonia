@@ -27,9 +27,10 @@ namespace Hexaserver.Controllers
             if (IdentifyState.Access)
                 return true;
             else if (IdentifyState.Role == Role.During)
-                AuthError = IdentifyState.Short;
+                AuthError = new { Token = IdentifyState.Short, Id = IdentifyState.Player };
             else
                 AuthError = "401";
+
             return false;
         }
 
@@ -50,6 +51,15 @@ namespace Hexaserver.Controllers
             _Repository.Add(Item);
 
             return true;
+        }
+
+        [HttpPost]
+        public Object TestConnection([FromBody]Player Item)
+        {
+            if (!Identify())
+                return AuthError;
+            else
+                return "true";
         }
     }
 }

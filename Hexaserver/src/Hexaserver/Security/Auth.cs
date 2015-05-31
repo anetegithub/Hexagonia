@@ -51,6 +51,7 @@ namespace Hexaserver.Security
                                 if (Id > 0)
                                 {
                                     Result.Short = CreateOnlineToken(Id);
+                                    Result.Player = Id;
                                     Result.Role = Role.During;
                                 }
                                 else

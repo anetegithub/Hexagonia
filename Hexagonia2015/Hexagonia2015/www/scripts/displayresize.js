@@ -1,11 +1,4 @@
-﻿function server_showmain() {
-    server.login($('#log').val(), $('#psw').val(), server_showmain_done);
-}
-function server_showmain_done(data){
-    alert(data);
-}
-
-function showmain() {
+﻿function showmain() {
     $('#index').css('display', 'none');
     $('#main').css('display', 'block');
     var canvas = document.getElementById("display"),
