@@ -8,12 +8,18 @@
             return "Kxeu3052PT07F723ZqhYG38BZ2668q1473oAcQbP08rU0URgeO0ZbFd0r4ezs8Y7cfLy1k6CIm162sdicQRF8MCXVG48AToj";
     },
     token: "",
-    serveraddress: "",
+    serveraddress: "http://hexaserver.azurewebsites.net/",
     localid: 0,
     login: "",
     psw: "",
     send: function (sdata, controller, action, done, fail) {
         loading.show();
+        var hd = {
+            "HexaSecurityToken": this._platform(),
+            "HexaOnlineToken": this.token,
+            "HexaLogin": this.login,
+            "HexaPassword": this.psw
+        };
         $.ajax({
             type: "POST",
             data: JSON.stringify(sdata),
@@ -27,6 +33,9 @@
             contentType: "application/json"
         }).done(function (data) {
             loading.hide();
+            alert(data);
+            alert(JSON.stringify(hd));
+            alert(server.serveraddress);
             if (data == "401" || data=="400" || data=="422" || data=="404" || data=="402") {
                 if (fail != undefined)
                     fail();
@@ -45,7 +54,7 @@
     //example of realization
     auth: function (login, password) {
         $('#errorBox').css('display','none');
-        this.serveraddress = "http://localhost:59615/";
+        //this.serveraddress = "http://localhost:59615/";
         this.login = login;
         this.psw = password;
         var done = function (data) {

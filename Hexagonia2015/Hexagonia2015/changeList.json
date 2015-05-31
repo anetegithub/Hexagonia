@@ -160,17 +160,14 @@
     "res\\icons\\windows\\Square44x44Logo.scale-240.png",
     "res\\screens\\android\\screen-mdpi-portrait.png",
     "www\\content\\font-awesome-4.3.0\\scss\\_stacked.scss",
-    "www\\scripts\\pay.js",
-    "www\\scripts\\ui.js~RF507b0a3.TMP",
-    "www\\scripts\\ui.js~RF50edd0f.TMP"
+    "www\\scripts\\pay.js"
   ],
   "deletedFilesIos": [],
   "addedPluginsIos": [],
   "deletedPluginsIos": [],
   "changedFiles": [
-    "plugins\\android.json",
-    "www\\scripts\\ui.js",
-    "www\\scripts\\ui.js~RF50edd0f.TMP"
+    "plugins\\wp8.json",
+    "www\\scripts\\server.js"
   ],
   "deletedFiles": [],
   "addedPlugins": [],

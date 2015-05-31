@@ -28,7 +28,7 @@ namespace Hexaserver.Controllers
             else if (IdentifyState.Role == Role.During)
                 AuthError = new { Token = IdentifyState.Short, Id = IdentifyState.Player };
             else
-                AuthError = "401";
+                AuthError = IdentifyState.ToJson();//"401";
 
             return false;
         }

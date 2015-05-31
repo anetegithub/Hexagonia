@@ -187,3 +187,6 @@ FakesAssemblies/
 GeneratedArtifacts/
 _Pvt_Extensions/
 ModelManifest.xml
+/Hexagonia2015/Hexagonia2015/platforms/wp8
+/Hexaserver/src/Hexaserver/Properties/PublishProfiles/Hexaserver.pubxml
+/Hexagonia2015/Hexagonia2015/platforms/Windows Phone 8/assets/www/scripts

@@ -2,12 +2,5 @@
 
     -ms-content-zooming: none;
     -ms-touch-action: none;
-}
-
-@-ms-viewport {
-    width: auto;
-}
-
-html,body {
     -ms-overflow-style: none !important; 
 }
