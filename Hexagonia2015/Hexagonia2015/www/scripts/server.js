@@ -20,6 +20,7 @@
             "HexaLogin": this.login,
             "HexaPassword": this.psw
         };
+        alert('support cors');
         $.ajax({
             type: "POST",
             data: JSON.stringify(sdata),
@@ -30,23 +31,25 @@
                 "HexaLogin": this.login,
                 "HexaPassword": this.psw
             },
-            contentType: "application/json"
+            contentType: "application/json",error: function (jqXHR, textStatus, errorThrown) { alert(textStatus + " " + errorThrown); }        
         }).done(function (data) {
             loading.hide();
             alert(data);
             alert(JSON.stringify(hd));
             alert(server.serveraddress);
-            if (data == "401" || data=="400" || data=="422" || data=="404" || data=="402") {
+            if (data == "401" || data == "400" || data == "422" || data == "404" || data == "402") {
                 if (fail != undefined)
                     fail();
 
             } else if (data.Token != undefined) {
+                alert('token');
                 server.token = data.Token;
                 server.localid = data.Id;
                 if (sdata.PlayerId != undefined)
                     sdata.PlayerId = data.Id;
                 server.send(sdata, controller, action, done, fail);
             } else {
+                alert('done');
                 done(data);
             }
         });

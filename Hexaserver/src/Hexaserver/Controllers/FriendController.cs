@@ -15,10 +15,11 @@ using Hexaserver.Security;
 namespace Hexaserver.Controllers
 {
     [Route("api/[controller]/[action]")]
-    public class NeighborController : Controller
+    public class FriendController : Controller
     {
         private readonly IPlayerRepository _Repository;
 
+        private object IdentifyState;
         private object AuthError;
         private bool Identify()
         {
@@ -33,9 +34,34 @@ namespace Hexaserver.Controllers
             return false;
         }
 
-        public NeighborController(IPlayerRepository Repository)
+        public FriendController(IPlayerRepository Repository)
         {
             _Repository = Repository;
+        }
+
+        [HttpPost]
+        public Object BecomeFriends([FromBody]Friend Item)
+        {
+            if (!Identify())
+                return AuthError;
+
+            if (!ModelState.IsValid)
+                return "400";
+
+            if (string.IsNullOrEmpty(Item.Login))
+                return "402";
+
+            Player UnsecurityFriend = _Repository.GetByLogin(Item.Login);
+            Player SecurityFriend = new Player();
+            SecurityFriend.Login = Item.Login;
+            SecurityFriend.Avatar = UnsecurityFriend?.Avatar;
+            SecurityFriend.Field = UnsecurityFriend?.Field;
+            //SecurityFriend.Map = UnsecurityFriend?.Map;
+
+            if (SecurityFriend.Field != null)
+                return SecurityFriend;
+            else
+                return "404";
         }
 
         [HttpPost]
@@ -49,7 +75,7 @@ namespace Hexaserver.Controllers
 
             if (string.IsNullOrEmpty(Item.Login))
                 return "402";
-
+            
             Player UnsecurityFriend = _Repository.GetByLogin(Item.Login);
             Player SecurityFriend = new Player();
             SecurityFriend.Login = Item.Login;

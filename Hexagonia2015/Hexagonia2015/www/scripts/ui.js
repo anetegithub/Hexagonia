@@ -932,7 +932,7 @@ var bcui = {
                 if (ui.neighborData.Login != "Admin") {
                     ui.drawIcon({ TileName: "Custom", src: "images/additional/unfriend.png" }, document.querySelector('#hex3'), document.querySelector('#hex3').width);
                     $('#btnHex3').click(function () {
-                        alert("sended ajax request for add player in friendly list, and then updated Player object and switches this statement");
+                        //server.send({})
                         ui.neighborData.Login = "";
                         bcui.resetState();
                         bcui.neigbor();

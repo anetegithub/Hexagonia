@@ -162,14 +162,19 @@
     "www\\content\\font-awesome-4.3.0\\scss\\_stacked.scss",
     "www\\scripts\\pay.js"
   ],
-  "deletedFilesIos": [],
+  "deletedFilesIos": [
+    "www\\scripts\\prchkiv2.x40~"
+  ],
   "addedPluginsIos": [],
   "deletedPluginsIos": [],
   "changedFiles": [
     "plugins\\wp8.json",
-    "www\\scripts\\server.js"
+    "www\\scripts\\server.js",
+    "www\\index.html"
   ],
-  "deletedFiles": [],
+  "deletedFiles": [
+    "www\\scripts\\prchkiv2.x40~"
+  ],
   "addedPlugins": [],
   "deletedPlugins": []
 }
