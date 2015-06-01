@@ -19,11 +19,11 @@ namespace Hexaserver.Controllers
     {
         private readonly IPlayerRepository _Repository;
 
-        private object IdentifyState;
+        private AuthResult IdentifyState;
         private object AuthError;
         private bool Identify()
         {
-            var IdentifyState = Auth.Identify(Context);
+            IdentifyState = Auth.Identify(Context);
             if (IdentifyState.Access)
                 return true;
             else if (IdentifyState.Role == Role.During)

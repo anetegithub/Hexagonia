@@ -7,7 +7,7 @@
         else
             return "Kxeu3052PT07F723ZqhYG38BZ2668q1473oAcQbP08rU0URgeO0ZbFd0r4ezs8Y7cfLy1k6CIm162sdicQRF8MCXVG48AToj";
     },
-    token: "",
+    token: "000000",
     serveraddress: "http://hexaserver.azurewebsites.net/",
     localid: 0,
     login: "",
@@ -31,7 +31,8 @@
                 "HexaLogin": this.login,
                 "HexaPassword": this.psw
             },
-            contentType: "application/json",error: function (jqXHR, textStatus, errorThrown) { alert(textStatus + " " + errorThrown); }        
+            contentType: "application/json",
+            isLocal:true,
         }).done(function (data) {
             loading.hide();
             alert(data);
